@@ -1,0 +1,117 @@
+{
+  "countries": [
+    {
+      "code": "IND",
+      "name": "India",
+      "flag_emoji": "🇮🇳",
+      "region": "South Asia",
+      "population": 1428600000,
+      "gdp_usd": "3.75 Trillion",
+      "latitude": 20.5937,
+      "longitude": 78.9629
+    },
+    {
+      "code": "JPN",
+      "name": "Japan",
+      "flag_emoji": "🇯🇵",
+      "region": "East Asia",
+      "population": 125100000,
+      "gdp_usd": "4.21 Trillion",
+      "latitude": 36.2048,
+      "longitude": 138.2529
+    },
+    {
+      "code": "USA",
+      "name": "United States",
+      "flag_emoji": "🇺🇸",
+      "region": "North America",
+      "population": 339900000,
+      "gdp_usd": "26.85 Trillion",
+      "latitude": 37.0902,
+      "longitude": -95.7129
+    },
+    {
+      "code": "DEU",
+      "name": "Germany",
+      "flag_emoji": "🇩🇪",
+      "region": "Europe",
+      "population": 84400000,
+      "gdp_usd": "4.45 Trillion",
+      "latitude": 51.1657,
+      "longitude": 10.4515
+    },
+    {
+      "code": "CHN",
+      "name": "China",
+      "flag_emoji": "🇨🇳",
+      "region": "East Asia",
+      "population": 1411700000,
+      "gdp_usd": "17.78 Trillion",
+      "latitude": 35.8617,
+      "longitude": 104.1954
+    },
+    {
+      "code": "GBR",
+      "name": "United Kingdom",
+      "flag_emoji": "🇬🇧",
+      "region": "Europe",
+      "population": 67700000,
+      "gdp_usd": "3.34 Trillion",
+      "latitude": 55.3781,
+      "longitude": -3.436
+    },
+    {
+      "code": "BRA",
+      "name": "Brazil",
+      "flag_emoji": "🇧🇷",
+      "region": "Latin America",
+      "population": 216400000,
+      "gdp_usd": "2.17 Trillion",
+      "latitude": -14.235,
+      "longitude": -51.9253
+    },
+    {
+      "code": "ZAF",
+      "name": "South Africa",
+      "flag_emoji": "🇿🇦",
+      "region": "Africa",
+      "population": 60400000,
+      "gdp_usd": "377 Billion",
+      "latitude": -30.5595,
+      "longitude": 22.9375
+    }
+  ],
+  "categories": [
+    { "slug": "economy", "name": "Economy", "icon": "TrendingUp", "description": "National economic output, growth metrics, trade, competitiveness, and inflation." },
+    { "slug": "society", "name": "Society", "icon": "Users", "description": "Human development, happiness, quality of life, poverty, and demographic indicators." },
+    { "slug": "governance", "name": "Governance", "icon": "Building2", "description": "Corruption perceptions, rule of law, press freedom, and institutional quality." },
+    { "slug": "technology-innovation", "name": "Technology & Innovation", "icon": "Cpu", "description": "AI readiness, cybersecurity, R&D expenditures, patents, and startup ecosystem." },
+    { "slug": "education", "name": "Education", "icon": "GraduationCap", "description": "Literacy rates, university rankings, school enrollment, and educational attainment." },
+    { "slug": "healthcare", "name": "Healthcare", "icon": "HeartPulse", "description": "Life expectancy, health infrastructure, coverage, and mortality statistics." },
+    { "slug": "environment", "name": "Environment", "icon": "Leaf", "description": "Environmental performance, climate change response, renewable share, and air quality." },
+    { "slug": "safety", "name": "Safety", "icon": "ShieldCheck", "description": "Global peace, crime rates, safety index, disaster risks, and road safety." },
+    { "slug": "equality", "name": "Equality", "icon": "Scale", "description": "Gender parity, income inequality (Gini), and female workforce participation." },
+    { "slug": "digital-government", "name": "Digital Government", "icon": "Globe", "description": "E-government maturity, online participation, and open data availability." }
+  ],
+  "sources": [
+    { "id": 1, "name": "World Bank", "url": "https://data.worldbank.org" },
+    { "id": 2, "name": "International Monetary Fund (IMF)", "url": "https://www.imf.org/en/Data" },
+    { "id": 3, "name": "United Nations / UNDP", "url": "https://hdr.undp.org" },
+    { "id": 4, "name": "World Health Organization (WHO)", "url": "https://www.who.int/data" },
+    { "id": 5, "name": "UNESCO", "url": "https://uis.unesco.org" },
+    { "id": 6, "name": "World Economic Forum (WEF)", "url": "https://www.weforum.org" },
+    { "id": 7, "name": "Transparency International", "url": "https://www.transparency.org" },
+    { "id": 8, "name": "Reporters Without Borders", "url": "https://rsf.org" },
+    { "id": 9, "name": "Oxford Insights", "url": "https://oxfordinsights.com" },
+    { "id": 10, "name": "World Justice Project", "url": "https://worldjusticeproject.org" },
+    { "id": 11, "name": "ITU", "url": "https://www.itu.int" },
+    { "id": 12, "name": "WIPO", "url": "https://www.wipo.int/gii" },
+    { "id": 13, "name": "StartupBlink", "url": "https://www.startupblink.com" },
+    { "id": 14, "name": "Yale Environmental Performance Index", "url": "https://epi.yale.edu" },
+    { "id": 15, "name": "Germanwatch", "url": "https://www.germanwatch.org" },
+    { "id": 16, "name": "IQAir", "url": "https://www.iqair.com" },
+    { "id": 17, "name": "Numbeo", "url": "https://www.numbeo.com" },
+    { "id": 18, "name": "Our World In Data", "url": "https://ourworldindata.org" },
+    { "id": 19, "name": "UN DESA E-Government", "url": "https://publicadministration.un.org/egovkb" }
+  ]
+}
