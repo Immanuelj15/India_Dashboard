@@ -32,39 +32,40 @@ export const ChartCard = ({
   pieKey = 'value',
   pieNameKey = 'name',
   height = 300,
+  reversedYAxis = true,
 }) => {
   return (
-    <div className="glass-panel p-5 rounded-2xl border border-slate-200 bg-white flex flex-col justify-between shadow-sm">
+    <div className="glass-panel p-5 rounded-2xl border-2 border-slate-300 bg-white flex flex-col justify-between shadow-sm">
       <div className="mb-4">
-        <h3 className="text-base font-bold text-slate-900">{title}</h3>
-        {subtitle && <p className="text-xs text-slate-500 mt-0.5 font-medium">{subtitle}</p>}
+        <h3 className="text-base font-black text-slate-950">{title}</h3>
+        {subtitle && <p className="text-xs text-slate-800 font-extrabold mt-0.5">{subtitle}</p>}
       </div>
 
       <div style={{ width: '100%', height: `${height}px` }}>
         <ResponsiveContainer width="100%" height="100%">
           {type === 'bar' ? (
             <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-              <XAxis dataKey="name" stroke="#64748b" fontSize={11} />
-              <YAxis stroke="#64748b" fontSize={11} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#cbd5e1" />
+              <XAxis dataKey="name" stroke="#0f172a" fontSize={11} fontWeight="bold" />
+              <YAxis stroke="#0f172a" fontSize={11} fontWeight="bold" />
               <Tooltip
-                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderRadius: '0.75rem', color: '#0f172a', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
+                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#94a3b8', borderRadius: '0.75rem', color: '#0f172a', fontWeight: 'bold', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
               />
-              <Legend wrapperStyle={{ fontSize: '12px' }} />
+              <Legend wrapperStyle={{ fontSize: '12px', fontWeight: 'bold' }} />
               {dataKeys.map((dk) => (
                 <Bar key={dk.key} dataKey={dk.key} name={dk.name} fill={dk.color} radius={[6, 6, 0, 0]} />
               ))}
             </BarChart>
           ) : type === 'line' ? (
             <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-              <XAxis dataKey="year" stroke="#64748b" fontSize={11} />
-              <YAxis stroke="#64748b" fontSize={11} reversed={true} domain={['dataMin - 2', 'dataMax + 2']} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#cbd5e1" />
+              <XAxis dataKey="year" stroke="#0f172a" fontSize={11} fontWeight="bold" />
+              <YAxis stroke="#0f172a" fontSize={11} fontWeight="bold" reversed={reversedYAxis} domain={['dataMin - 2', 'dataMax + 2']} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderRadius: '0.75rem', color: '#0f172a', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
-                formatter={(val) => [`Rank #${val}`, 'Global Rank']}
+                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#94a3b8', borderRadius: '0.75rem', color: '#0f172a', fontWeight: 'bold', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                formatter={(val) => [reversedYAxis ? `Rank #${val}` : `${val}`, reversedYAxis ? 'Global Rank' : 'Metric Value']}
               />
-              <Legend wrapperStyle={{ fontSize: '12px' }} />
+              <Legend wrapperStyle={{ fontSize: '12px', fontWeight: 'bold' }} />
               {dataKeys.map((dk) => (
                 <Line
                   key={dk.key}
@@ -81,15 +82,15 @@ export const ChartCard = ({
           ) : type === 'radar' ? (
             <RadarChart outerRadius="75%" data={data}>
               <PolarGrid stroke="#cbd5e1" />
-              <PolarAngleAxis dataKey={radarAngleKey} stroke="#475569" fontSize={10} />
-              <PolarRadiusAxis stroke="#94a3b8" fontSize={9} />
+              <PolarAngleAxis dataKey={radarAngleKey} stroke="#0f172a" fontSize={10} fontWeight="bold" />
+              <PolarRadiusAxis stroke="#64748b" fontSize={9} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderRadius: '0.75rem', color: '#0f172a', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
+                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#94a3b8', borderRadius: '0.75rem', color: '#0f172a', fontWeight: 'bold', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
               />
               {dataKeys.map((dk) => (
                 <Radar key={dk.key} name={dk.name} dataKey={dk.key} stroke={dk.color} fill={dk.color} fillOpacity={0.3} />
               ))}
-              <Legend wrapperStyle={{ fontSize: '12px' }} />
+              <Legend wrapperStyle={{ fontSize: '12px', fontWeight: 'bold' }} />
             </RadarChart>
           ) : (
             <PieChart>
@@ -109,7 +110,7 @@ export const ChartCard = ({
                 ))}
               </Pie>
               <Tooltip
-                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderRadius: '0.75rem', color: '#0f172a', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
+                contentStyle={{ backgroundColor: '#ffffff', borderColor: '#94a3b8', borderRadius: '0.75rem', color: '#0f172a', fontWeight: 'bold', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
               />
             </PieChart>
           )}

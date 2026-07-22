@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCountries, fetchComparison } from '../api/client';
 import { ChartCard } from '../components/ui/ChartCard';
-import { ArrowRightLeft, ExternalLink, Scale } from 'lucide-react';
+import { ArrowRightLeft, ExternalLink, Scale, AlertCircle } from 'lucide-react';
 
 export const CountryComparison = () => {
   const [countries, setCountries] = useState([]);
@@ -31,7 +31,9 @@ export const CountryComparison = () => {
     loadComparison();
   }, [country1, country2]);
 
-  const comparisonBarData = comparison
+  const sameCountrySelected = country1 === country2;
+
+  const comparisonBarData = comparison && !sameCountrySelected
     ? comparison.comparisons.slice(0, 10).map((c) => ({
         name: c.indicator_name.replace(' Index', '').substring(0, 18),
         [comparison.country1.name]: c.country1_rank || 0,
@@ -45,10 +47,10 @@ export const CountryComparison = () => {
       <div className="glass-panel p-6 rounded-3xl space-y-6 bg-white border-2 border-slate-300 shadow-sm">
         <div>
           <div className="flex items-center gap-2 text-xs font-black text-sky-800 uppercase tracking-wider mb-1">
-            <ArrowRightLeft className="w-4 h-4" /> Country vs Country Benchmark
+            <ArrowRightLeft className="w-4 h-4 text-emerald-700" /> Country vs Country Benchmark
           </div>
           <h1 className="text-2xl font-black text-slate-950">Bilateral Ranking & Metric Comparison</h1>
-          <p className="text-xs text-slate-800 font-bold">
+          <p className="text-xs text-slate-800 font-extrabold">
             Compare India side-by-side with global peers across economic, technological, governance, and social indicators under UX4G guidelines.
           </p>
         </div>
@@ -60,7 +62,7 @@ export const CountryComparison = () => {
             <select
               value={country1}
               onChange={(e) => setCountry1(e.target.value)}
-              className="w-full bg-slate-100 border-2 border-slate-400 text-slate-950 text-sm rounded-xl p-3 focus:outline-none focus:border-sky-700 font-extrabold"
+              className="w-full bg-slate-100 border-2 border-slate-400 text-slate-950 text-sm rounded-xl p-3 focus:outline-none focus:border-sky-700 font-black"
             >
               {countries.map((c) => (
                 <option key={c.code} value={c.name}>
@@ -81,7 +83,7 @@ export const CountryComparison = () => {
             <select
               value={country2}
               onChange={(e) => setCountry2(e.target.value)}
-              className="w-full bg-slate-100 border-2 border-slate-400 text-slate-950 text-sm rounded-xl p-3 focus:outline-none focus:border-sky-700 font-extrabold"
+              className="w-full bg-slate-100 border-2 border-slate-400 text-slate-950 text-sm rounded-xl p-3 focus:outline-none focus:border-sky-700 font-black"
             >
               {countries.map((c) => (
                 <option key={c.code} value={c.name}>
@@ -93,8 +95,15 @@ export const CountryComparison = () => {
         </div>
       </div>
 
-      {loading || !comparison ? (
-        <div className="py-12 text-center text-sm text-slate-900 font-black">Loading comparison dataset...</div>
+      {sameCountrySelected ? (
+        <div className="p-6 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 flex items-center gap-3">
+          <AlertCircle className="w-6 h-6 text-amber-700 flex-shrink-0" />
+          <div className="text-xs font-black">
+            You have selected <span className="underline">{country1}</span> for both sides. Please choose a different country in the second dropdown to view side-by-side bilateral rankings.
+          </div>
+        </div>
+      ) : loading || !comparison ? (
+        <div className="py-12 text-center text-sm text-slate-950 font-black">Loading comparison dataset...</div>
       ) : (
         <div className="space-y-8">
           {/* Comparison Overview Cards */}
