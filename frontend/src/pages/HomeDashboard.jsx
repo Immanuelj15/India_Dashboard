@@ -3,7 +3,7 @@ import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/cl
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
-import { Globe, Shield, Trophy, Award } from 'lucide-react';
+import { Globe, Shield, Trophy } from 'lucide-react';
 
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
@@ -68,39 +68,37 @@ export const HomeDashboard = () => {
     : rankings.filter((r) => r.indicator.category?.slug === selectedCategoryFilter);
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Hero Banner — High-Contrast Rich Dark Blue Glass Header */}
-      <div className="glass-panel-dark p-6 lg:p-8 rounded-3xl relative overflow-hidden text-white">
-        <div className="relative z-10 max-w-3xl space-y-4">
+    <div className="space-y-6 animate-in fade-in duration-300">
+      {/* Hero Banner */}
+      <div className="glass-panel-dark p-6 lg:p-7 rounded-3xl relative overflow-hidden text-white">
+        <div className="relative z-10 max-w-3xl space-y-3">
           <div className="flex items-center gap-2">
-            <span className="text-3xl">🇮🇳</span>
-            <span className="text-xs font-black uppercase tracking-widest px-3.5 py-1 rounded-full bg-amber-500 text-slate-950 border border-amber-300 shadow-sm">
-              National Development Framework
+            <span className="text-2xl">🇮🇳</span>
+            <span className="text-[11px] font-black uppercase tracking-wider px-3 py-0.5 rounded-full bg-amber-500 text-slate-950">
+              National Progress Tracker
             </span>
           </div>
 
-          <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-sm">
+          <h1 className="text-2xl lg:text-3xl font-black text-white tracking-tight">
             India in the World — Global Progress Dashboard
           </h1>
 
-          <p className="text-sm text-sky-100 leading-relaxed font-extrabold drop-shadow-2xs">
-            Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International under UX4G Digital Governance Standards.
+          <p className="text-xs text-sky-100 font-extrabold leading-relaxed">
+            Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-black text-white">
-            <div className="flex items-center gap-1.5 bg-amber-500/20 text-amber-200 px-3.5 py-1.5 rounded-xl border border-amber-400/40 backdrop-blur-md">
-              <Trophy className="w-4 h-4 text-amber-300" /> #5 Nominal GDP
+          <div className="flex flex-wrap items-center gap-2.5 pt-1 text-xs font-black">
+            <div className="flex items-center gap-1 bg-amber-500/20 text-amber-200 px-3 py-1 rounded-lg border border-amber-400/30">
+              <Trophy className="w-3.5 h-3.5 text-amber-300" /> #5 Nominal GDP
             </div>
-            <div className="flex items-center gap-1.5 bg-sky-500/20 text-sky-100 px-3.5 py-1.5 rounded-xl border border-sky-300/40 backdrop-blur-md">
-              <Globe className="w-4 h-4 text-sky-200" /> #39 Global Innovation
+            <div className="flex items-center gap-1 bg-sky-500/20 text-sky-100 px-3 py-1 rounded-lg border border-sky-300/30">
+              <Globe className="w-3.5 h-3.5 text-sky-200" /> #39 Global Innovation
             </div>
-            <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-100 px-3.5 py-1.5 rounded-xl border border-emerald-300/40 backdrop-blur-md">
-              <Shield className="w-4 h-4 text-emerald-300" /> #10 Cybersecurity Index
+            <div className="flex items-center gap-1 bg-emerald-500/20 text-emerald-100 px-3 py-1 rounded-lg border border-emerald-300/30">
+              <Shield className="w-3.5 h-3.5 text-emerald-300" /> #10 Cybersecurity
             </div>
           </div>
         </div>
-
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-amber-500/20 via-sky-500/10 to-transparent pointer-events-none hidden lg:block"></div>
       </div>
 
       {/* AI Summary Section */}
@@ -108,56 +106,53 @@ export const HomeDashboard = () => {
         data={aiSummary}
         loading={aiLoading}
         onRefresh={loadAISummary}
-        title="India Global Standing — AI Summary"
+        title="India Global Standing — Executive AI Summary"
       />
 
       {/* Key Visual Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <ChartCard
-          title="Category Performance Radar"
-          subtitle="Normalized strength across 10 global indicator dimensions (Higher score = Better relative global rank)"
+          title="Category Performance Overview"
+          subtitle="Relative strength score across 10 global indicator categories"
           type="radar"
           data={categoryRadarData}
           dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#0284c7' }]}
-          height={320}
+          height={300}
         />
 
         <ChartCard
           title="Flagship Rankings Comparison"
-          subtitle="India's rank across core economic, tech, and governance benchmark indices (Lower rank # = Top Position)"
+          subtitle="India's position across key international benchmarks (# Lower is Better)"
           type="bar"
           data={flagshipRankings.map((r) => ({
             name: r.indicator.name.replace(' Index', '').replace(' Global', ''),
             Rank: r.rank || 0,
           }))}
           dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#0284c7' }]}
-          height={320}
+          height={300}
         />
       </div>
 
       {/* Indicator Explorer Header & Quick Filter Pills */}
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-black text-slate-950 tracking-tight">Key Global Indicators</h2>
-            <p className="text-xs text-slate-800 font-extrabold">India's rankings, metrics, trends, and official source links.</p>
-          </div>
-          <span className="text-xs font-black text-slate-950 bg-slate-200 px-3 py-1 rounded-full border border-slate-400 self-start sm:self-auto">
-            {filteredRankings.length} Indicators Shown
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-black text-slate-950">Key Global Indicators</h2>
+          <span className="text-xs font-black text-slate-950 bg-slate-200 px-2.5 py-0.5 rounded-full border border-slate-300">
+            {filteredRankings.length} Indicators
           </span>
         </div>
 
-        {/* Quick Filter Pill Buttons with High Contrast */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {/* Quick Filter Pill Buttons */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           <button
             onClick={() => setSelectedCategoryFilter('all')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
+            className={`px-3 py-1 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
               selectedCategoryFilter === 'all'
-                ? 'bg-sky-800 text-white border-2 border-sky-900 shadow-xs'
-                : 'bg-slate-200 text-slate-950 border-2 border-slate-400 hover:bg-slate-300'
+                ? 'bg-sky-800 text-white border border-sky-900'
+                : 'bg-slate-200 text-slate-950 border border-slate-300 hover:bg-slate-300'
             }`}
           >
-            All Indicators ({rankings.length})
+            All ({rankings.length})
           </button>
           {categories.map((cat) => {
             const count = rankings.filter((r) => r.indicator.category?.slug === cat.slug).length;
@@ -167,10 +162,10 @@ export const HomeDashboard = () => {
               <button
                 key={cat.slug}
                 onClick={() => setSelectedCategoryFilter(cat.slug)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
                   isSelected
-                    ? 'bg-sky-800 text-white border-2 border-sky-900 shadow-xs'
-                    : 'bg-slate-200 text-slate-950 border-2 border-slate-400 hover:bg-slate-300'
+                    ? 'bg-sky-800 text-white border border-sky-900'
+                    : 'bg-slate-200 text-slate-950 border border-slate-300 hover:bg-slate-300'
                 }`}
               >
                 {cat.name} ({count})
@@ -181,13 +176,13 @@ export const HomeDashboard = () => {
 
         {/* Stat Cards Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div key={n} className="h-56 glass-panel rounded-2xl animate-pulse bg-slate-200 border-2 border-slate-300"></div>
+              <div key={n} className="h-48 glass-panel rounded-2xl animate-pulse bg-slate-200 border border-slate-300"></div>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredRankings.map((r) => (
               <StatCard
                 key={r.id}
@@ -196,8 +191,6 @@ export const HomeDashboard = () => {
                 rank={r.rank}
                 value={r.value}
                 unit={r.unit}
-                trend="up"
-                trendText="Consolidated 2024 Record"
                 sourceName={r.source?.name}
                 sourceUrl={r.source?.url}
                 lastUpdated={r.last_updated}
