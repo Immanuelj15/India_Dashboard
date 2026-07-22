@@ -3,7 +3,7 @@ import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/cl
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
-import { Globe, Shield, Trophy, Filter, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { Globe, Shield, Trophy, Filter, Award } from 'lucide-react';
 
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
@@ -69,13 +69,13 @@ export const HomeDashboard = () => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Hero Banner — UX4G Senior Design */}
-      <div className="glass-panel p-6 lg:p-8 rounded-3xl relative overflow-hidden bg-gradient-to-br from-sky-700 via-sky-600 to-sky-800 text-white shadow-xl border border-sky-600">
+      {/* Hero Banner — Tiranga & UX4G Emblem Theme */}
+      <div className="glass-panel p-6 lg:p-8 rounded-3xl relative overflow-hidden bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 text-white shadow-xl border-2 border-sky-600">
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">🇮🇳</span>
-            <span className="text-xs font-extrabold uppercase tracking-widest px-3.5 py-1 rounded-full bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-2xs">
-              UX4G Government Progress Tracker
+            <span className="text-3xl">🇮🇳</span>
+            <span className="text-xs font-black uppercase tracking-widest px-3.5 py-1 rounded-full bg-amber-500 text-slate-950 border border-amber-300 shadow-xs">
+              National Development Framework
             </span>
           </div>
 
@@ -83,25 +83,24 @@ export const HomeDashboard = () => {
             India in the World — Global Progress Dashboard
           </h1>
 
-          <p className="text-sm text-sky-100 leading-relaxed font-medium">
+          <p className="text-sm text-slate-200 leading-relaxed font-bold">
             Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International under UX4G Digital Governance Standards.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-bold text-white">
-            <div className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3.5 py-1.5 rounded-xl border border-white/25 transition-all">
-              <Trophy className="w-4 h-4 text-amber-300" /> #5 Nominal GDP
+          <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-black text-white">
+            <div className="flex items-center gap-1.5 bg-amber-500/20 text-amber-300 px-3.5 py-1.5 rounded-xl border border-amber-400/30">
+              <Trophy className="w-4 h-4 text-amber-400" /> #5 Nominal GDP
             </div>
-            <div className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3.5 py-1.5 rounded-xl border border-white/25 transition-all">
-              <Globe className="w-4 h-4 text-sky-200" /> #39 Global Innovation
+            <div className="flex items-center gap-1.5 bg-sky-500/20 text-sky-200 px-3.5 py-1.5 rounded-xl border border-sky-400/30">
+              <Globe className="w-4 h-4 text-sky-300" /> #39 Global Innovation
             </div>
-            <div className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3.5 py-1.5 rounded-xl border border-white/25 transition-all">
-              <Shield className="w-4 h-4 text-emerald-300" /> #10 Cybersecurity Index
+            <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-400/30">
+              <Shield className="w-4 h-4 text-emerald-400" /> #10 Cybersecurity Index
             </div>
           </div>
         </div>
 
-        {/* Decorative Grid Effect */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none hidden lg:block"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-amber-500/10 via-sky-500/10 to-emerald-500/10 pointer-events-none hidden lg:block"></div>
       </div>
 
       {/* AI Summary Section */}
@@ -140,22 +139,22 @@ export const HomeDashboard = () => {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">Key Global Indicators</h2>
-            <p className="text-xs text-slate-500 font-medium">India's rankings, metrics, trends, and official source links.</p>
+            <h2 className="text-xl font-black text-slate-950 tracking-tight">Key Global Indicators</h2>
+            <p className="text-xs text-slate-800 font-extrabold">India's rankings, metrics, trends, and official source links.</p>
           </div>
-          <span className="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 self-start sm:self-auto">
+          <span className="text-xs font-black text-slate-950 bg-slate-200 px-3 py-1 rounded-full border border-slate-400 self-start sm:self-auto">
             {filteredRankings.length} Indicators Shown
           </span>
         </div>
 
-        {/* Quick Filter Pill Buttons */}
+        {/* Quick Filter Pill Buttons with High Contrast */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
           <button
             onClick={() => setSelectedCategoryFilter('all')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
               selectedCategoryFilter === 'all'
-                ? 'bg-sky-600 text-white shadow-xs'
-                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                ? 'bg-sky-800 text-white border-2 border-sky-900 shadow-xs'
+                : 'bg-slate-200 text-slate-950 border-2 border-slate-400 hover:bg-slate-300'
             }`}
           >
             All Indicators ({rankings.length})
@@ -168,10 +167,10 @@ export const HomeDashboard = () => {
               <button
                 key={cat.slug}
                 onClick={() => setSelectedCategoryFilter(cat.slug)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
                   isSelected
-                    ? 'bg-sky-600 text-white shadow-xs'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                    ? 'bg-sky-800 text-white border-2 border-sky-900 shadow-xs'
+                    : 'bg-slate-200 text-slate-950 border-2 border-slate-400 hover:bg-slate-300'
                 }`}
               >
                 {cat.name} ({count})
@@ -184,7 +183,7 @@ export const HomeDashboard = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div key={n} className="h-56 glass-panel rounded-2xl animate-pulse bg-slate-100"></div>
+              <div key={n} className="h-56 glass-panel rounded-2xl animate-pulse bg-slate-200 border-2 border-slate-300"></div>
             ))}
           </div>
         ) : (

@@ -21,18 +21,18 @@ export const WorldMapPage = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
-      <div className="glass-panel p-6 rounded-3xl space-y-2 bg-white border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-2 text-xs font-bold text-sky-700 uppercase tracking-wider">
-          <MapPin className="w-4 h-4" /> Global Geospatial Explorer
+      <div className="glass-panel p-6 rounded-3xl space-y-2 bg-white border-2 border-slate-300 shadow-sm">
+        <div className="flex items-center gap-2 text-xs font-black text-sky-800 uppercase tracking-wider">
+          <MapPin className="w-4 h-4 text-emerald-700" /> Global Geospatial Explorer
         </div>
-        <h1 className="text-2xl font-extrabold text-slate-900">Interactive World Map & Country Intelligence</h1>
-        <p className="text-xs text-slate-500 font-medium">
+        <h1 className="text-2xl font-black text-slate-950">Interactive World Map & Country Intelligence</h1>
+        <p className="text-xs text-slate-800 font-extrabold">
           Click any country marker on the interactive globe to inspect its global rankings, key metrics, and AI-synthesized summary.
         </p>
       </div>
 
       {loading ? (
-        <div className="h-[520px] glass-panel rounded-2xl animate-pulse flex items-center justify-center text-sm text-slate-400">
+        <div className="h-[520px] glass-panel rounded-2xl animate-pulse flex items-center justify-center text-sm font-black text-slate-950">
           Loading geospatial map nodes...
         </div>
       ) : (

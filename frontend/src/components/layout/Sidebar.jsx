@@ -9,8 +9,7 @@ import {
   Search,
   Sparkles,
   ShieldCheck,
-  Compass,
-  Layers
+  Award
 } from 'lucide-react';
 
 export const Sidebar = () => {
@@ -45,11 +44,11 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 glass-panel border-r border-slate-200 hidden lg:flex flex-col min-h-[calc(100vh-85px)] p-4 bg-white/90">
+    <aside className="w-64 glass-panel border-r-2 border-slate-200 hidden lg:flex flex-col min-h-[calc(100vh-85px)] p-4 bg-white">
       <div className="space-y-6 flex-1">
         {sections.map((sec, idx) => (
-          <div key={idx} className="space-y-1.5">
-            <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 px-3 flex items-center justify-between">
+          <div key={idx} className="space-y-2">
+            <div className="text-[11px] font-black uppercase tracking-widest text-slate-800 px-3 flex items-center justify-between border-b border-slate-100 pb-1">
               <span>{sec.title}</span>
             </div>
 
@@ -62,26 +61,26 @@ export const Sidebar = () => {
                     to={item.to}
                     end={item.to === '/'}
                     className={({ isActive }) =>
-                      `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
+                      `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all group ${
                         isActive
-                          ? 'bg-sky-50 text-sky-700 font-bold border border-sky-200/80 shadow-xs'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
+                          ? 'bg-sky-100 text-sky-950 font-black border-2 border-sky-400 shadow-sm'
+                          : 'text-slate-800 hover:text-slate-950 hover:bg-slate-100 border border-transparent'
                       }`
                     }
                   >
                     <div className="flex items-center gap-2.5">
-                      <Icon className="w-4 h-4 text-sky-600 group-hover:scale-110 transition-transform" />
+                      <Icon className="w-4 h-4 text-sky-700 group-hover:scale-110 transition-transform" />
                       <span>{item.label}</span>
                     </div>
 
                     {item.count && (
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 border border-slate-200">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded bg-slate-200 text-slate-900 border border-slate-300">
                         {item.count}
                       </span>
                     )}
 
                     {item.badge && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-950 border border-amber-300">
                         {item.badge}
                       </span>
                     )}
@@ -93,14 +92,14 @@ export const Sidebar = () => {
         ))}
       </div>
 
-      {/* UX4G Accreditation Footer Card */}
-      <div className="mt-auto p-4 rounded-2xl bg-gradient-to-br from-sky-50 to-slate-50 border border-sky-100 text-xs text-slate-600 space-y-1.5 shadow-2xs">
-        <div className="font-bold text-slate-900 flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 text-sky-600" />
-          <span>UX4G Design System</span>
+      {/* UX4G Accreditation Footer Card with Tiranga Accent */}
+      <div className="mt-auto p-4 rounded-2xl bg-gradient-to-br from-amber-50 via-white to-emerald-50 border-2 border-slate-200 text-xs space-y-1.5 shadow-2xs">
+        <div className="font-black text-slate-950 flex items-center gap-1.5">
+          <Award className="w-4 h-4 text-amber-600" />
+          <span>National UX4G Framework</span>
         </div>
-        <p className="text-[11px] leading-relaxed text-slate-500 font-medium">
-          Official Digital Governance Framework with 20+ verified international datasets.
+        <p className="text-[11px] leading-relaxed text-slate-900 font-extrabold">
+          Compliant with UX4G Digital Governance Standards & 20+ verified international datasets.
         </p>
       </div>
     </aside>
