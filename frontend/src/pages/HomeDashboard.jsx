@@ -3,7 +3,7 @@ import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/cl
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
-import { Globe, Shield, Trophy, Filter, Award } from 'lucide-react';
+import { Globe, Shield, Trophy, Award } from 'lucide-react';
 
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
@@ -69,38 +69,38 @@ export const HomeDashboard = () => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Hero Banner — Tiranga & UX4G Emblem Theme */}
-      <div className="glass-panel p-6 lg:p-8 rounded-3xl relative overflow-hidden bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 text-white shadow-xl border-2 border-sky-600">
+      {/* Hero Banner — High-Contrast Rich Dark Blue Glass Header */}
+      <div className="glass-panel-dark p-6 lg:p-8 rounded-3xl relative overflow-hidden text-white">
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-3xl">🇮🇳</span>
-            <span className="text-xs font-black uppercase tracking-widest px-3.5 py-1 rounded-full bg-amber-500 text-slate-950 border border-amber-300 shadow-xs">
+            <span className="text-xs font-black uppercase tracking-widest px-3.5 py-1 rounded-full bg-amber-500 text-slate-950 border border-amber-300 shadow-sm">
               National Development Framework
             </span>
           </div>
 
-          <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+          <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-sm">
             India in the World — Global Progress Dashboard
           </h1>
 
-          <p className="text-sm text-slate-200 leading-relaxed font-bold">
+          <p className="text-sm text-sky-100 leading-relaxed font-extrabold drop-shadow-2xs">
             Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International under UX4G Digital Governance Standards.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-black text-white">
-            <div className="flex items-center gap-1.5 bg-amber-500/20 text-amber-300 px-3.5 py-1.5 rounded-xl border border-amber-400/30">
-              <Trophy className="w-4 h-4 text-amber-400" /> #5 Nominal GDP
+            <div className="flex items-center gap-1.5 bg-amber-500/20 text-amber-200 px-3.5 py-1.5 rounded-xl border border-amber-400/40 backdrop-blur-md">
+              <Trophy className="w-4 h-4 text-amber-300" /> #5 Nominal GDP
             </div>
-            <div className="flex items-center gap-1.5 bg-sky-500/20 text-sky-200 px-3.5 py-1.5 rounded-xl border border-sky-400/30">
-              <Globe className="w-4 h-4 text-sky-300" /> #39 Global Innovation
+            <div className="flex items-center gap-1.5 bg-sky-500/20 text-sky-100 px-3.5 py-1.5 rounded-xl border border-sky-300/40 backdrop-blur-md">
+              <Globe className="w-4 h-4 text-sky-200" /> #39 Global Innovation
             </div>
-            <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 px-3.5 py-1.5 rounded-xl border border-emerald-400/30">
-              <Shield className="w-4 h-4 text-emerald-400" /> #10 Cybersecurity Index
+            <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-100 px-3.5 py-1.5 rounded-xl border border-emerald-300/40 backdrop-blur-md">
+              <Shield className="w-4 h-4 text-emerald-300" /> #10 Cybersecurity Index
             </div>
           </div>
         </div>
 
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-amber-500/10 via-sky-500/10 to-emerald-500/10 pointer-events-none hidden lg:block"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-amber-500/20 via-sky-500/10 to-transparent pointer-events-none hidden lg:block"></div>
       </div>
 
       {/* AI Summary Section */}
