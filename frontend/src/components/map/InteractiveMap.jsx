@@ -9,8 +9,8 @@ const createCustomIcon = (flag = '🌐') => {
     className: 'custom-map-marker',
     html: `
       <div style="
-        background: #111827;
-        border: 2px solid #3b82f6;
+        background: #ffffff;
+        border: 2px solid #0284c7;
         border-radius: 50%;
         width: 34px;
         height: 34px;
@@ -18,7 +18,7 @@ const createCustomIcon = (flag = '🌐') => {
         align-items: center;
         justify-content: center;
         font-size: 16px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        box-shadow: 0 4px 12px rgba(2,132,199,0.25);
         cursor: pointer;
       ">
         ${flag}
@@ -58,7 +58,7 @@ export const InteractiveMap = ({ countries }) => {
   return (
     <div className="space-y-4">
       {/* Map Container */}
-      <div className="w-full h-[520px] rounded-2xl overflow-hidden glass-panel border border-surface-border relative z-10 shadow-2xl">
+      <div className="w-full h-[520px] rounded-2xl overflow-hidden glass-panel border border-slate-200 relative z-10 shadow-md">
         <MapContainer
           center={[20.5937, 78.9629]}
           zoom={3}
@@ -82,18 +82,18 @@ export const InteractiveMap = ({ countries }) => {
                 }}
               >
                 <Popup className="custom-leaflet-popup">
-                  <div className="p-1 min-w-[240px] space-y-2 text-gray-100">
-                    <div className="flex items-center gap-2 border-b border-surface-border/80 pb-2">
+                  <div className="p-1 min-w-[240px] space-y-2 text-slate-900">
+                    <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
                       <span className="text-xl">{country.flag_emoji}</span>
                       <div>
-                        <h4 className="font-bold text-sm text-white">{country.name}</h4>
-                        <span className="text-[11px] text-gray-400">{country.region} • Pop: {(country.population ? country.population / 1e6 : 0).toFixed(1)}M</span>
+                        <h4 className="font-bold text-sm text-slate-900">{country.name}</h4>
+                        <span className="text-[11px] text-slate-500">{country.region} • Pop: {(country.population ? country.population / 1e6 : 0).toFixed(1)}M</span>
                       </div>
                     </div>
 
                     <button
                       onClick={() => handleCountryClick(country)}
-                      className="w-full text-center py-1.5 rounded-lg bg-primary-600 hover:bg-primary-500 text-white font-medium text-xs shadow-md transition-colors mt-2"
+                      className="w-full text-center py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs shadow-md transition-colors mt-2"
                     >
                       View Rankings & AI Insight
                     </button>
@@ -107,18 +107,18 @@ export const InteractiveMap = ({ countries }) => {
 
       {/* Selected Country Details Modal / Panel */}
       {selectedCountry && (
-        <div className="glass-panel p-6 rounded-2xl border border-primary-500/30 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
-          <div className="flex items-center justify-between gap-4 border-b border-surface-border pb-4">
+        <div className="glass-panel p-6 rounded-2xl border border-sky-200 bg-white space-y-4 shadow-md animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="flex items-center justify-between gap-4 border-b border-slate-200 pb-4">
             <div className="flex items-center gap-3">
               <span className="text-3xl">{selectedCountry.flag_emoji}</span>
               <div>
-                <h3 className="text-xl font-extrabold text-white flex items-center gap-2">
+                <h3 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
                   {selectedCountry.name}
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 border border-sky-200">
                     {selectedCountry.code}
                   </span>
                 </h3>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-slate-500 font-medium">
                   GDP: {selectedCountry.gdp_usd} • Region: {selectedCountry.region}
                 </p>
               </div>
@@ -126,30 +126,30 @@ export const InteractiveMap = ({ countries }) => {
 
             <button
               onClick={() => setSelectedCountry(null)}
-              className="text-xs text-gray-400 hover:text-white bg-surface-card px-3 py-1.5 rounded-lg border border-surface-border"
+              className="text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200"
             >
               Close
             </button>
           </div>
 
           {loading ? (
-            <div className="py-8 text-center text-xs text-gray-400">Loading data for {selectedCountry.name}...</div>
+            <div className="py-8 text-center text-xs text-slate-500">Loading data for {selectedCountry.name}...</div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* AI Summary Box */}
-              <div className="lg:col-span-1 glass-panel p-4 rounded-xl border-l-4 border-l-accent-violet space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-accent-violet">
+              <div className="lg:col-span-1 glass-panel p-4 rounded-xl border-l-4 border-l-sky-600 bg-sky-50/50 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-sky-700">
                   <span>AI Executive Summary</span>
                 </div>
-                <p className="text-xs text-gray-300 leading-relaxed font-medium">
+                <p className="text-xs text-slate-800 leading-relaxed font-medium">
                   {aiSummary || 'Summary generating...'}
                 </p>
               </div>
 
               {/* Indicator Rankings Table */}
               <div className="lg:col-span-2 space-y-2">
-                <div className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <Trophy className="w-3.5 h-3.5 text-accent-saffron" />
+                <div className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                  <Trophy className="w-3.5 h-3.5 text-amber-600" />
                   Top Global Rankings ({rankings.length} Indicators)
                 </div>
 
@@ -157,17 +157,17 @@ export const InteractiveMap = ({ countries }) => {
                   {rankings.slice(0, 10).map((r) => (
                     <div
                       key={r.id}
-                      className="flex items-center justify-between p-2.5 rounded-lg bg-surface border border-surface-border text-xs"
+                      className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs"
                     >
                       <div>
-                        <div className="font-semibold text-gray-200">{r.indicator.name}</div>
-                        <div className="text-[11px] text-gray-400">{r.indicator.category?.name} • {r.source?.name}</div>
+                        <div className="font-bold text-slate-800">{r.indicator.name}</div>
+                        <div className="text-[11px] text-slate-500">{r.indicator.category?.name} • {r.source?.name}</div>
                       </div>
                       <div className="text-right">
-                        <span className="text-sm font-extrabold text-accent-saffron">
+                        <span className="text-sm font-extrabold text-sky-700">
                           {r.rank ? `#${r.rank}` : 'N/A'}
                         </span>
-                        <div className="text-[11px] text-gray-400">{r.value} {r.unit}</div>
+                        <div className="text-[11px] text-slate-500">{r.value} {r.unit}</div>
                       </div>
                     </div>
                   ))}

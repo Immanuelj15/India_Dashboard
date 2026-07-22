@@ -8,23 +8,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#090d16',
-        surface: '#111827',
-        'surface-card': '#1f293d',
-        'surface-border': '#2d3748',
+        background: '#f8fafc',
+        surface: '#ffffff',
+        'surface-card': '#f1f5f9',
+        'surface-border': '#e2e8f0',
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7', // Sky Blue primary
+          700: '#0369a1',
+          800: '#075985',
         },
         accent: {
-          saffron: '#ff9933',
-          green: '#138808',
-          cyan: '#06b6d4',
-          violet: '#8b5cf6',
-          rose: '#f43f5e'
+          skyblue: '#0284c7',
+          saffron: '#d97706',
+          green: '#16a34a',
+          cyan: '#0891b2',
+          violet: '#6366f1',
+          rose: '#e11d48'
         }
       },
       fontFamily: {

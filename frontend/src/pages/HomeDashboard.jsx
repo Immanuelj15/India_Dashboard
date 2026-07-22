@@ -3,7 +3,7 @@ import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/cl
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
-import { Globe, Shield, Trophy } from 'lucide-react';
+import { Globe, Shield, Trophy, Building2 } from 'lucide-react';
 
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
@@ -64,13 +64,13 @@ export const HomeDashboard = () => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Hero Banner */}
-      <div className="glass-panel p-6 lg:p-8 rounded-3xl relative overflow-hidden bg-gradient-to-r from-surface-card via-surface to-background border border-surface-border">
+      {/* Hero Banner — UX4G Light Sky Blue */}
+      <div className="glass-panel p-6 lg:p-8 rounded-3xl relative overflow-hidden bg-gradient-to-r from-sky-600 via-sky-500 to-sky-600 border border-sky-700 text-white shadow-md">
         <div className="relative z-10 max-w-3xl space-y-3">
           <div className="flex items-center gap-2">
             <span className="text-2xl">🇮🇳</span>
-            <span className="text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full bg-accent-saffron/10 text-accent-saffron border border-accent-saffron/20">
-              National Progress Tracking
+            <span className="text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full bg-white/20 text-white border border-white/30 backdrop-blur-md">
+              UX4G Government Progress Tracker
             </span>
           </div>
 
@@ -78,24 +78,22 @@ export const HomeDashboard = () => {
             India in the World — Global Progress Dashboard
           </h1>
 
-          <p className="text-sm text-gray-300 leading-relaxed font-normal">
-            Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
+          <p className="text-sm text-sky-50 leading-relaxed font-normal">
+            Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International under UX4G Digital Governance Standards.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-semibold text-gray-400">
-            <div className="flex items-center gap-1.5 text-emerald-400">
-              <Trophy className="w-4 h-4" /> #5 Nominal GDP
+          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-semibold text-white">
+            <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-lg border border-white/20">
+              <Trophy className="w-4 h-4 text-amber-300" /> #5 Nominal GDP
             </div>
-            <div className="flex items-center gap-1.5 text-accent-cyan">
-              <Globe className="w-4 h-4" /> #39 Global Innovation
+            <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-lg border border-white/20">
+              <Globe className="w-4 h-4 text-sky-200" /> #39 Global Innovation
             </div>
-            <div className="flex items-center gap-1.5 text-accent-violet">
-              <Shield className="w-4 h-4" /> #10 Cybersecurity Index
+            <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-lg border border-white/20">
+              <Shield className="w-4 h-4 text-emerald-300" /> #10 Cybersecurity Index
             </div>
           </div>
         </div>
-
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-primary-500/10 to-transparent pointer-events-none hidden lg:block"></div>
       </div>
 
       {/* AI Summary Section */}
@@ -113,7 +111,7 @@ export const HomeDashboard = () => {
           subtitle="Normalized strength across 10 global indicator dimensions (Higher score = Better relative global rank)"
           type="radar"
           data={categoryRadarData}
-          dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#ff9933' }]}
+          dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#0284c7' }]}
           height={320}
         />
 
@@ -125,7 +123,7 @@ export const HomeDashboard = () => {
             name: r.indicator.name.replace(' Index', '').replace(' Global', ''),
             Rank: r.rank || 0,
           }))}
-          dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#3b82f6' }]}
+          dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#0284c7' }]}
           height={320}
         />
       </div>
@@ -134,16 +132,16 @@ export const HomeDashboard = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-white tracking-tight">Key Global Indicators</h2>
-            <p className="text-xs text-gray-400">India's rankings, metrics, trends, and official source links.</p>
+            <h2 className="text-xl font-bold text-slate-900 tracking-tight">Key Global Indicators</h2>
+            <p className="text-xs text-slate-500 font-medium">India's rankings, metrics, trends, and official source links.</p>
           </div>
-          <span className="text-xs font-medium text-gray-400">{rankings.length} Indicators Loaded</span>
+          <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">{rankings.length} Indicators Loaded</span>
         </div>
 
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div key={n} className="h-56 glass-panel rounded-2xl animate-pulse bg-surface-card"></div>
+              <div key={n} className="h-56 glass-panel rounded-2xl animate-pulse bg-slate-100"></div>
             ))}
           </div>
         ) : (

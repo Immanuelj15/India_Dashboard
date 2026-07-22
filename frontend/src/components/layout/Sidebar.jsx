@@ -8,6 +8,7 @@ import {
   Grid,
   Search,
   Sparkles,
+  ShieldCheck
 } from 'lucide-react';
 
 export const Sidebar = () => {
@@ -22,11 +23,12 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 glass-panel border-r border-surface-border hidden lg:flex flex-col min-h-[calc(100vh-65px)] p-4">
-      <div className="text-xs font-bold uppercase tracking-wider text-gray-400 px-3 mb-3">
+    <aside className="w-64 glass-panel border-r border-slate-200 hidden lg:flex flex-col min-h-[calc(100vh-65px)] p-4 bg-white">
+      <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-3 mb-3 flex items-center gap-1.5">
+        <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
         Navigation Menu
       </div>
-      <nav className="space-y-1.5 flex-1">
+      <nav className="space-y-1 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -37,12 +39,12 @@ export const Sidebar = () => {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                   isActive
-                    ? 'bg-primary-600/20 text-primary-400 border border-primary-500/30 shadow-sm'
-                    : 'text-gray-400 hover:text-gray-100 hover:bg-surface-card'
+                    ? 'bg-sky-50 text-sky-700 font-bold border border-sky-200 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`
               }
             >
-              <Icon className="w-4 h-4" />
+              <Icon className="w-4 h-4 text-sky-600" />
               <span>{item.label}</span>
             </NavLink>
           );
@@ -50,13 +52,13 @@ export const Sidebar = () => {
       </nav>
 
       {/* Verified Data Tag Footer */}
-      <div className="mt-auto p-3.5 rounded-xl bg-surface-card border border-surface-border text-xs text-gray-400 space-y-1">
-        <div className="font-semibold text-gray-200 flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          20+ Trusted Sources
+      <div className="mt-auto p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
+        <div className="font-semibold text-slate-800 flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+          UX4G Government Design
         </div>
-        <p className="text-[11px] leading-relaxed text-gray-400">
-          World Bank, UN, IMF, WEF, WHO, WIPO, Transparency Int. & OECD.
+        <p className="text-[11px] leading-relaxed text-slate-500">
+          Compliant with UX4G Digital Governance Standards & 20+ trusted global datasets.
         </p>
       </div>
     </aside>

@@ -53,13 +53,13 @@ export const HistoricalTrends = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Header & Controls */}
-      <div className="glass-panel p-6 rounded-3xl space-y-6">
+      <div className="glass-panel p-6 rounded-3xl space-y-6 bg-white border border-slate-200 shadow-sm">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-accent-violet uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold text-sky-700 uppercase tracking-wider mb-1">
             <LineChart className="w-4 h-4" /> Multi-Year Ranking Analysis
           </div>
-          <h1 className="text-2xl font-extrabold text-white">Historical Ranking & Trajectory Trends</h1>
-          <p className="text-xs text-gray-400">
+          <h1 className="text-2xl font-extrabold text-slate-900">Historical Ranking & Trajectory Trends</h1>
+          <p className="text-xs text-slate-500 font-medium">
             Track multi-year progress and historical position across available international indices (2020 – 2025).
           </p>
         </div>
@@ -67,11 +67,11 @@ export const HistoricalTrends = () => {
         {/* Dropdown Selectors */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-gray-300">Select Country</label>
+            <label className="text-xs font-bold text-slate-700">Select Country</label>
             <select
               value={selectedCountry}
               onChange={(e) => setSelectedCountry(e.target.value)}
-              className="w-full bg-surface-card border border-surface-border text-white text-sm rounded-xl p-3 focus:outline-none focus:border-primary-500"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl p-3 focus:outline-none focus:border-sky-600 focus:bg-white font-medium"
             >
               {countries.map((c) => (
                 <option key={c.code} value={c.name}>
@@ -82,11 +82,11 @@ export const HistoricalTrends = () => {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-gray-300">Select Indicator</label>
+            <label className="text-xs font-bold text-slate-700">Select Indicator</label>
             <select
               value={selectedIndicator}
               onChange={(e) => setSelectedIndicator(e.target.value)}
-              className="w-full bg-surface-card border border-surface-border text-white text-sm rounded-xl p-3 focus:outline-none focus:border-primary-500"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl p-3 focus:outline-none focus:border-sky-600 focus:bg-white font-medium"
             >
               {indicators.map((ind) => (
                 <option key={ind.slug} value={ind.slug}>
@@ -99,31 +99,31 @@ export const HistoricalTrends = () => {
       </div>
 
       {loading || !trendData ? (
-        <div className="py-12 text-center text-sm text-gray-400">Loading trend points...</div>
+        <div className="py-12 text-center text-sm text-slate-500 font-medium">Loading trend points...</div>
       ) : (
         <div className="space-y-8">
           {/* Trend Summary Highlights Bar */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="glass-panel p-5 rounded-2xl border-l-4 border-l-primary-500">
-              <div className="text-xs font-semibold text-gray-400 uppercase">Target Indicator</div>
-              <div className="text-base font-bold text-white mt-1">{trendData.indicator.name}</div>
-              <div className="text-xs text-primary-400 font-medium mt-0.5">{trendData.indicator.category?.name}</div>
+            <div className="glass-panel p-5 rounded-2xl border-l-4 border-l-sky-600 bg-white">
+              <div className="text-xs font-bold text-slate-400 uppercase">Target Indicator</div>
+              <div className="text-base font-extrabold text-slate-900 mt-1">{trendData.indicator.name}</div>
+              <div className="text-xs text-sky-700 font-bold mt-0.5">{trendData.indicator.category?.name}</div>
             </div>
 
-            <div className="glass-panel p-5 rounded-2xl border-l-4 border-l-accent-saffron">
-              <div className="text-xs font-semibold text-gray-400 uppercase">Latest Global Position</div>
-              <div className="text-2xl font-extrabold text-accent-saffron mt-1">
+            <div className="glass-panel p-5 rounded-2xl border-l-4 border-l-amber-500 bg-white">
+              <div className="text-xs font-bold text-slate-400 uppercase">Latest Global Position</div>
+              <div className="text-2xl font-extrabold text-amber-600 mt-1">
                 {lastPoint?.rank ? `#${lastPoint.rank}` : 'N/A'}
               </div>
-              <div className="text-xs text-gray-400">Year {lastPoint?.year} Metric: {lastPoint?.value} {trendData.indicator.unit}</div>
+              <div className="text-xs text-slate-500 font-medium">Year {lastPoint?.year} Metric: {lastPoint?.value} {trendData.indicator.unit}</div>
             </div>
 
-            <div className="glass-panel p-5 rounded-2xl border-l-4 border-l-emerald-500">
-              <div className="text-xs font-semibold text-gray-400 uppercase">5-Year Trajectory Shift</div>
-              <div className="text-2xl font-extrabold text-emerald-400 mt-1">
+            <div className="glass-panel p-5 rounded-2xl border-l-4 border-l-emerald-600 bg-white">
+              <div className="text-xs font-bold text-slate-400 uppercase">5-Year Trajectory Shift</div>
+              <div className="text-2xl font-extrabold text-emerald-600 mt-1">
                 {rankDelta > 0 ? `+${rankDelta} Ranks Improvement` : rankDelta < 0 ? `${rankDelta} Ranks` : 'Stable Position'}
               </div>
-              <div className="text-xs text-gray-400">From Year {firstPoint?.year} (#{firstPoint?.rank})</div>
+              <div className="text-xs text-slate-500 font-medium">From Year {firstPoint?.year} (#{firstPoint?.rank})</div>
             </div>
           </div>
 
@@ -133,15 +133,15 @@ export const HistoricalTrends = () => {
             subtitle="Multi-year trajectory line chart (# lower indicates higher global rank)"
             type="line"
             data={lineChartData}
-            dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#3b82f6' }]}
+            dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#0284c7' }]}
             height={360}
           />
 
           {/* Detailed Points Table & Source Attribution */}
-          <div className="glass-panel p-6 rounded-2xl border border-surface-border space-y-4">
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 bg-white space-y-4 shadow-sm">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-accent-cyan" /> Yearly Data Table & Provenance
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-sky-600" /> Yearly Data Table & Provenance
               </h3>
               <SourceBadge
                 sourceName={trendData.source?.name}
@@ -152,7 +152,7 @@ export const HistoricalTrends = () => {
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-surface-card text-gray-400 uppercase tracking-wider font-semibold border-b border-surface-border">
+                <thead className="bg-slate-50 text-slate-600 uppercase tracking-wider font-semibold border-b border-slate-200">
                   <tr>
                     <th className="p-3">Year</th>
                     <th className="p-3">Rank Position</th>
@@ -161,14 +161,14 @@ export const HistoricalTrends = () => {
                     <th className="p-3 text-right">Data Provider</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-surface-border/50 text-gray-200">
+                <tbody className="divide-y divide-slate-100 text-slate-800">
                   {trendData.points.map((pt, idx) => (
-                    <tr key={idx} className="hover:bg-surface-card/50 transition-colors">
-                      <td className="p-3 font-bold text-white">{pt.year}</td>
-                      <td className="p-3 font-extrabold text-accent-saffron">#{pt.rank || 'N/A'}</td>
-                      <td className="p-3 font-medium">{pt.value}</td>
-                      <td className="p-3 text-gray-400">{trendData.indicator.unit || 'Score'}</td>
-                      <td className="p-3 text-right text-gray-400">{trendData.source?.name || 'Trusted Source'}</td>
+                    <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                      <td className="p-3 font-bold text-slate-900">{pt.year}</td>
+                      <td className="p-3 font-extrabold text-sky-700">#{pt.rank || 'N/A'}</td>
+                      <td className="p-3 font-semibold">{pt.value}</td>
+                      <td className="p-3 text-slate-500">{trendData.indicator.unit || 'Score'}</td>
+                      <td className="p-3 text-right text-slate-500 font-medium">{trendData.source?.name || 'Trusted Source'}</td>
                     </tr>
                   ))}
                 </tbody>
