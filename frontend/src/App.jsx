@@ -16,13 +16,13 @@ import { AIInsights } from './pages/AIInsights';
 export const App = () => {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-background text-gray-100 font-sans selection:bg-primary-500 selection:text-white">
+      <div className="min-h-screen flex flex-col bg-slate-100 text-slate-900 font-sans selection:bg-sky-500 selection:text-white">
         <Header />
 
-        <div className="flex-1 max-w-7xl w-full mx-auto flex items-start">
+        <div className="flex-1 w-full max-w-[1600px] mx-auto flex items-start">
           <Sidebar />
 
-          <main className="flex-1 p-4 lg:p-8 min-w-0">
+          <main className="flex-1 p-4 lg:p-6 min-w-0">
             <Routes>
               <Route path="/" element={<HomeDashboard />} />
               <Route path="/compare" element={<CountryComparison />} />
