@@ -44,8 +44,8 @@ export const Header = () => {
       <div className="h-1.5 w-full bg-gradient-to-r from-amber-500 via-sky-400 to-emerald-500 shadow-md"></div>
 
       {/* Top Governance Strip */}
-      <div className="bg-slate-900/90 text-slate-300 text-[11px] py-1.5 px-4 lg:px-8 font-extrabold border-b border-slate-800/80">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="bg-slate-900/90 text-slate-300 text-[11px] py-1.5 px-4 lg:px-6 font-extrabold border-b border-slate-800/80">
+        <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-xs"></span>
             <span className="text-white font-extrabold">Government of India • Global Progress Dashboard</span>
@@ -65,7 +65,7 @@ export const Header = () => {
       </div>
 
       {/* Main Navbar Header */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+      <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-3.5 flex items-center justify-between gap-4">
         {/* Brand Logo & Title */}
         <Link to="/" className="flex items-center gap-3 group">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-sky-400 to-emerald-500 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300">

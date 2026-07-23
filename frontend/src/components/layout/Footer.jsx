@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Award, ShieldCheck, Heart, Globe, Database, Sparkles } from 'lucide-react';
+import { ExternalLink, Award, ShieldCheck, Globe, Database, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Footer = () => {
@@ -8,7 +8,7 @@ export const Footer = () => {
       {/* Indian National Tricolor Top Accent Stripe */}
       <div className="h-1.5 w-full bg-gradient-to-r from-amber-500 via-sky-400 to-emerald-500"></div>
 
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12">
+      <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand & Purpose Column */}
           <div className="md:col-span-1 space-y-4">
