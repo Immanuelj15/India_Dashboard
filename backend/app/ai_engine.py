@@ -4,6 +4,33 @@ from typing import List, Dict, Any
 from sqlalchemy.orm import Session
 from . import crud, models
 
+def get_best_available_ollama_model(ollama_url: str) -> str:
+    """Dynamically detects installed models in the local Ollama instance."""
+    configured_model = os.getenv("OLLAMA_MODEL")
+    if configured_model:
+        return configured_model
+
+    preferred_models = ["llama3.1:8b", "llama3.1", "mistral:latest", "mistral", "phi3:latest", "phi3"]
+    
+    try:
+        res = requests.get(f"{ollama_url}/api/tags", timeout=2.0)
+        if res.status_code == 200:
+            models_data = res.json().get("models", [])
+            installed_names = [m.get("name") for m in models_data]
+            
+            # Check preferred order
+            for pref in preferred_models:
+                if pref in installed_names:
+                    return pref
+            
+            # Fallback to the first installed model if available
+            if installed_names:
+                return installed_names[0]
+    except Exception:
+        pass
+
+    return "llama3.1:8b"
+
 def generate_country_ai_summary(db: Session, country_name: str = "India", indicator_slug: str = None, category_slug: str = None) -> Dict[str, Any]:
     # 1. Retrieve empirical facts strictly from DB to prevent hallucination
     rankings = crud.get_rankings(db, country_name=country_name, year=2024)
@@ -35,9 +62,9 @@ def generate_country_ai_summary(db: Session, country_name: str = "India", indica
 
     facts_summary_str = "\n".join(facts_text)
 
-    # 2. Attempt LangChain / Ollama invocation if Ollama server is running locally
+    # 2. Detect installed model from user's Ollama instance (mistral:latest, phi3:latest, llama3.1:8b, etc.)
     ollama_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    model_name = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
+    model_name = get_best_available_ollama_model(ollama_url)
 
     prompt_content = (
         f"You are a Senior Data Analyst for Global Rankings.\n"
@@ -48,22 +75,23 @@ def generate_country_ai_summary(db: Session, country_name: str = "India", indica
     )
 
     summary_result = None
+    used_source = f"Ollama {model_name} (DB Grounded)"
 
     try:
-        # Quick healthcheck request to Ollama endpoint
+        # Request Ollama generation
         res = requests.post(
             f"{ollama_url}/api/generate",
             json={"model": model_name, "prompt": prompt_content, "stream": False},
-            timeout=3.0
+            timeout=10.0
         )
         if res.status_code == 200:
             summary_result = res.json().get("response", "").strip()
-    except Exception:
+    except Exception as e:
         # Fallback to local deterministic summary generator based on database facts
         pass
 
     if not summary_result:
-        # Grounded factual summary template
+        used_source = "Verified Database Grounded Engine"
         top_ranks = [m for m in key_metrics if m.get("rank") is not None]
         top_ranks.sort(key=lambda x: x["rank"])
         
@@ -82,6 +110,6 @@ def generate_country_ai_summary(db: Session, country_name: str = "India", indica
         "country": c_name,
         "summary": summary_result,
         "key_metrics": key_metrics,
-        "source": "LangChain + Ollama Llama 3.1 8B (DB Grounded)",
+        "source": used_source,
         "is_hallucinated": False
     }
