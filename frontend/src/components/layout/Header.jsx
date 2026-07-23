@@ -39,49 +39,50 @@ export const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-premium transition-all">
-      {/* Indian National Tricolor Glowing Top Bar */}
-      <div className="h-1 w-full bg-gradient-to-r from-amber-500 via-sky-500 to-emerald-500 shadow-xs"></div>
+    <header className="sticky top-0 z-50 bg-slate-950 border-b border-slate-800 shadow-2xl transition-all">
+      {/* Indian National Tricolor Glowing Top Accent Line */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-amber-500 via-sky-400 to-emerald-500 shadow-md"></div>
 
-      {/* Top Utility Bar */}
-      <div className="bg-slate-950 text-slate-200 text-[11px] py-1.5 px-4 lg:px-8 font-extrabold tracking-wide">
+      {/* Top Governance Strip */}
+      <div className="bg-slate-900/90 text-slate-300 text-[11px] py-1.5 px-4 lg:px-8 font-extrabold border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-xs"></span>
             <span className="text-white font-extrabold">Government of India • Global Progress Dashboard</span>
-            <span className="hidden md:inline-block text-slate-600">|</span>
-            <span className="hidden md:inline-block text-sky-400 font-bold">UX4G Standard</span>
+            <span className="hidden md:inline-block text-slate-700">|</span>
+            <span className="hidden md:inline-block text-sky-400 font-bold">UX4G Framework</span>
           </div>
+
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1 text-amber-300 font-bold">
+            <span className="hidden sm:inline-flex items-center gap-1 text-amber-300 font-extrabold">
               <ShieldCheck className="w-3.5 h-3.5 text-amber-400" /> 20+ Global Datasets
             </span>
-            <span className="text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 px-2.5 py-0.5 rounded-full font-black text-[10px] shadow-2xs">
+            <span className="text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400 px-2.5 py-0.5 rounded-full font-black text-[10px] shadow-sm tracking-wide">
               OFFICIAL DATA PORTAL
             </span>
           </div>
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
+      {/* Main Navbar Header */}
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+        {/* Brand Logo & Title */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-sky-600 to-emerald-500 p-0.5 shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300">
-            <div className="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
-              <Award className="w-6 h-6 text-sky-700 group-hover:rotate-12 transition-transform duration-300" />
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-sky-400 to-emerald-500 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300">
+            <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
+              <Award className="w-6 h-6 text-sky-400 group-hover:rotate-12 transition-transform duration-300" />
             </div>
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-black text-xl text-slate-950 group-hover:text-sky-700 transition-colors tracking-tight">
+              <span className="font-black text-xl text-white group-hover:text-sky-400 transition-colors tracking-tight">
                 India in the World
               </span>
-              <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-50 to-sky-50 text-slate-900 border border-sky-200 hidden sm:inline-flex items-center gap-1 shadow-2xs">
+              <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-sky-950 text-sky-300 border border-sky-700/60 hidden sm:inline-flex items-center gap-1 shadow-2xs">
                 🇮🇳 National Progress
               </span>
             </div>
-            <p className="text-[11px] text-slate-600 font-bold tracking-tight hidden sm:block">Consolidated International Indices & High-Contrast Analytics</p>
+            <p className="text-[11px] text-slate-400 font-bold tracking-tight hidden sm:block">Consolidated International Indices & High-Contrast Analytics</p>
           </div>
         </Link>
 
@@ -92,19 +93,19 @@ export const Header = () => {
             placeholder="Search indicator, country, category (e.g. GDP, Innovation)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-100/90 border border-slate-300 text-xs text-slate-950 rounded-xl pl-9 pr-12 py-2.5 font-bold focus:outline-none focus:border-sky-600 focus:bg-white focus:ring-4 focus:ring-sky-500/15 transition-all placeholder-slate-500 shadow-inner"
+            className="w-full bg-slate-900/90 border border-slate-700 text-xs text-white rounded-xl pl-9 pr-12 py-2.5 font-bold focus:outline-none focus:border-sky-500 focus:bg-slate-900 focus:ring-4 focus:ring-sky-500/20 transition-all placeholder-slate-400 shadow-inner"
           />
-          <Search className="w-4 h-4 text-slate-500 group-focus-within:text-sky-700 absolute left-3 top-3 transition-colors" />
-          <kbd className="absolute right-3 top-2.5 text-[10px] font-black text-slate-700 bg-white px-1.5 py-0.5 rounded border border-slate-300 shadow-2xs">
+          <Search className="w-4 h-4 text-slate-400 group-focus-within:text-sky-400 absolute left-3 top-3 transition-colors" />
+          <kbd className="absolute right-3 top-2.5 text-[10px] font-black text-slate-300 bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 shadow-2xs">
             ⌘K
           </kbd>
         </form>
 
-        {/* Quick Nav Actions */}
+        {/* Quick Actions */}
         <div className="flex items-center gap-2.5">
           <Link
             to="/ai-insights"
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-sky-700 to-sky-800 hover:from-sky-800 hover:to-sky-900 text-white shadow-md shadow-sky-700/25 transition-all active:scale-95"
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-500 hover:to-sky-600 text-white shadow-lg shadow-sky-600/30 transition-all active:scale-95 border border-sky-400/30"
           >
             <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
             <span>AI Summaries</span>
@@ -112,15 +113,15 @@ export const Header = () => {
 
           <Link
             to="/compare"
-            className="hidden sm:flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-black bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-950 transition-all hover:border-slate-400"
+            className="hidden sm:flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-black bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white transition-all hover:border-slate-600"
           >
-            <TrendingUp className="w-4 h-4 text-emerald-700" />
+            <TrendingUp className="w-4 h-4 text-emerald-400" />
             <span>Compare</span>
           </Link>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-xl bg-slate-100 border border-slate-300 text-slate-950 hover:bg-slate-200 lg:hidden"
+            className="p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white hover:bg-slate-800 lg:hidden"
             aria-label="Toggle navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -128,18 +129,18 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white p-4 space-y-3 shadow-xl animate-in slide-in-from-top duration-200">
+        <div className="lg:hidden border-t border-slate-800 bg-slate-950 p-4 space-y-3 shadow-2xl animate-in slide-in-from-top duration-200">
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
               type="text"
               placeholder="Search indicators..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-100 border border-slate-300 text-xs text-slate-950 rounded-xl pl-9 pr-3 py-2.5 font-bold"
+              className="w-full bg-slate-900 border border-slate-700 text-xs text-white rounded-xl pl-9 pr-3 py-2.5 font-bold"
             />
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
           </form>
 
           <nav className="grid grid-cols-1 gap-1">
@@ -154,12 +155,12 @@ export const Header = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black transition-all ${
                       isActive
-                        ? 'bg-sky-100 text-sky-950 border border-sky-300 shadow-2xs'
-                        : 'text-slate-900 hover:bg-slate-100'
+                        ? 'bg-sky-950 text-sky-300 border border-sky-700 shadow-2xs'
+                        : 'text-slate-300 hover:bg-slate-900 hover:text-white'
                     }`
                   }
                 >
-                  <Icon className="w-4 h-4 text-sky-700" />
+                  <Icon className="w-4 h-4 text-sky-400" />
                   <span>{item.label}</span>
                 </NavLink>
               );
