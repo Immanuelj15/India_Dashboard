@@ -83,7 +83,7 @@ export const HomeDashboard = () => {
     .slice(0, 5);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-6 animate-in fade-in duration-300 w-full">
       {/* Hero Banner */}
       <div className="glass-panel-dark p-6 lg:p-8 rounded-3xl relative overflow-hidden text-white shadow-xl border-2 border-sky-600">
         <div className="relative z-10 max-w-3xl space-y-3.5">
@@ -132,7 +132,7 @@ export const HomeDashboard = () => {
           <div className="flex items-center gap-2 text-xs font-black text-slate-950 uppercase tracking-wider">
             <Star className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" /> Top Global Ranking Highlights
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3.5">
             {topRankedIndicators.map((item) => (
               <div
                 key={item.id}

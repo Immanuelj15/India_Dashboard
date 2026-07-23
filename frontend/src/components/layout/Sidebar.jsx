@@ -38,7 +38,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 glass-panel border-r border-slate-200 hidden lg:flex flex-col min-h-[calc(100vh-85px)] p-4 bg-white/95 shadow-sm">
+    <aside className="w-60 flex-shrink-0 glass-panel border-r border-slate-200 hidden lg:flex flex-col min-h-[calc(100vh-85px)] p-4 bg-white/95 shadow-sm">
       <div className="space-y-6 flex-1">
         {/* Main Navigation Group */}
         <div className="space-y-1">

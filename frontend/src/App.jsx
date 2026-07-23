@@ -19,10 +19,10 @@ export const App = () => {
       <div className="min-h-screen flex flex-col bg-slate-100 text-slate-900 font-sans selection:bg-sky-500 selection:text-white">
         <Header />
 
-        <div className="flex-1 w-full max-w-[1600px] mx-auto flex items-start">
+        <div className="flex-1 w-full flex items-start px-2 sm:px-4 lg:px-6">
           <Sidebar />
 
-          <main className="flex-1 p-4 lg:p-6 min-w-0">
+          <main className="flex-1 p-3 sm:p-4 lg:p-6 min-w-0">
             <Routes>
               <Route path="/" element={<HomeDashboard />} />
               <Route path="/compare" element={<CountryComparison />} />
