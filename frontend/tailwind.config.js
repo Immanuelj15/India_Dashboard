@@ -12,7 +12,7 @@ export default {
         surface: '#ffffff',
         'surface-card': '#f1f5f9',
         'surface-border': '#e2e8f0',
-        primary: {
+        skybrand: {
           50: '#f0f9ff',
           100: '#e0f2fe',
           200: '#bae6fd',
@@ -22,18 +22,23 @@ export default {
           600: '#0284c7', // Sky Blue primary
           700: '#0369a1',
           800: '#075985',
+          900: '#0c4a6e',
+          950: '#082f49'
         },
-        accent: {
-          skyblue: '#0284c7',
-          saffron: '#d97706',
-          green: '#16a34a',
-          cyan: '#0891b2',
-          violet: '#6366f1',
-          rose: '#e11d48'
+        india: {
+          saffron: '#f59e0b',
+          white: '#ffffff',
+          green: '#10b981',
+          navy: '#0f172a'
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+      },
+      boxShadow: {
+        'glow-sky': '0 0 25px -5px rgba(2, 132, 199, 0.25)',
+        'glow-saffron': '0 0 25px -5px rgba(245, 158, 11, 0.25)',
+        'premium': '0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.02)',
       }
     },
   },

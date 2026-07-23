@@ -3,7 +3,7 @@ import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/cl
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
-import { Globe, Shield, Trophy, LayoutGrid, List, ArrowUpDown, Star } from 'lucide-react';
+import { Globe, Shield, Trophy, LayoutGrid, List, ArrowUpDown, Star, Sparkles } from 'lucide-react';
 
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
@@ -85,35 +85,37 @@ export const HomeDashboard = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Hero Banner */}
-      <div className="glass-panel-dark p-6 lg:p-7 rounded-3xl relative overflow-hidden text-white">
-        <div className="relative z-10 max-w-3xl space-y-3">
+      <div className="glass-panel-dark p-6 lg:p-8 rounded-3xl relative overflow-hidden text-white shadow-xl border-2 border-sky-600">
+        <div className="relative z-10 max-w-3xl space-y-3.5">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">🇮🇳</span>
-            <span className="text-[11px] font-black uppercase tracking-wider px-3 py-0.5 rounded-full bg-amber-500 text-slate-950">
+            <span className="text-3xl">🇮🇳</span>
+            <span className="text-[11px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm">
               National Progress Tracker
             </span>
           </div>
 
-          <h1 className="text-2xl lg:text-3xl font-black text-white tracking-tight">
+          <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-sm">
             India in the World — Global Progress Dashboard
           </h1>
 
-          <p className="text-xs text-sky-100 font-extrabold leading-relaxed">
+          <p className="text-xs text-sky-100 font-extrabold leading-relaxed drop-shadow-2xs">
             Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
           </p>
 
-          <div className="flex flex-wrap items-center gap-2.5 pt-1 text-xs font-black">
-            <div className="flex items-center gap-1 bg-amber-500/20 text-amber-200 px-3 py-1 rounded-lg border border-amber-400/30">
-              <Trophy className="w-3.5 h-3.5 text-amber-300" /> #5 Nominal GDP
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs font-black">
+            <div className="flex items-center gap-1.5 bg-amber-500/20 text-amber-200 px-3.5 py-1.5 rounded-xl border border-amber-400/30 backdrop-blur-md">
+              <Trophy className="w-4 h-4 text-amber-300" /> #5 Nominal GDP
             </div>
-            <div className="flex items-center gap-1 bg-sky-500/20 text-sky-100 px-3 py-1 rounded-lg border border-sky-300/30">
-              <Globe className="w-3.5 h-3.5 text-sky-200" /> #39 Global Innovation
+            <div className="flex items-center gap-1.5 bg-sky-500/20 text-sky-100 px-3.5 py-1.5 rounded-xl border border-sky-300/30 backdrop-blur-md">
+              <Globe className="w-4 h-4 text-sky-200" /> #39 Global Innovation
             </div>
-            <div className="flex items-center gap-1 bg-emerald-500/20 text-emerald-100 px-3 py-1 rounded-lg border border-emerald-300/30">
-              <Shield className="w-3.5 h-3.5 text-emerald-300" /> #10 Cybersecurity
+            <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-100 px-3.5 py-1.5 rounded-xl border border-emerald-300/30 backdrop-blur-md">
+              <Shield className="w-4 h-4 text-emerald-300" /> #10 Cybersecurity Index
             </div>
           </div>
         </div>
+
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-amber-500/20 via-sky-500/10 to-transparent pointer-events-none hidden lg:block"></div>
       </div>
 
       {/* AI Summary Section */}
@@ -126,15 +128,15 @@ export const HomeDashboard = () => {
 
       {/* Top 5 Key Achievements Row */}
       {topRankedIndicators.length > 0 && (
-        <div className="space-y-2.5">
+        <div className="space-y-3">
           <div className="flex items-center gap-2 text-xs font-black text-slate-950 uppercase tracking-wider">
-            <Star className="w-4 h-4 text-amber-500 fill-amber-500" /> Top Global Ranking Highlights
+            <Star className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" /> Top Global Ranking Highlights
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
             {topRankedIndicators.map((item) => (
               <div
                 key={item.id}
-                className="p-3.5 rounded-2xl bg-white border border-sky-300 shadow-xs hover:border-sky-500 transition-all flex flex-col justify-between"
+                className="p-4 rounded-2xl bg-white border border-sky-300 shadow-xs hover:border-sky-500 hover:shadow-premium transition-all flex flex-col justify-between"
               >
                 <div className="text-[10px] font-black uppercase text-slate-600 line-clamp-1">
                   {item.indicator.category?.name}
@@ -142,7 +144,7 @@ export const HomeDashboard = () => {
                 <div className="font-black text-slate-950 text-xs my-1 line-clamp-1">
                   {item.indicator.name}
                 </div>
-                <div className="flex items-baseline justify-between mt-1">
+                <div className="flex items-baseline justify-between mt-2 pt-2 border-t border-slate-100">
                   <span className="text-xl font-black text-sky-700">#{item.rank}</span>
                   <span className="text-[11px] font-bold text-slate-800">{item.value} {item.unit || ''}</span>
                 </div>
@@ -177,10 +179,10 @@ export const HomeDashboard = () => {
       </div>
 
       {/* Grid Controls Header: Filter, Sort & View Mode */}
-      <div className="glass-panel p-4 rounded-2xl bg-white border border-slate-300 space-y-3">
+      <div className="glass-panel p-4 rounded-2xl bg-white border border-slate-300 space-y-3 shadow-premium">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <h2 className="text-base font-black text-slate-950">Global Indicator Grid</h2>
+            <h2 className="text-base font-black text-slate-950 tracking-tight">Global Indicator Grid</h2>
             <span className="text-xs font-black text-slate-950 bg-slate-200 px-2.5 py-0.5 rounded-full border border-slate-300">
               {processedRankings.length} Indicators
             </span>
@@ -188,7 +190,7 @@ export const HomeDashboard = () => {
 
           {/* Sort & View Mode Toolbar */}
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 bg-slate-100 px-2.5 py-1 rounded-xl border border-slate-300 text-xs font-bold">
+            <div className="flex items-center gap-1 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold shadow-2xs">
               <ArrowUpDown className="w-3.5 h-3.5 text-sky-700" />
               <span className="text-slate-600 hidden sm:inline">Sort:</span>
               <select
@@ -202,7 +204,7 @@ export const HomeDashboard = () => {
               </select>
             </div>
 
-            <div className="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-300">
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-300 shadow-2xs">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-1.5 rounded-lg text-xs font-bold transition-all ${
@@ -230,12 +232,12 @@ export const HomeDashboard = () => {
         </div>
 
         {/* Category Quick Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           <button
             onClick={() => setSelectedCategoryFilter('all')}
-            className={`px-3 py-1 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
               selectedCategoryFilter === 'all'
-                ? 'bg-sky-800 text-white border border-sky-900'
+                ? 'bg-sky-800 text-white border border-sky-900 shadow-xs'
                 : 'bg-slate-100 text-slate-950 border border-slate-300 hover:bg-slate-200'
             }`}
           >
@@ -249,9 +251,9 @@ export const HomeDashboard = () => {
               <button
                 key={cat.slug}
                 onClick={() => setSelectedCategoryFilter(cat.slug)}
-                className={`px-3 py-1 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
                   isSelected
-                    ? 'bg-sky-800 text-white border border-sky-900'
+                    ? 'bg-sky-800 text-white border border-sky-900 shadow-xs'
                     : 'bg-slate-100 text-slate-950 border border-slate-300 hover:bg-slate-200'
                 }`}
               >
@@ -290,37 +292,37 @@ export const HomeDashboard = () => {
         </div>
       ) : (
         /* High-Density Executive Table View */
-        <div className="glass-panel rounded-2xl overflow-hidden border border-slate-300 bg-white shadow-xs">
+        <div className="glass-panel rounded-2xl overflow-hidden border border-slate-300 bg-white shadow-premium">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-100 text-slate-950 uppercase tracking-wider font-black border-b border-slate-300">
                 <tr>
-                  <th className="p-3 pl-4">Indicator Name</th>
-                  <th className="p-3">Category</th>
-                  <th className="p-3 text-center">Global Rank</th>
-                  <th className="p-3">Value</th>
-                  <th className="p-3 text-right pr-4">Source</th>
+                  <th className="p-3.5 pl-4">Indicator Name</th>
+                  <th className="p-3.5">Category</th>
+                  <th className="p-3.5 text-center">Global Rank</th>
+                  <th className="p-3.5">Value</th>
+                  <th className="p-3.5 text-right pr-4">Source</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 text-slate-950 font-bold">
                 {processedRankings.map((r) => (
                   <tr key={r.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="p-3 pl-4">
+                    <td className="p-3.5 pl-4">
                       <div className="font-black text-slate-950 text-xs">{r.indicator.name}</div>
                       <div className="text-[10px] text-slate-700 line-clamp-1">{r.indicator.description}</div>
                     </td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-sky-100 text-sky-950 font-black text-[10px] border border-sky-300">
+                    <td className="p-3.5">
+                      <span className="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-950 font-black text-[10px] border border-sky-300">
                         {r.indicator.category?.name}
                       </span>
                     </td>
-                    <td className="p-3 text-center font-black text-sky-800 text-sm">
+                    <td className="p-3.5 text-center font-black text-sky-800 text-sm">
                       {r.rank ? `#${r.rank}` : '—'}
                     </td>
-                    <td className="p-3 font-mono font-black text-slate-950">
+                    <td className="p-3.5 font-mono font-black text-slate-950">
                       {r.value} {r.unit || ''}
                     </td>
-                    <td className="p-3 text-right pr-4 text-slate-800 font-bold">
+                    <td className="p-3.5 text-right pr-4 text-slate-800 font-bold">
                       <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-sky-700 underline">
                         {r.source?.name}
                       </a>
