@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCountries, fetchAISummary } from '../api/client';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
-import { Sparkles, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Sparkles, ShieldCheck, CheckCircle2, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const AIInsights = () => {
@@ -41,7 +41,7 @@ export const AIInsights = () => {
         className="dash-card p-6 bg-white space-y-4"
       >
         <div className="flex items-center gap-2 text-xs font-semibold text-[#2563EB]">
-          <Sparkles className="w-4 h-4" /> AI Grounded Synthesis Engine
+          <Sparkles className="w-4 h-4" /> AI Grounded Synthesis Engine (Groq Llama 3.3 70B Enabled)
         </div>
 
         <h1 className="text-2xl font-bold text-[#0F172A] tracking-tight">
@@ -49,7 +49,7 @@ export const AIInsights = () => {
         </h1>
 
         <p className="text-xs text-[#64748B] leading-relaxed max-w-3xl font-medium">
-          Generates concise, factual summaries for any country directly derived from verified database records across Economy, Governance, Innovation, Healthcare, and Education.
+          Generates concise, factual summaries for any country directly derived from verified database records across Economy, Governance, Innovation, Healthcare, and Education using ultra-fast Groq LPU inference.
         </p>
 
         {/* Target Country Selector */}
@@ -95,7 +95,7 @@ export const AIInsights = () => {
 
           <div className="p-4 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
             <div className="font-semibold text-[#0F172A] flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2563EB]" /> 2. LangChain Pipeline
+              <CheckCircle2 className="w-4 h-4 text-[#2563EB]" /> 2. RAG Pipeline
             </div>
             <p className="text-[#64748B] text-[11px] leading-relaxed font-medium">
               Formats retrieved facts into a deterministic prompt template enforcing zero hallucination.
@@ -104,10 +104,10 @@ export const AIInsights = () => {
 
           <div className="p-4 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
             <div className="font-semibold text-[#0F172A] flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#10B981]" /> 3. Ollama Local Synthesis
+              <Zap className="w-4 h-4 text-[#10B981]" /> 3. Groq LPU Inference
             </div>
             <p className="text-[#64748B] text-[11px] leading-relaxed font-medium">
-              Runs local LLM synthesis (Mistral / Phi-3 / Llama 3.1) with automatic DB fallback.
+              Runs Llama 3.3 70B via Groq API with local Ollama fallback.
             </p>
           </div>
         </div>
