@@ -19,6 +19,7 @@ import {
   CartesianGrid,
   Legend,
 } from 'recharts';
+import { motion } from 'framer-motion';
 
 const COLORS = ['#2563EB', '#10B981', '#F59E0B', '#64748B', '#EF4444', '#3B82F6', '#8B5CF6'];
 
@@ -35,7 +36,13 @@ export const ChartCard = ({
   reversedYAxis = true,
 }) => {
   return (
-    <div className="dash-card p-5 lg:p-6 flex flex-col justify-between">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="dash-card p-5 lg:p-6 flex flex-col justify-between bg-white"
+    >
       <div className="mb-4">
         <h3 className="text-base font-bold text-[#0F172A] tracking-tight">{title}</h3>
         {subtitle && <p className="text-xs text-[#64748B] font-medium mt-0.5">{subtitle}</p>}
@@ -116,6 +123,6 @@ export const ChartCard = ({
           )}
         </ResponsiveContainer>
       </div>
-    </div>
+    </motion.div>
   );
 };

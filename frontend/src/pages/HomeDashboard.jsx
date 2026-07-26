@@ -148,7 +148,7 @@ export const HomeDashboard = () => {
     <div className="space-y-8 w-full">
       {/* Hero Section */}
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
         className="dash-card p-6 sm:p-8 bg-white border border-[#E2E8F0] rounded-xl shadow-sm relative overflow-hidden"
@@ -197,8 +197,14 @@ export const HomeDashboard = () => {
         </div>
       </motion.div>
 
-      {/* 10 Category Cards Section */}
-      <div className="space-y-4">
+      {/* 10 Category Cards Section - Scroll-triggered Lazy View */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.3 }}
+        className="space-y-4"
+      >
         <div className="flex items-center justify-between">
           <h2 className="text-base font-bold text-[#0F172A] tracking-tight">10 Strategic Global Categories</h2>
           <Link to="/categories" className="text-xs font-semibold text-[#2563EB] hover:underline flex items-center gap-1">
@@ -216,10 +222,9 @@ export const HomeDashboard = () => {
             return (
               <motion.div
                 key={cat.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
-                className="dash-card dash-card-hover p-4 flex flex-col justify-between"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.15 }}
+                className="dash-card dash-card-hover p-4 flex flex-col justify-between bg-white"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -255,18 +260,31 @@ export const HomeDashboard = () => {
             );
           })}
         </div>
-      </div>
+      </motion.div>
 
-      {/* AI Summary Section */}
-      <AISummaryCard
-        data={aiSummary}
-        loading={aiLoading}
-        onRefresh={loadAISummary}
-        title="India Executive AI Summary"
-      />
+      {/* AI Summary Section - Scroll-triggered Lazy View */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.3 }}
+      >
+        <AISummaryCard
+          data={aiSummary}
+          loading={aiLoading}
+          onRefresh={loadAISummary}
+          title="India Executive AI Summary"
+        />
+      </motion.div>
 
-      {/* Interactive World Map Section */}
-      <div className="dash-card p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white">
+      {/* Interactive World Map Section - Scroll-triggered Lazy View */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.3 }}
+        className="dash-card p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white"
+      >
         <div className="space-y-2 max-w-xl">
           <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2563EB]">
             <MapPin className="w-4 h-4" /> Global Geospatial Comparison
@@ -284,10 +302,16 @@ export const HomeDashboard = () => {
           <span>Launch World Map</span>
           <ArrowRight className="w-4 h-4" />
         </Link>
-      </div>
+      </motion.div>
 
-      {/* Top Insights & Charts Row */}
-      <div className="space-y-4">
+      {/* Top Insights & Charts Row - Scroll-triggered Lazy View */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.3 }}
+        className="space-y-4"
+      >
         <h2 className="text-base font-bold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <ChartCard
@@ -311,10 +335,16 @@ export const HomeDashboard = () => {
             height={280}
           />
         </div>
-      </div>
+      </motion.div>
 
-      {/* Recent Updates / Indicator Data Grid */}
-      <div className="dash-card p-5 space-y-4">
+      {/* Global Indicator Data Grid - Scroll-triggered Lazy View */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.3 }}
+        className="dash-card p-5 space-y-4 bg-white"
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E8F0] pb-4">
           <div>
             <h2 className="text-base font-bold text-[#0F172A] tracking-tight">Global Indicator Data Grid</h2>
@@ -471,7 +501,7 @@ export const HomeDashboard = () => {
             </table>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

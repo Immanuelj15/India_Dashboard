@@ -21,10 +21,12 @@ export const StatCard = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2 }}
-      className="dash-card dash-card-hover p-5 flex flex-col justify-between group"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      className="dash-card dash-card-hover p-5 flex flex-col justify-between group bg-white"
     >
       <div>
         {/* Category & Flag Badge */}
@@ -44,7 +46,7 @@ export const StatCard = ({
         </h3>
 
         {description && (
-          <p className="text-xs text-[#64748B] mt-1 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-[#64748B] mt-1 line-clamp-2 leading-relaxed font-normal">
             {description}
           </p>
         )}
