@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: india-dashboard-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python seed_data.py
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
