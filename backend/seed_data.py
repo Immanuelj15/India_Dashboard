@@ -1,6 +1,12 @@
+import sys
+import os
 import json
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from app.database import SessionLocal, engine, Base
 from app import models
+
 
 def seed_database():
     Base.metadata.create_all(bind=engine)
