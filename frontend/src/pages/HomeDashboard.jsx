@@ -164,8 +164,8 @@ export const HomeDashboard = () => {
               <span className="text-[#64748B]">Official National Analytics Portal</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-black text-[#0F172A] tracking-tight leading-tight flex items-center gap-3">
-              India in the World – Global Progress Dashboard
+            <h1 className="text-3xl sm:text-4xl font-black text-[#0F172A] tracking-tight leading-tight flex items-center gap-3 min-h-[44px]">
+              <TypewriterText text="India in the World – Global Progress Dashboard" speed={35} />
             </h1>
 
             <p className="text-base text-[#64748B] leading-relaxed font-medium min-h-[52px]">
