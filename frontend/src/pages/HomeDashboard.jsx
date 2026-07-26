@@ -152,10 +152,10 @@ export const HomeDashboard = () => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="dash-card p-7 sm:p-10 bg-white border border-[#E2E8F0] rounded-2xl shadow-sm relative overflow-hidden"
+        className="dash-card p-8 sm:p-12 bg-white border border-[#E2E8F0] rounded-3xl shadow-sm relative overflow-hidden"
       >
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
-          <div className="max-w-4xl space-y-5">
+          <div className="max-w-4xl space-y-6">
             {/* National Crest Badge */}
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#F8FAFC] text-[#0F172A] text-sm font-bold border border-[#E2E8F0]">
               <img src="/india-flag.png" alt="India Flag" className="w-6 h-4 rounded-xs object-cover border border-slate-300" />
@@ -164,11 +164,11 @@ export const HomeDashboard = () => {
               <span className="text-[#64748B]">Official National Analytics Portal</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-black text-[#0F172A] tracking-tight leading-tight flex items-center gap-3 min-h-[44px]">
+            <h1 className="text-3xl sm:text-5xl font-black text-[#0F172A] tracking-tight leading-tight flex items-center gap-3 min-h-[56px]">
               <TypewriterText text="India in the World – Global Progress Dashboard" speed={35} />
             </h1>
 
-            <p className="text-base text-[#64748B] leading-relaxed font-medium">
+            <p className="text-lg text-[#64748B] leading-relaxed font-medium">
               Consolidated performance metrics and global indices across Economy, Governance, Technology, Healthcare, Education, Environment, Equality, Safety, and Digital Government from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
             </p>
 
@@ -179,12 +179,12 @@ export const HomeDashboard = () => {
                 placeholder="Search any global index (e.g. Innovation, GDP, Cyber Security)..."
                 value={quickSearch}
                 onChange={(e) => setQuickSearch(e.target.value)}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-base text-[#0F172A] rounded-xl pl-12 pr-28 py-3.5 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
+                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-base text-[#0F172A] rounded-2xl pl-12 pr-32 py-4 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
               />
-              <Search className="w-5 h-5 text-[#64748B] absolute left-4 top-5.5" />
+              <Search className="w-6 h-6 text-[#64748B] absolute left-4 top-5.5" />
               <button
                 type="submit"
-                className="absolute right-2 top-2.5 px-5 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-bold transition-colors shadow-xs"
+                className="absolute right-2.5 top-2.5 px-6 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-base font-bold transition-colors shadow-xs"
               >
                 Search
               </button>
@@ -192,28 +192,28 @@ export const HomeDashboard = () => {
           </div>
 
           {/* Official State Emblem of India Display */}
-          <div className="hidden lg:flex flex-col items-center p-5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] min-w-[240px] text-center space-y-3">
-            <img src="/india-emblem.png" alt="State Emblem of India" className="w-36 h-40 object-contain" />
+          <div className="hidden lg:flex flex-col items-center p-6 rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] min-w-[260px] text-center space-y-3">
+            <img src="/india-emblem.png" alt="State Emblem of India" className="w-40 h-44 object-contain" />
           </div>
         </div>
       </motion.div>
 
-      {/* 10 Category Cards Section - Scroll-triggered Lazy View */}
+      {/* 10 Category Cards Section - Enlarged Grid Layout */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="space-y-5"
+        className="space-y-6"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-[#0F172A] tracking-tight">10 Strategic Global Categories</h2>
-          <Link to="/categories" className="text-sm font-bold text-[#2563EB] hover:underline flex items-center gap-1.5">
-            Explore All Categories <ArrowRight className="w-4 h-4" />
+          <h2 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">10 Strategic Global Categories</h2>
+          <Link to="/categories" className="text-base font-bold text-[#2563EB] hover:underline flex items-center gap-2">
+            Explore All Categories <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {categories.slice(0, 10).map((cat, idx) => {
             const Icon = categoryIcons[cat.slug] || Landmark;
             const catRankings = rankings.filter((r) => r.indicator.category?.slug === cat.slug);
@@ -227,36 +227,36 @@ export const HomeDashboard = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.25, delay: idx * 0.04 }}
-                whileHover={{ y: -4 }}
-                className="dash-card dash-card-hover p-5 flex flex-col justify-between bg-white"
+                whileHover={{ y: -6 }}
+                className="dash-card dash-card-hover p-6 flex flex-col justify-between bg-white rounded-2xl border border-[#E2E8F0]"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200 shadow-xs">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200 shadow-xs">
+                      <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-semibold text-[#64748B] bg-[#F8FAFC] px-2.5 py-1 rounded-md border border-[#E2E8F0] flex items-center gap-1">
+                    <span className="text-xs font-bold text-[#64748B] bg-[#F8FAFC] px-3 py-1 rounded-lg border border-[#E2E8F0] flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-[#64748B]" /> 2024
                     </span>
                   </div>
 
-                  <h3 className="text-base font-extrabold text-[#0F172A] line-clamp-1">{cat.name}</h3>
+                  <h3 className="text-lg font-black text-[#0F172A] line-clamp-1">{cat.name}</h3>
 
-                  <div className="mt-3 flex items-baseline justify-between">
+                  <div className="mt-4 flex items-baseline justify-between">
                     <div>
-                      <div className="text-xs font-semibold text-[#64748B]">Avg Rank</div>
-                      <div className="text-xl font-black text-[#0F172A] flex items-center gap-1 mt-0.5">
+                      <div className="text-xs font-bold text-[#64748B]">Avg Rank</div>
+                      <div className="text-2xl font-black text-[#0F172A] flex items-center gap-1.5 mt-1">
                         <span>{avgRank !== 'N/A' ? `#${avgRank}` : '—'}</span>
-                        <TrendingUp className="w-4 h-4 text-[#10B981]" />
+                        <TrendingUp className="w-5 h-5 text-[#10B981]" />
                       </div>
                     </div>
-                    <span className="text-xs font-medium text-[#64748B]">{catRankings.length} Indicators</span>
+                    <span className="text-xs font-semibold text-[#64748B]">{catRankings.length} Indicators</span>
                   </div>
                 </div>
 
                 <Link
                   to={`/categories?cat=${cat.slug}`}
-                  className="mt-5 w-full text-center py-2 rounded-xl bg-[#F8FAFC] hover:bg-[#EFF6FF] border border-[#E2E8F0] hover:border-blue-300 text-xs font-bold text-[#0F172A] hover:text-[#2563EB] transition-colors"
+                  className="mt-6 w-full text-center py-2.5 rounded-xl bg-[#F8FAFC] hover:bg-[#EFF6FF] border border-[#E2E8F0] hover:border-blue-300 text-sm font-extrabold text-[#0F172A] hover:text-[#2563EB] transition-colors"
                 >
                   Quick View
                 </Link>
@@ -287,24 +287,24 @@ export const HomeDashboard = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35 }}
-        className="dash-card p-7 flex flex-col md:flex-row items-center justify-between gap-6 bg-white"
+        className="dash-card p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-8 bg-white rounded-3xl"
       >
-        <div className="space-y-2.5 max-w-2xl">
-          <div className="inline-flex items-center gap-2 text-sm font-bold text-[#2563EB]">
-            <MapPin className="w-4.5 h-4.5" /> Global Geospatial Comparison
+        <div className="space-y-3 max-w-3xl">
+          <div className="inline-flex items-center gap-2 text-base font-bold text-[#2563EB]">
+            <MapPin className="w-5 h-5" /> Global Geospatial Comparison
           </div>
-          <h3 className="text-xl font-extrabold text-[#0F172A]">Interactive World Map Explorer</h3>
-          <p className="text-sm text-[#64748B] leading-relaxed font-normal">
+          <h3 className="text-2xl font-black text-[#0F172A]">Interactive World Map Explorer</h3>
+          <p className="text-base text-[#64748B] leading-relaxed font-normal">
             Visualize global rank distributions and compare India with 190+ countries using interactive Leaflet map overlays and country popup telemetry.
           </p>
         </div>
 
         <Link
           to="/map"
-          className="px-5 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-bold transition-colors flex items-center gap-2.5 shadow-sm whitespace-nowrap"
+          className="px-6 py-3.5 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-base font-bold transition-colors flex items-center gap-3 shadow-sm whitespace-nowrap"
         >
           <span>Launch World Map</span>
-          <ArrowRight className="w-4.5 h-4.5" />
+          <ArrowRight className="w-5 h-5" />
         </Link>
       </motion.div>
 
@@ -314,17 +314,17 @@ export const HomeDashboard = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35 }}
-        className="space-y-5"
+        className="space-y-6"
       >
-        <h2 className="text-xl font-bold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
+        <h2 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <ChartCard
             title="Category Performance Overview"
             subtitle="Relative strength score across 10 global indicator categories"
             type="radar"
             data={categoryRadarData}
             dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#2563EB' }]}
-            height={320}
+            height={360}
           />
 
           <ChartCard
@@ -336,42 +336,42 @@ export const HomeDashboard = () => {
               Rank: r.rank || 0,
             }))}
             dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#2563EB' }]}
-            height={320}
+            height={360}
           />
         </div>
       </motion.div>
 
-      {/* Global Indicator Data Grid - Scroll-triggered Lazy View */}
+      {/* Global Indicator Data Grid - Enlarged Spacious 3-Column Layout */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35 }}
-        className="dash-card p-6 space-y-5 bg-white"
+        className="dash-card p-8 sm:p-10 space-y-6 bg-white rounded-3xl"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E8F0] pb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-[#E2E8F0] pb-6">
           <div>
-            <h2 className="text-xl font-bold text-[#0F172A] tracking-tight">Global Indicator Data Grid</h2>
-            <p className="text-sm text-[#64748B]">Showing {processedRankings.length} verified indicators</p>
+            <h2 className="text-2xl font-black text-[#0F172A] tracking-tight">Global Indicator Data Grid</h2>
+            <p className="text-base text-[#64748B]">Showing {processedRankings.length} verified indicators</p>
           </div>
 
-          <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
+          <div className="flex items-center gap-4 flex-wrap sm:flex-nowrap">
             <button
               onClick={handleExportCSV}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-white text-sm font-bold transition-colors shadow-xs"
+              className="flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-white text-base font-bold transition-colors shadow-xs"
               title="Export Report to CSV"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-5 h-5" />
               <span>Export CSV</span>
             </button>
 
-            <div className="flex items-center gap-2 bg-[#F8FAFC] px-3.5 py-1.5 rounded-xl border border-[#E2E8F0] text-sm font-medium">
-              <ArrowUpDown className="w-4 h-4 text-[#64748B]" />
-              <span className="text-[#64748B] font-semibold">Sort:</span>
+            <div className="flex items-center gap-2 bg-[#F8FAFC] px-4 py-2 rounded-xl border border-[#E2E8F0] text-base font-medium">
+              <ArrowUpDown className="w-5 h-5 text-[#64748B]" />
+              <span className="text-[#64748B] font-bold">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent text-[#0F172A] font-bold focus:outline-none cursor-pointer"
+                className="bg-transparent text-[#0F172A] font-extrabold focus:outline-none cursor-pointer"
               >
                 <option value="rank-asc">Top Ranks (#1 →)</option>
                 <option value="alphabetical">A-Z</option>
@@ -382,35 +382,35 @@ export const HomeDashboard = () => {
             <div className="flex items-center bg-[#F8FAFC] p-1.5 rounded-xl border border-[#E2E8F0]">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg text-sm font-semibold transition-colors ${
+                className={`p-2.5 rounded-lg text-base font-semibold transition-colors ${
                   viewMode === 'grid'
                     ? 'bg-[#2563EB] text-[#FFFFFF] shadow-xs'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Grid View"
               >
-                <LayoutGrid className="w-4.5 h-4.5" />
+                <LayoutGrid className="w-5 h-5" />
               </button>
               <button
                 onClick={() => setViewMode('table')}
-                className={`p-2 rounded-lg text-sm font-semibold transition-colors ${
+                className={`p-2.5 rounded-lg text-base font-semibold transition-colors ${
                   viewMode === 'table'
                     ? 'bg-[#2563EB] text-[#FFFFFF] shadow-xs'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Table View"
               >
-                <List className="w-4.5 h-4.5" />
+                <List className="w-5 h-5" />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {/* Category Filter Pills */}
+        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
           <button
             onClick={() => setSelectedCategoryFilter('all')}
-            className={`px-4 py-1.5 rounded-xl text-sm font-bold whitespace-nowrap transition-colors ${
+            className={`px-5 py-2 rounded-xl text-base font-bold whitespace-nowrap transition-colors ${
               selectedCategoryFilter === 'all'
                 ? 'bg-[#2563EB] text-white'
                 : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
@@ -426,7 +426,7 @@ export const HomeDashboard = () => {
               <button
                 key={cat.slug}
                 onClick={() => setSelectedCategoryFilter(cat.slug)}
-                className={`px-4 py-1.5 rounded-xl text-sm font-bold whitespace-nowrap transition-colors ${
+                className={`px-5 py-2 rounded-xl text-base font-bold whitespace-nowrap transition-colors ${
                   isSelected
                     ? 'bg-[#2563EB] text-white'
                     : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
@@ -440,13 +440,13 @@ export const HomeDashboard = () => {
 
         {/* Render Grid vs Table */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-              <div key={n} className="h-52 bg-[#F8FAFC] rounded-xl animate-pulse border border-[#E2E8F0]"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div key={n} className="h-64 bg-[#F8FAFC] rounded-2xl animate-pulse border border-[#E2E8F0]"></div>
             ))}
           </div>
         ) : viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {processedRankings.map((r) => (
               <StatCard
                 key={r.id}
@@ -465,37 +465,37 @@ export const HomeDashboard = () => {
             ))}
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-[#E2E8F0]">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-bold border-b border-[#E2E8F0]">
+          <div className="overflow-x-auto rounded-2xl border border-[#E2E8F0]">
+            <table className="w-full text-left text-base">
+              <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-extrabold border-b border-[#E2E8F0]">
                 <tr>
-                  <th className="p-4 pl-5">Indicator Name</th>
-                  <th className="p-4">Category</th>
-                  <th className="p-4 text-center">Global Rank</th>
-                  <th className="p-4">Metric Value</th>
-                  <th className="p-4 text-right pr-5">Source Link</th>
+                  <th className="p-5 pl-6">Indicator Name</th>
+                  <th className="p-5">Category</th>
+                  <th className="p-5 text-center">Global Rank</th>
+                  <th className="p-5">Metric Value</th>
+                  <th className="p-5 text-right pr-6">Source Link</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A] font-medium">
                 {processedRankings.map((r) => (
                   <tr key={r.id} className="hover:bg-[#F8FAFC] transition-colors">
-                    <td className="p-4 pl-5">
-                      <div className="font-bold text-[#0F172A] text-base">{r.indicator.name}</div>
-                      <div className="text-xs text-[#64748B] line-clamp-1 mt-0.5">{r.indicator.description}</div>
+                    <td className="p-5 pl-6">
+                      <div className="font-extrabold text-[#0F172A] text-lg">{r.indicator.name}</div>
+                      <div className="text-sm text-[#64748B] line-clamp-1 mt-0.5">{r.indicator.description}</div>
                     </td>
-                    <td className="p-4">
-                      <span className="px-2.5 py-1 rounded-md bg-[#EFF6FF] text-[#2563EB] text-xs font-bold border border-blue-200">
+                    <td className="p-5">
+                      <span className="px-3 py-1 rounded-lg bg-[#EFF6FF] text-[#2563EB] text-sm font-bold border border-blue-200">
                         {r.indicator.category?.name}
                       </span>
                     </td>
-                    <td className="p-4 text-center font-black text-[#2563EB] text-base">
+                    <td className="p-5 text-center font-black text-[#2563EB] text-lg">
                       {r.rank ? `#${r.rank}` : '—'}
                     </td>
-                    <td className="p-4 font-mono font-bold text-[#0F172A]">
+                    <td className="p-5 font-mono font-bold text-[#0F172A] text-base">
                       {r.value} {r.unit || ''}
                     </td>
-                    <td className="p-4 text-right pr-5 text-[#64748B]">
-                      <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline font-semibold">
+                    <td className="p-5 text-right pr-6 text-[#64748B]">
+                      <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline font-bold">
                         {r.source?.name}
                       </a>
                     </td>
