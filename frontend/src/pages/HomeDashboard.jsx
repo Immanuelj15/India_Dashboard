@@ -174,21 +174,23 @@ export const HomeDashboard = () => {
             </p>
 
             {/* Quick Search */}
-            <form onSubmit={handleHeroSearch} className="relative max-w-2xl pt-2">
-              <input
-                type="text"
-                placeholder="Search any global index (e.g. Innovation, GDP, Cyber Security)..."
-                value={quickSearch}
-                onChange={(e) => setQuickSearch(e.target.value)}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-base text-[#0F172A] rounded-2xl pl-12 pr-32 py-4 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
-              />
-              <Search className="w-6 h-6 text-[#64748B] absolute left-4 top-5.5" />
-              <button
-                type="submit"
-                className="absolute right-2.5 top-2.5 px-6 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-base font-bold transition-colors shadow-xs"
-              >
-                Search
-              </button>
+            <form onSubmit={handleHeroSearch} className="max-w-2xl pt-2">
+              <div className="relative flex items-center w-full">
+                <Search className="w-5 h-5 text-[#64748B] absolute left-4 z-10 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search any global index (e.g. Innovation, GDP, Cyber Security)..."
+                  value={quickSearch}
+                  onChange={(e) => setQuickSearch(e.target.value)}
+                  className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-base text-[#0F172A] rounded-2xl pl-12 pr-32 py-3.5 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-2 px-6 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-extrabold transition-colors shadow-xs"
+                >
+                  Search
+                </button>
+              </div>
             </form>
           </div>
 
