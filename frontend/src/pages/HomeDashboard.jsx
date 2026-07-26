@@ -3,7 +3,7 @@ import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/cl
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
-import { Globe, Shield, Trophy, LayoutGrid, List, ArrowUpDown, Star, Sparkles } from 'lucide-react';
+import { Globe, Shield, Trophy, LayoutGrid, List, ArrowUpDown, Star, Download } from 'lucide-react';
 
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
@@ -48,6 +48,28 @@ export const HomeDashboard = () => {
   useEffect(() => {
     loadData();
   }, []);
+
+  const handleExportCSV = () => {
+    if (!processedRankings || processedRankings.length === 0) return;
+    const headers = ['Indicator Name', 'Category', 'Global Rank', 'Value', 'Unit', 'Source'];
+    const rows = processedRankings.map((r) => [
+      `"${r.indicator.name.replace(/"/g, '""')}"`,
+      `"${(r.indicator.category?.name || 'General').replace(/"/g, '""')}"`,
+      r.rank !== null && r.rank !== undefined ? r.rank : 'N/A',
+      r.value !== null && r.value !== undefined ? r.value : 'N/A',
+      `"${(r.unit || '').replace(/"/g, '""')}"`,
+      `"${(r.source?.name || '').replace(/"/g, '""')}"`,
+    ]);
+    const csvContent = [headers.join(','), ...rows.map((row) => row.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'India_Global_Progress_Report_2026.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const categoryRadarData = categories.map((cat) => {
     const catRankings = rankings.filter((r) => r.indicator.category?.slug === cat.slug);
@@ -188,8 +210,17 @@ export const HomeDashboard = () => {
             </span>
           </div>
 
-          {/* Sort & View Mode Toolbar */}
-          <div className="flex items-center gap-2">
+          {/* Sort, Export CSV & View Mode Toolbar */}
+          <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+            <button
+              onClick={handleExportCSV}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black shadow-xs transition-all"
+              title="Export Current View to CSV"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Export CSV</span>
+            </button>
+
             <div className="flex items-center gap-1 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold shadow-2xs">
               <ArrowUpDown className="w-3.5 h-3.5 text-sky-700" />
               <span className="text-slate-600 hidden sm:inline">Sort:</span>
