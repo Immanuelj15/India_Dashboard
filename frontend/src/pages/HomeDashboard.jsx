@@ -4,6 +4,7 @@ import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/cl
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
+import { TypewriterText } from '../components/ui/TypewriterText';
 import {
   Landmark,
   Users,
@@ -167,8 +168,11 @@ export const HomeDashboard = () => {
               India in the World – Global Progress Dashboard
             </h1>
 
-            <p className="text-sm text-[#64748B] leading-relaxed font-normal">
-              Consolidated performance metrics and global indices across Economy, Governance, Technology, Healthcare, Education, Environment, Equality, Safety, and Digital Government from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
+            <p className="text-sm text-[#64748B] leading-relaxed font-normal min-h-[48px]">
+              <TypewriterText
+                text="Consolidated performance metrics and global indices across Economy, Governance, Technology, Healthcare, Education, Environment, Equality, Safety, and Digital Government from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International."
+                speed={20}
+              />
             </p>
 
             {/* Quick Search */}
@@ -199,10 +203,10 @@ export const HomeDashboard = () => {
 
       {/* 10 Category Cards Section - Scroll-triggered Lazy View */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
         className="space-y-4"
       >
         <div className="flex items-center justify-between">
@@ -213,7 +217,7 @@ export const HomeDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {categories.slice(0, 10).map((cat) => {
+          {categories.slice(0, 10).map((cat, idx) => {
             const Icon = categoryIcons[cat.slug] || Landmark;
             const catRankings = rankings.filter((r) => r.indicator.category?.slug === cat.slug);
             const validRanks = catRankings.map((r) => r.rank).filter((rk) => rk !== undefined && rk !== null);
@@ -222,8 +226,11 @@ export const HomeDashboard = () => {
             return (
               <motion.div
                 key={cat.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.25, delay: idx * 0.04 }}
                 whileHover={{ y: -4 }}
-                transition={{ duration: 0.15 }}
                 className="dash-card dash-card-hover p-4 flex flex-col justify-between bg-white"
               >
                 <div>
@@ -264,10 +271,10 @@ export const HomeDashboard = () => {
 
       {/* AI Summary Section - Scroll-triggered Lazy View */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.35 }}
       >
         <AISummaryCard
           data={aiSummary}
@@ -279,10 +286,10 @@ export const HomeDashboard = () => {
 
       {/* Interactive World Map Section - Scroll-triggered Lazy View */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.35 }}
         className="dash-card p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white"
       >
         <div className="space-y-2 max-w-xl">
@@ -306,10 +313,10 @@ export const HomeDashboard = () => {
 
       {/* Top Insights & Charts Row - Scroll-triggered Lazy View */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.35 }}
         className="space-y-4"
       >
         <h2 className="text-base font-bold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
@@ -339,10 +346,10 @@ export const HomeDashboard = () => {
 
       {/* Global Indicator Data Grid - Scroll-triggered Lazy View */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.35 }}
         className="dash-card p-5 space-y-4 bg-white"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E8F0] pb-4">
