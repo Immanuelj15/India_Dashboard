@@ -1,19 +1,29 @@
 import React from 'react';
-import { ExternalLink, Globe, Database, Sparkles, Link as LinkIcon } from 'lucide-react';
+import { ExternalLink, Database, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
     <footer className="mt-16 bg-[#0F172A] text-slate-300 border-t border-slate-800">
-      <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      {/* Top National Tricolor Accent Strip */}
+      <div className="h-1 w-full flex">
+        <div className="h-full w-1/3 bg-[#FF9933]"></div>
+        <div className="h-full w-1/3 bg-[#FFFFFF]"></div>
+        <div className="h-full w-1/3 bg-[#138808]"></div>
+      </div>
+
+      <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand & Purpose Column */}
           <div className="md:col-span-1 space-y-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#2563EB] text-white flex items-center justify-center font-bold">
-                <Globe className="w-4 h-4" />
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-700 p-0.5 flex items-center justify-center">
+                <img src="/india-emblem.svg" alt="Emblem of India" className="w-full h-full object-contain filter invert brightness-200" />
               </div>
-              <span className="font-bold text-base text-white tracking-tight">India in the World</span>
+              <span className="font-bold text-base text-white tracking-tight flex items-center gap-2">
+                India in the World
+                <img src="/india-flag.svg" alt="India Flag" className="w-4 h-3 rounded-xs object-cover border border-slate-700" />
+              </span>
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed font-normal">
@@ -21,7 +31,7 @@ export const Footer = () => {
             </p>
 
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-[11px] font-medium text-[#10B981]">
-              Verified Public Datasets
+              Official Public Datasets Only
             </div>
           </div>
 
@@ -94,7 +104,7 @@ export const Footer = () => {
             <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5 text-xs">
               <div className="font-semibold text-white">LangChain + Ollama RAG</div>
               <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
-                Local LLM synthesis pipeline grounded on verified SQLite database records.
+                Local LLM synthesis pipeline grounded on verified database records.
               </p>
             </div>
           </div>
@@ -103,7 +113,11 @@ export const Footer = () => {
         {/* Bottom Rights Strip */}
         <div className="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 font-medium">
           <div>© 2026 India in the World — Global Progress Dashboard</div>
-          <div>International Analytics Standard</div>
+          <div className="flex items-center gap-2">
+            <span>सत्यमेव जयते</span>
+            <span>•</span>
+            <span>Truth Alone Triumphs</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -144,51 +144,58 @@ export const HomeDashboard = () => {
     processedRankings.sort((a, b) => (a.indicator.category?.name || '').localeCompare(b.indicator.category?.name || ''));
   }
 
-  const topRankedIndicators = [...rankings]
-    .filter((r) => r.rank !== null && r.rank !== undefined)
-    .sort((a, b) => a.rank - b.rank)
-    .slice(0, 5);
-
   return (
     <div className="space-y-8 w-full">
-      {/* Hero Section */}
+      {/* Premium Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="dash-card p-6 sm:p-8 bg-white border border-[#E2E8F0] rounded-xl shadow-sm"
+        className="dash-card p-6 sm:p-8 bg-white border border-[#E2E8F0] rounded-xl shadow-sm relative overflow-hidden"
       >
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFF6FF] text-[#2563EB] text-xs font-semibold border border-blue-200">
-            <span>🇮🇳</span>
-            <span>National Governance Analytics Platform</span>
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+          <div className="max-w-3xl space-y-4">
+            {/* National Crest Badge */}
+            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#F8FAFC] text-[#0F172A] text-xs font-semibold border border-[#E2E8F0]">
+              <img src="/india-flag.svg" alt="India Flag" className="w-5 h-3.5 rounded-xs object-cover border border-slate-300" />
+              <span className="font-bold text-[#2563EB]">India in the World</span>
+              <span className="text-[#64748B]">•</span>
+              <span className="text-[#64748B]">Official National Analytics Portal</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight leading-tight flex items-center gap-3">
+              India in the World – Global Progress Dashboard
+            </h1>
+
+            <p className="text-sm text-[#64748B] leading-relaxed font-normal">
+              Consolidated performance metrics and global indices across Economy, Governance, Technology, Healthcare, Education, Environment, Equality, Safety, and Digital Government from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
+            </p>
+
+            {/* Quick Search */}
+            <form onSubmit={handleHeroSearch} className="relative max-w-xl pt-1">
+              <input
+                type="text"
+                placeholder="Search any global index (e.g. Innovation, GDP, Cyber Security)..."
+                value={quickSearch}
+                onChange={(e) => setQuickSearch(e.target.value)}
+                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-sm text-[#0F172A] rounded-lg pl-10 pr-24 py-2.5 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
+              />
+              <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-4" />
+              <button
+                type="submit"
+                className="absolute right-1.5 top-2 px-3.5 py-1.5 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-colors shadow-xs"
+              >
+                Search
+              </button>
+            </form>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
-            India in the World – Global Progress Dashboard
-          </h1>
-
-          <p className="text-sm text-[#64748B] leading-relaxed font-normal">
-            Consolidated performance analysis across trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
-          </p>
-
-          {/* Quick Search */}
-          <form onSubmit={handleHeroSearch} className="relative max-w-xl pt-2">
-            <input
-              type="text"
-              placeholder="Quick search any global index (e.g. Innovation, GDP, Cyber Security)..."
-              value={quickSearch}
-              onChange={(e) => setQuickSearch(e.target.value)}
-              className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-sm text-[#0F172A] rounded-lg pl-10 pr-24 py-2.5 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
-            />
-            <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-5" />
-            <button
-              type="submit"
-              className="absolute right-1.5 top-3 px-3.5 py-1.5 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-colors"
-            >
-              Search
-            </button>
-          </form>
+          {/* Ashoka Lion Capital Hero Emblem Display */}
+          <div className="hidden lg:flex flex-col items-center p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] min-w-[200px] text-center space-y-2">
+            <img src="/india-emblem.svg" alt="State Emblem of India" className="w-24 h-28 object-contain" />
+            <div className="text-[11px] font-bold text-[#0F172A] tracking-wider">सत्यमेव जयते</div>
+            <div className="text-[9px] font-semibold text-[#64748B] tracking-widest uppercase">Truth Alone Triumphs</div>
+          </div>
         </div>
       </motion.div>
 

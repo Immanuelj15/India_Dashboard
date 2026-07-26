@@ -38,22 +38,33 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-[#0F172A] border-b border-slate-800 shadow-md">
-      <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-3 flex items-center justify-between gap-4">
-        {/* Brand Logo & Title */}
+      {/* Top National Tricolor Accent Strip */}
+      <div className="h-1 w-full flex">
+        <div className="h-full w-1/3 bg-[#FF9933]"></div>
+        <div className="h-full w-1/3 bg-[#FFFFFF]"></div>
+        <div className="h-full w-1/3 bg-[#138808]"></div>
+      </div>
+
+      <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-2.5 flex items-center justify-between gap-4">
+        {/* Brand Logo & National Emblem */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-sm font-bold text-lg">
-            <Globe className="w-5 h-5 text-white" />
+          {/* Ashoka Lion Emblem */}
+          <div className="w-10 h-10 rounded-lg bg-slate-900 border border-slate-700 p-1 flex items-center justify-center flex-shrink-0 group-hover:border-blue-500 transition-colors">
+            <img src="/india-emblem.svg" alt="Emblem of India" className="w-full h-full object-contain filter invert brightness-200" />
           </div>
+
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-lg text-white group-hover:text-blue-400 transition-colors tracking-tight">
+              <span className="font-bold text-lg text-white group-hover:text-blue-400 transition-colors tracking-tight flex items-center gap-2">
                 India in the World
+                {/* Indian Flag Badge */}
+                <img src="/india-flag.svg" alt="India Flag" className="w-5 h-3.5 rounded-xs object-cover border border-slate-700 shadow-xs" />
               </span>
-              <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800 hidden sm:inline-flex">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800 hidden sm:inline-flex">
                 Global Progress Dashboard
               </span>
             </div>
-            <p className="text-xs text-slate-400 font-normal hidden sm:block">Trusted International Analytics Platform</p>
+            <p className="text-[11px] text-slate-400 font-medium hidden sm:block">Official National Analytics & Indicator Portal</p>
           </div>
         </Link>
 
