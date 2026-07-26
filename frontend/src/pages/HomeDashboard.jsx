@@ -168,11 +168,8 @@ export const HomeDashboard = () => {
               <TypewriterText text="India in the World – Global Progress Dashboard" speed={35} />
             </h1>
 
-            <p className="text-base text-[#64748B] leading-relaxed font-medium min-h-[52px]">
-              <TypewriterText
-                text="Consolidated performance metrics and global indices across Economy, Governance, Technology, Healthcare, Education, Environment, Equality, Safety, and Digital Government from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International."
-                speed={20}
-              />
+            <p className="text-base text-[#64748B] leading-relaxed font-medium">
+              Consolidated performance metrics and global indices across Economy, Governance, Technology, Healthcare, Education, Environment, Equality, Safety, and Digital Government from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
             </p>
 
             {/* Quick Search */}
@@ -387,7 +384,7 @@ export const HomeDashboard = () => {
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded-lg text-sm font-semibold transition-colors ${
                   viewMode === 'grid'
-                    ? 'bg-[#2563EB] text-white shadow-xs'
+                    ? 'bg-[#2563EB] text-[#FFFFFF] shadow-xs'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Grid View"
@@ -398,7 +395,7 @@ export const HomeDashboard = () => {
                 onClick={() => setViewMode('table')}
                 className={`p-2 rounded-lg text-sm font-semibold transition-colors ${
                   viewMode === 'table'
-                    ? 'bg-[#2563EB] text-white shadow-xs'
+                    ? 'bg-[#2563EB] text-[#FFFFFF] shadow-xs'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Table View"
