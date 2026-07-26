@@ -17,12 +17,12 @@ export const Footer = () => {
           {/* Brand & Purpose Column */}
           <div className="md:col-span-1 space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-700 p-0.5 flex items-center justify-center">
-                <img src="/india-emblem.svg" alt="Emblem of India" className="w-full h-full object-contain filter invert brightness-200" />
+              <div className="w-8 h-8 rounded-lg bg-white p-0.5 flex items-center justify-center border border-slate-700">
+                <img src="/india-emblem.png" alt="State Emblem of India" className="w-full h-full object-contain" />
               </div>
               <span className="font-bold text-base text-white tracking-tight flex items-center gap-2">
                 India in the World
-                <img src="/india-flag.svg" alt="India Flag" className="w-4 h-3 rounded-xs object-cover border border-slate-700" />
+                <img src="/india-flag.png" alt="India Flag" className="w-4 h-3 rounded-xs object-cover border border-slate-700" />
               </span>
             </div>
 

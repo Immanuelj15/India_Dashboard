@@ -146,7 +146,7 @@ export const HomeDashboard = () => {
 
   return (
     <div className="space-y-8 w-full">
-      {/* Premium Hero Section */}
+      {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -157,7 +157,7 @@ export const HomeDashboard = () => {
           <div className="max-w-3xl space-y-4">
             {/* National Crest Badge */}
             <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#F8FAFC] text-[#0F172A] text-xs font-semibold border border-[#E2E8F0]">
-              <img src="/india-flag.svg" alt="India Flag" className="w-5 h-3.5 rounded-xs object-cover border border-slate-300" />
+              <img src="/india-flag.png" alt="India Flag" className="w-5 h-3.5 rounded-xs object-cover border border-slate-300" />
               <span className="font-bold text-[#2563EB]">India in the World</span>
               <span className="text-[#64748B]">•</span>
               <span className="text-[#64748B]">Official National Analytics Portal</span>
@@ -190,11 +190,9 @@ export const HomeDashboard = () => {
             </form>
           </div>
 
-          {/* Ashoka Lion Capital Hero Emblem Display */}
-          <div className="hidden lg:flex flex-col items-center p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] min-w-[200px] text-center space-y-2">
-            <img src="/india-emblem.svg" alt="State Emblem of India" className="w-24 h-28 object-contain" />
-            <div className="text-[11px] font-bold text-[#0F172A] tracking-wider">सत्यमेव जयते</div>
-            <div className="text-[9px] font-semibold text-[#64748B] tracking-widest uppercase">Truth Alone Triumphs</div>
+          {/* Official State Emblem of India Display */}
+          <div className="hidden lg:flex flex-col items-center p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] min-w-[210px] text-center space-y-2">
+            <img src="/india-emblem.png" alt="State Emblem of India" className="w-32 h-36 object-contain" />
           </div>
         </div>
       </motion.div>

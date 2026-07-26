@@ -9,8 +9,7 @@ import {
   Map,
   Grid,
   Menu,
-  X,
-  Globe
+  X
 } from 'lucide-react';
 
 export const Header = () => {
@@ -46,19 +45,19 @@ export const Header = () => {
       </div>
 
       <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-2.5 flex items-center justify-between gap-4">
-        {/* Brand Logo & National Emblem */}
+        {/* Brand Logo & State Emblem of India */}
         <Link to="/" className="flex items-center gap-3 group">
-          {/* Ashoka Lion Emblem */}
-          <div className="w-10 h-10 rounded-lg bg-slate-900 border border-slate-700 p-1 flex items-center justify-center flex-shrink-0 group-hover:border-blue-500 transition-colors">
-            <img src="/india-emblem.svg" alt="Emblem of India" className="w-full h-full object-contain filter invert brightness-200" />
+          {/* Official Ashoka Lion Capital Emblem Container */}
+          <div className="w-10 h-10 rounded-lg bg-white p-0.5 flex items-center justify-center flex-shrink-0 border border-slate-300 shadow-xs">
+            <img src="/india-emblem.png" alt="State Emblem of India" className="w-full h-full object-contain" />
           </div>
 
           <div>
             <div className="flex items-center gap-2">
               <span className="font-bold text-lg text-white group-hover:text-blue-400 transition-colors tracking-tight flex items-center gap-2">
                 India in the World
-                {/* Indian Flag Badge */}
-                <img src="/india-flag.svg" alt="India Flag" className="w-5 h-3.5 rounded-xs object-cover border border-slate-700 shadow-xs" />
+                {/* Official Indian Flag */}
+                <img src="/india-flag.png" alt="India Flag" className="w-5 h-3.5 rounded-xs object-cover border border-slate-700 shadow-xs" />
               </span>
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800 hidden sm:inline-flex">
                 Global Progress Dashboard
