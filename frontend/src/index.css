@@ -8,19 +8,38 @@
   }
   body {
     @apply bg-[#F8FAFC] text-[#0F172A] font-sans antialiased selection:bg-blue-600 selection:text-white text-base leading-relaxed;
+    background-image: 
+      linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
+}
+
+/* Sleek Small Black Grid Pattern Utility */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Card Surface Utility */
 .dash-card {
-  @apply bg-white border border-[#E2E8F0] rounded-xl shadow-sm transition-all duration-200;
+  @apply bg-white/95 backdrop-blur-sm border border-[#E2E8F0] rounded-2xl shadow-sm transition-all duration-300;
 }
 
 .dash-card-hover {
-  @apply hover:border-blue-500 hover:shadow-md;
+  @apply hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-1;
 }
 
-/* Scrollbar */
+/* Glassmorphism Surface */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -40,15 +59,15 @@
 .leaflet-container {
   background: #F8FAFC !important;
   font-family: 'Inter', sans-serif !important;
-  border-radius: 12px;
+  border-radius: 16px;
 }
 
 .leaflet-popup-content-wrapper {
   background: #FFFFFF !important;
   color: #0F172A !important;
   border: 1px solid #E2E8F0;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12) !important;
   font-size: 14px !important;
 }
 
