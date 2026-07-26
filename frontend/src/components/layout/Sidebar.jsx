@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   GitCompare,
@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 
 export const Sidebar = () => {
+  const location = useLocation();
+
   const mainNav = [
     { to: '/', label: 'Home Dashboard', icon: LayoutDashboard },
     { to: '/map', label: 'World Map', icon: Map },
@@ -33,17 +35,19 @@ export const Sidebar = () => {
   ];
 
   const quickDomains = [
-    { label: 'Economy', icon: Landmark, color: 'text-blue-600' },
-    { label: 'Society', icon: Users, color: 'text-indigo-600' },
-    { label: 'Governance', icon: Scale, color: 'text-purple-600' },
-    { label: 'Technology', icon: Cpu, color: 'text-[#2563EB]' },
-    { label: 'Education', icon: GraduationCap, color: 'text-sky-600' },
-    { label: 'Healthcare', icon: HeartPulse, color: 'text-rose-600' },
-    { label: 'Environment', icon: Leaf, color: 'text-[#10B981]' },
-    { label: 'Safety', icon: ShieldCheck, color: 'text-amber-600' },
-    { label: 'Equality', icon: Handshake, color: 'text-teal-600' },
-    { label: 'Digital Govt', icon: Globe, color: 'text-cyan-600' },
+    { label: 'Economy', slug: 'economy', icon: Landmark, color: 'text-blue-600' },
+    { label: 'Society', slug: 'society', icon: Users, color: 'text-indigo-600' },
+    { label: 'Governance', slug: 'governance', icon: Scale, color: 'text-purple-600' },
+    { label: 'Technology', slug: 'technology-innovation', icon: Cpu, color: 'text-[#2563EB]' },
+    { label: 'Education', slug: 'education', icon: GraduationCap, color: 'text-sky-600' },
+    { label: 'Healthcare', slug: 'healthcare', icon: HeartPulse, color: 'text-rose-600' },
+    { label: 'Environment', slug: 'environment', icon: Leaf, color: 'text-[#10B981]' },
+    { label: 'Safety', slug: 'safety', icon: ShieldCheck, color: 'text-amber-600' },
+    { label: 'Equality', slug: 'equality', icon: Handshake, color: 'text-teal-600' },
+    { label: 'Digital Govt', slug: 'digital-government', icon: Globe, color: 'text-cyan-600' },
   ];
+
+  const currentCatParam = new URLSearchParams(location.search).get('cat');
 
   return (
     <aside className="w-64 flex-shrink-0 border-r border-[#E2E8F0] hidden lg:flex flex-col min-h-[calc(100vh-70px)] p-5 bg-white">
@@ -88,15 +92,22 @@ export const Sidebar = () => {
           <div className="space-y-1 max-h-72 overflow-y-auto pr-1">
             {quickDomains.map((domain, idx) => {
               const Icon = domain.icon;
+              const targetUrl = `/categories?cat=${domain.slug}`;
+              const isSelected = location.pathname === '/categories' && (currentCatParam === domain.slug || (!currentCatParam && domain.slug === 'economy'));
+
               return (
                 <Link
                   key={idx}
-                  to="/categories"
-                  className="flex items-center justify-between px-3.5 py-2 rounded-lg text-sm font-medium text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] transition-colors"
+                  to={targetUrl}
+                  className={`flex items-center justify-between px-3.5 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                    isSelected
+                      ? 'bg-[#EFF6FF] text-[#2563EB] font-bold border border-blue-200'
+                      : 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
+                  }`}
                 >
                   <div className="flex items-center gap-3">
                     <Icon className={`w-4 h-4 ${domain.color}`} />
-                    <span className="text-sm font-semibold">{domain.label}</span>
+                    <span className="text-sm">{domain.label}</span>
                   </div>
                 </Link>
               );
