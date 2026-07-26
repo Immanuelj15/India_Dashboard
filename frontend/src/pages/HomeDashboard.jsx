@@ -1,9 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/client';
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
 import { ChartCard } from '../components/ui/ChartCard';
-import { Globe, Shield, Trophy, LayoutGrid, List, ArrowUpDown, Star, Download } from 'lucide-react';
+import {
+  Landmark,
+  Users,
+  Scale,
+  Cpu,
+  GraduationCap,
+  HeartPulse,
+  Leaf,
+  ShieldCheck,
+  Handshake,
+  Globe,
+  Search,
+  TrendingUp,
+  LayoutGrid,
+  List,
+  ArrowUpDown,
+  Download,
+  ArrowRight,
+  MapPin,
+  Sparkles,
+  Clock
+} from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const categoryIcons = {
+  'economy': Landmark,
+  'society': Users,
+  'governance': Scale,
+  'technology-innovation': Cpu,
+  'education': GraduationCap,
+  'healthcare': HeartPulse,
+  'environment': Leaf,
+  'safety': ShieldCheck,
+  'equality': Handshake,
+  'digital-government': Globe,
+};
 
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
@@ -11,9 +47,11 @@ export const HomeDashboard = () => {
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all');
   const [sortBy, setSortBy] = useState('rank-asc');
   const [viewMode, setViewMode] = useState('grid');
+  const [quickSearch, setQuickSearch] = useState('');
   const [aiSummary, setAiSummary] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const [aiLoading, setAiLoading] = useState(false);
+  const navigate = useNavigate();
 
   const loadData = async () => {
     setLoading(true);
@@ -48,6 +86,13 @@ export const HomeDashboard = () => {
   useEffect(() => {
     loadData();
   }, []);
+
+  const handleHeroSearch = (e) => {
+    e.preventDefault();
+    if (quickSearch.trim()) {
+      navigate(`/search?q=${encodeURIComponent(quickSearch.trim())}`);
+    }
+  };
 
   const handleExportCSV = () => {
     if (!processedRankings || processedRankings.length === 0) return;
@@ -105,39 +150,106 @@ export const HomeDashboard = () => {
     .slice(0, 5);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300 w-full">
-      {/* Hero Banner */}
-      <div className="glass-panel-dark p-6 lg:p-8 rounded-3xl relative overflow-hidden text-white shadow-xl border-2 border-sky-600">
-        <div className="relative z-10 max-w-3xl space-y-3.5">
-          <div className="flex items-center gap-2">
-            <span className="text-3xl">🇮🇳</span>
-            <span className="text-[11px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm">
-              National Progress Tracker
-            </span>
+    <div className="space-y-8 w-full">
+      {/* Hero Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="dash-card p-6 sm:p-8 bg-white border border-[#E2E8F0] rounded-xl shadow-sm"
+      >
+        <div className="max-w-3xl space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFF6FF] text-[#2563EB] text-xs font-semibold border border-blue-200">
+            <span>🇮🇳</span>
+            <span>National Governance Analytics Platform</span>
           </div>
 
-          <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight drop-shadow-sm">
-            India in the World — Global Progress Dashboard
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
+            India in the World – Global Progress Dashboard
           </h1>
 
-          <p className="text-xs text-sky-100 font-extrabold leading-relaxed drop-shadow-2xs">
-            Consolidating India’s performance across 70+ trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
+          <p className="text-sm text-[#64748B] leading-relaxed font-normal">
+            Consolidated performance analysis across trusted international indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs font-black">
-            <div className="flex items-center gap-1.5 bg-amber-500/20 text-amber-200 px-3.5 py-1.5 rounded-xl border border-amber-400/30 backdrop-blur-md">
-              <Trophy className="w-4 h-4 text-amber-300" /> #5 Nominal GDP
-            </div>
-            <div className="flex items-center gap-1.5 bg-sky-500/20 text-sky-100 px-3.5 py-1.5 rounded-xl border border-sky-300/30 backdrop-blur-md">
-              <Globe className="w-4 h-4 text-sky-200" /> #39 Global Innovation
-            </div>
-            <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-100 px-3.5 py-1.5 rounded-xl border border-emerald-300/30 backdrop-blur-md">
-              <Shield className="w-4 h-4 text-emerald-300" /> #10 Cybersecurity Index
-            </div>
-          </div>
+          {/* Quick Search */}
+          <form onSubmit={handleHeroSearch} className="relative max-w-xl pt-2">
+            <input
+              type="text"
+              placeholder="Quick search any global index (e.g. Innovation, GDP, Cyber Security)..."
+              value={quickSearch}
+              onChange={(e) => setQuickSearch(e.target.value)}
+              className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-sm text-[#0F172A] rounded-lg pl-10 pr-24 py-2.5 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
+            />
+            <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-5" />
+            <button
+              type="submit"
+              className="absolute right-1.5 top-3 px-3.5 py-1.5 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-colors"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </motion.div>
+
+      {/* 10 Category Cards Section */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-base font-bold text-[#0F172A] tracking-tight">10 Strategic Global Categories</h2>
+          <Link to="/categories" className="text-xs font-semibold text-[#2563EB] hover:underline flex items-center gap-1">
+            Explore All Categories <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-amber-500/20 via-sky-500/10 to-transparent pointer-events-none hidden lg:block"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {categories.slice(0, 10).map((cat) => {
+            const Icon = categoryIcons[cat.slug] || Landmark;
+            const catRankings = rankings.filter((r) => r.indicator.category?.slug === cat.slug);
+            const validRanks = catRankings.map((r) => r.rank).filter((rk) => rk !== undefined && rk !== null);
+            const avgRank = validRanks.length > 0 ? Math.round(validRanks.reduce((a, b) => a + b, 0) / validRanks.length) : 'N/A';
+
+            return (
+              <motion.div
+                key={cat.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
+                className="dash-card dash-card-hover p-4 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <span className="text-[10px] font-semibold text-[#64748B] bg-[#F8FAFC] px-2 py-0.5 rounded border border-[#E2E8F0] flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-[#64748B]" /> 2024
+                    </span>
+                  </div>
+
+                  <h3 className="text-xs font-bold text-[#0F172A] line-clamp-1">{cat.name}</h3>
+
+                  <div className="mt-2 flex items-baseline justify-between">
+                    <div>
+                      <div className="text-[10px] font-medium text-[#64748B]">Avg Rank</div>
+                      <div className="text-lg font-extrabold text-[#0F172A] flex items-center gap-1">
+                        <span>{avgRank !== 'N/A' ? `#${avgRank}` : '—'}</span>
+                        <TrendingUp className="w-3.5 h-3.5 text-[#10B981]" />
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-medium text-[#64748B]">{catRankings.length} Indicators</span>
+                  </div>
+                </div>
+
+                <Link
+                  to={`/categories?cat=${cat.slug}`}
+                  className="mt-4 w-full text-center py-1.5 rounded-lg bg-[#F8FAFC] hover:bg-[#EFF6FF] border border-[#E2E8F0] hover:border-blue-300 text-[11px] font-semibold text-[#0F172A] hover:text-[#2563EB] transition-colors"
+                >
+                  Quick View
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
       {/* AI Summary Section */}
@@ -145,103 +257,96 @@ export const HomeDashboard = () => {
         data={aiSummary}
         loading={aiLoading}
         onRefresh={loadAISummary}
-        title="India Global Standing — Executive AI Summary"
+        title="India Executive AI Summary"
       />
 
-      {/* Top 5 Key Achievements Row */}
-      {topRankedIndicators.length > 0 && (
-        <div className="space-y-3">
-          <div className="flex items-center gap-2 text-xs font-black text-slate-950 uppercase tracking-wider">
-            <Star className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" /> Top Global Ranking Highlights
+      {/* Interactive World Map Section */}
+      <div className="dash-card p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white">
+        <div className="space-y-2 max-w-xl">
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2563EB]">
+            <MapPin className="w-4 h-4" /> Global Geospatial Comparison
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3.5">
-            {topRankedIndicators.map((item) => (
-              <div
-                key={item.id}
-                className="p-4 rounded-2xl bg-white border border-sky-300 shadow-xs hover:border-sky-500 hover:shadow-premium transition-all flex flex-col justify-between"
-              >
-                <div className="text-[10px] font-black uppercase text-slate-600 line-clamp-1">
-                  {item.indicator.category?.name}
-                </div>
-                <div className="font-black text-slate-950 text-xs my-1 line-clamp-1">
-                  {item.indicator.name}
-                </div>
-                <div className="flex items-baseline justify-between mt-2 pt-2 border-t border-slate-100">
-                  <span className="text-xl font-black text-sky-700">#{item.rank}</span>
-                  <span className="text-[11px] font-bold text-slate-800">{item.value} {item.unit || ''}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h3 className="text-lg font-bold text-[#0F172A]">Interactive World Map Explorer</h3>
+          <p className="text-xs text-[#64748B] leading-relaxed">
+            Visualize global rank distributions and compare India with 190+ countries using interactive Leaflet map overlays and country popup telemetry.
+          </p>
         </div>
-      )}
 
-      {/* Key Visual Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <ChartCard
-          title="Category Performance Overview"
-          subtitle="Relative strength score across 10 global indicator categories"
-          type="radar"
-          data={categoryRadarData}
-          dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#0284c7' }]}
-          height={300}
-        />
-
-        <ChartCard
-          title="Flagship Rankings Comparison"
-          subtitle="India's position across key international benchmarks (# Lower is Better)"
-          type="bar"
-          data={flagshipRankings.map((r) => ({
-            name: r.indicator.name.replace(' Index', '').replace(' Global', ''),
-            Rank: r.rank || 0,
-          }))}
-          dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#0284c7' }]}
-          height={300}
-        />
+        <Link
+          to="/map"
+          className="px-4 py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-colors flex items-center gap-2 shadow-sm whitespace-nowrap"
+        >
+          <span>Launch World Map</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
 
-      {/* Grid Controls Header: Filter, Sort & View Mode */}
-      <div className="glass-panel p-4 rounded-2xl bg-white border border-slate-300 space-y-3 shadow-premium">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <h2 className="text-base font-black text-slate-950 tracking-tight">Global Indicator Grid</h2>
-            <span className="text-xs font-black text-slate-950 bg-slate-200 px-2.5 py-0.5 rounded-full border border-slate-300">
-              {processedRankings.length} Indicators
-            </span>
+      {/* Top Insights & Charts Row */}
+      <div className="space-y-4">
+        <h2 className="text-base font-bold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <ChartCard
+            title="Category Performance Overview"
+            subtitle="Relative strength score across 10 global indicator categories"
+            type="radar"
+            data={categoryRadarData}
+            dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#2563EB' }]}
+            height={280}
+          />
+
+          <ChartCard
+            title="Flagship Rankings Comparison"
+            subtitle="India's position across key international benchmarks (# Lower is Better)"
+            type="bar"
+            data={flagshipRankings.map((r) => ({
+              name: r.indicator.name.replace(' Index', '').replace(' Global', ''),
+              Rank: r.rank || 0,
+            }))}
+            dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#2563EB' }]}
+            height={280}
+          />
+        </div>
+      </div>
+
+      {/* Recent Updates / Indicator Data Grid */}
+      <div className="dash-card p-5 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E8F0] pb-4">
+          <div>
+            <h2 className="text-base font-bold text-[#0F172A] tracking-tight">Global Indicator Data Grid</h2>
+            <p className="text-xs text-[#64748B]">Showing {processedRankings.length} verified indicators</p>
           </div>
 
-          {/* Sort, Export CSV & View Mode Toolbar */}
           <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
             <button
               onClick={handleExportCSV}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black shadow-xs transition-all"
-              title="Export Current View to CSV"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#10B981] hover:bg-emerald-600 text-white text-xs font-semibold transition-colors"
+              title="Export Report to CSV"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export CSV</span>
             </button>
 
-            <div className="flex items-center gap-1 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold shadow-2xs">
-              <ArrowUpDown className="w-3.5 h-3.5 text-sky-700" />
-              <span className="text-slate-600 hidden sm:inline">Sort:</span>
+            <div className="flex items-center gap-1 bg-[#F8FAFC] px-2.5 py-1 rounded-lg border border-[#E2E8F0] text-xs font-medium">
+              <ArrowUpDown className="w-3.5 h-3.5 text-[#64748B]" />
+              <span className="text-[#64748B]">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent text-slate-950 font-black focus:outline-none cursor-pointer"
+                className="bg-transparent text-[#0F172A] font-semibold focus:outline-none cursor-pointer"
               >
-                <option value="rank-asc">Top Ranks First (#1 →)</option>
-                <option value="alphabetical">Alphabetical (A-Z)</option>
-                <option value="category">By Domain / Category</option>
+                <option value="rank-asc">Top Ranks (#1 →)</option>
+                <option value="alphabetical">A-Z</option>
+                <option value="category">Category</option>
               </select>
             </div>
 
-            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-300 shadow-2xs">
+            <div className="flex items-center bg-[#F8FAFC] p-1 rounded-lg border border-[#E2E8F0]">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`p-1.5 rounded text-xs font-medium transition-colors ${
                   viewMode === 'grid'
-                    ? 'bg-sky-700 text-white shadow-xs'
-                    : 'text-slate-700 hover:text-slate-950'
+                    ? 'bg-[#2563EB] text-white shadow-xs'
+                    : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Grid View"
               >
@@ -249,10 +354,10 @@ export const HomeDashboard = () => {
               </button>
               <button
                 onClick={() => setViewMode('table')}
-                className={`p-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`p-1.5 rounded text-xs font-medium transition-colors ${
                   viewMode === 'table'
-                    ? 'bg-sky-700 text-white shadow-xs'
-                    : 'text-slate-700 hover:text-slate-950'
+                    ? 'bg-[#2563EB] text-white shadow-xs'
+                    : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Table View"
               >
@@ -262,14 +367,14 @@ export const HomeDashboard = () => {
           </div>
         </div>
 
-        {/* Category Quick Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        {/* Category Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
           <button
             onClick={() => setSelectedCategoryFilter('all')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
+            className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
               selectedCategoryFilter === 'all'
-                ? 'bg-sky-800 text-white border border-sky-900 shadow-xs'
-                : 'bg-slate-100 text-slate-950 border border-slate-300 hover:bg-slate-200'
+                ? 'bg-[#2563EB] text-white'
+                : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
             }`}
           >
             All Categories ({rankings.length})
@@ -282,10 +387,10 @@ export const HomeDashboard = () => {
               <button
                 key={cat.slug}
                 onClick={() => setSelectedCategoryFilter(cat.slug)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                   isSelected
-                    ? 'bg-sky-800 text-white border border-sky-900 shadow-xs'
-                    : 'bg-slate-100 text-slate-950 border border-slate-300 hover:bg-slate-200'
+                    ? 'bg-[#2563EB] text-white'
+                    : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
                 }`}
               >
                 {cat.name} ({count})
@@ -293,68 +398,65 @@ export const HomeDashboard = () => {
             );
           })}
         </div>
-      </div>
 
-      {/* Render Grid vs Table View */}
-      {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-            <div key={n} className="h-48 glass-panel rounded-2xl animate-pulse bg-slate-200 border border-slate-300"></div>
-          ))}
-        </div>
-      ) : viewMode === 'grid' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
-          {processedRankings.map((r) => (
-            <StatCard
-              key={r.id}
-              title={r.indicator.name}
-              category={r.indicator.category?.name || 'General'}
-              rank={r.rank}
-              value={r.value}
-              unit={r.unit}
-              sourceName={r.source?.name}
-              sourceUrl={r.source?.url}
-              lastUpdated={r.last_updated}
-              description={r.indicator.description}
-              flagEmoji="🇮🇳"
-              countryName="India"
-            />
-          ))}
-        </div>
-      ) : (
-        /* High-Density Executive Table View */
-        <div className="glass-panel rounded-2xl overflow-hidden border border-slate-300 bg-white shadow-premium">
-          <div className="overflow-x-auto">
+        {/* Render Grid vs Table */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+              <div key={n} className="h-44 bg-[#F8FAFC] rounded-xl animate-pulse border border-[#E2E8F0]"></div>
+            ))}
+          </div>
+        ) : viewMode === 'grid' ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {processedRankings.map((r) => (
+              <StatCard
+                key={r.id}
+                title={r.indicator.name}
+                category={r.indicator.category?.name || 'General'}
+                rank={r.rank}
+                value={r.value}
+                unit={r.unit}
+                sourceName={r.source?.name}
+                sourceUrl={r.source?.url}
+                lastUpdated={r.last_updated}
+                description={r.indicator.description}
+                flagEmoji="🇮🇳"
+                countryName="India"
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-lg border border-[#E2E8F0]">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-100 text-slate-950 uppercase tracking-wider font-black border-b border-slate-300">
+              <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-semibold border-b border-[#E2E8F0]">
                 <tr>
-                  <th className="p-3.5 pl-4">Indicator Name</th>
-                  <th className="p-3.5">Category</th>
-                  <th className="p-3.5 text-center">Global Rank</th>
-                  <th className="p-3.5">Value</th>
-                  <th className="p-3.5 text-right pr-4">Source</th>
+                  <th className="p-3 pl-4">Indicator Name</th>
+                  <th className="p-3">Category</th>
+                  <th className="p-3 text-center">Global Rank</th>
+                  <th className="p-3">Metric Value</th>
+                  <th className="p-3 text-right pr-4">Source Link</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 text-slate-950 font-bold">
+              <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A] font-medium">
                 {processedRankings.map((r) => (
-                  <tr key={r.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="p-3.5 pl-4">
-                      <div className="font-black text-slate-950 text-xs">{r.indicator.name}</div>
-                      <div className="text-[10px] text-slate-700 line-clamp-1">{r.indicator.description}</div>
+                  <tr key={r.id} className="hover:bg-[#F8FAFC] transition-colors">
+                    <td className="p-3 pl-4">
+                      <div className="font-semibold text-[#0F172A]">{r.indicator.name}</div>
+                      <div className="text-[11px] text-[#64748B] line-clamp-1">{r.indicator.description}</div>
                     </td>
-                    <td className="p-3.5">
-                      <span className="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-950 font-black text-[10px] border border-sky-300">
+                    <td className="p-3">
+                      <span className="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#2563EB] text-[11px] font-semibold border border-blue-200">
                         {r.indicator.category?.name}
                       </span>
                     </td>
-                    <td className="p-3.5 text-center font-black text-sky-800 text-sm">
+                    <td className="p-3 text-center font-bold text-[#2563EB] text-sm">
                       {r.rank ? `#${r.rank}` : '—'}
                     </td>
-                    <td className="p-3.5 font-mono font-black text-slate-950">
+                    <td className="p-3 font-mono font-semibold text-[#0F172A]">
                       {r.value} {r.unit || ''}
                     </td>
-                    <td className="p-3.5 text-right pr-4 text-slate-800 font-bold">
-                      <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-sky-700 underline">
+                    <td className="p-3 text-right pr-4 text-[#64748B]">
+                      <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline">
                         {r.source?.name}
                       </a>
                     </td>
@@ -363,8 +465,8 @@ export const HomeDashboard = () => {
               </tbody>
             </table>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

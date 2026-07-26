@@ -8,37 +8,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#f8fafc',
-        surface: '#ffffff',
-        'surface-card': '#f1f5f9',
-        'surface-border': '#e2e8f0',
-        skybrand: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7', // Sky Blue primary
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49'
+        primary: {
+          DEFAULT: '#2563EB',
+          hover: '#1D4ED8',
+          light: '#EFF6FF',
         },
-        india: {
-          saffron: '#f59e0b',
-          white: '#ffffff',
-          green: '#10b981',
-          navy: '#0f172a'
-        }
+        dark: '#0F172A',
+        background: '#F8FAFC',
+        card: '#FFFFFF',
+        border: '#E2E8F0',
+        success: '#10B981',
+        warning: '#F59E0B',
+        danger: '#EF4444',
+        muted: '#64748B',
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
+      borderRadius: {
+        xl: '12px',
+        '2xl': '16px',
       },
       boxShadow: {
-        'glow-sky': '0 0 25px -5px rgba(2, 132, 199, 0.25)',
-        'glow-saffron': '0 0 25px -5px rgba(245, 158, 11, 0.25)',
-        'premium': '0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.02)',
+        sm: '0 1px 2px 0 rgba(15, 23, 42, 0.05)',
+        DEFAULT: '0 1px 3px 0 rgba(15, 23, 42, 0.1), 0 1px 2px -1px rgba(15, 23, 42, 0.1)',
+        md: '0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05)',
+        lg: '0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04)',
       }
     },
   },

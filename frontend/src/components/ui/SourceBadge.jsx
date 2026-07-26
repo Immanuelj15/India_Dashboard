@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Calendar, Database } from 'lucide-react';
+import { Link as LinkIcon, Calendar } from 'lucide-react';
 
 export const SourceBadge = ({
   sourceName = 'Official Source',
@@ -8,24 +8,23 @@ export const SourceBadge = ({
   className = '',
 }) => {
   return (
-    <div className={`flex flex-wrap items-center gap-2 text-xs font-bold text-slate-800 ${className}`}>
-      <span className="flex items-center gap-1 bg-slate-200 px-2.5 py-1 rounded-md border border-slate-400 text-slate-950">
-        <Database className="w-3.5 h-3.5 text-sky-700" />
+    <div className={`flex flex-wrap items-center justify-between gap-2 text-xs text-[#64748B] ${className}`}>
+      <span className="inline-flex items-center gap-1.5 font-medium">
+        <LinkIcon className="w-3.5 h-3.5 text-[#2563EB]" />
         <a
           href={sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-sky-700 underline flex items-center gap-0.5"
+          className="hover:text-[#2563EB] transition-colors inline-flex items-center gap-1 font-semibold text-[#0F172A]"
         >
           {sourceName}
-          <ExternalLink className="w-3 h-3 ml-0.5 text-slate-700" />
         </a>
       </span>
 
       {lastUpdated && (
-        <span className="flex items-center gap-1 text-slate-900 font-extrabold bg-slate-100 px-2 py-0.5 rounded border border-slate-300">
-          <Calendar className="w-3 h-3 text-emerald-700" />
-          Updated {lastUpdated}
+        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#64748B] bg-[#F8FAFC] px-2 py-0.5 rounded border border-[#E2E8F0]">
+          <Calendar className="w-3 h-3 text-[#64748B]" />
+          {lastUpdated}
         </span>
       )}
     </div>

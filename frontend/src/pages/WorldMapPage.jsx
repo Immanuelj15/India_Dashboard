@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCountries } from '../api/client';
 import { InteractiveMap } from '../components/map/InteractiveMap';
-import { MapPin } from 'lucide-react';
+import { Map } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const WorldMapPage = () => {
   const [countries, setCountries] = useState([]);
@@ -20,20 +21,25 @@ export const WorldMapPage = () => {
   }, []);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
-      <div className="glass-panel p-6 rounded-3xl space-y-2 bg-white border-2 border-slate-300 shadow-sm">
-        <div className="flex items-center gap-2 text-xs font-black text-sky-800 uppercase tracking-wider">
-          <MapPin className="w-4 h-4 text-emerald-700" /> Global Geospatial Explorer
+    <div className="space-y-6 w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2 }}
+        className="dash-card p-6 bg-white space-y-2"
+      >
+        <div className="flex items-center gap-2 text-xs font-semibold text-[#2563EB]">
+          <Map className="w-4 h-4" /> Interactive Geospatial Map
         </div>
-        <h1 className="text-2xl font-black text-slate-950">Interactive World Map & Country Intelligence</h1>
-        <p className="text-xs text-slate-800 font-extrabold">
-          Click any country marker on the interactive globe to inspect its global rankings, key metrics, and AI-synthesized summary.
+        <h1 className="text-2xl font-bold text-[#0F172A] tracking-tight">World Map & Country Telemetry</h1>
+        <p className="text-xs text-[#64748B]">
+          Click any country marker on the interactive map to inspect its global rankings, key indicators, and executive summaries.
         </p>
-      </div>
+      </motion.div>
 
       {loading ? (
-        <div className="h-[520px] glass-panel rounded-2xl animate-pulse flex items-center justify-center text-sm font-black text-slate-950">
-          Loading geospatial map nodes...
+        <div className="h-[520px] dash-card flex items-center justify-center text-xs font-medium text-[#64748B]">
+          Loading map coordinates...
         </div>
       ) : (
         <InteractiveMap countries={countries} />

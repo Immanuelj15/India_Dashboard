@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { searchAll } from '../api/client';
 import { Search, Globe, Trophy } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,16 +40,21 @@ export const SearchPage = () => {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
+    <div className="space-y-6 w-full">
       {/* Search Header */}
-      <div className="glass-panel p-6 lg:p-8 rounded-3xl space-y-6 bg-white border-2 border-slate-300 shadow-sm">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2 }}
+        className="dash-card p-6 bg-white space-y-4"
+      >
         <div>
-          <div className="flex items-center gap-2 text-xs font-black text-amber-800 uppercase tracking-wider mb-1">
-            <Search className="w-4 h-4 text-amber-700" /> Global Intelligence Lookup
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#2563EB] mb-1">
+            <Search className="w-4 h-4" /> Global Intelligence Lookup
           </div>
-          <h1 className="text-2xl font-black text-slate-950">Search Indicators, Countries & Categories</h1>
-          <p className="text-xs text-slate-800 font-extrabold">
-            Query across 70+ global indices, trusted international organizations, and benchmark metrics.
+          <h1 className="text-2xl font-bold text-[#0F172A] tracking-tight">Search Indicators, Countries & Categories</h1>
+          <p className="text-xs text-[#64748B]">
+            Query across 84 global indices, trusted international organizations, and benchmark metrics.
           </p>
         </div>
 
@@ -56,43 +62,43 @@ export const SearchPage = () => {
         <form onSubmit={handleFormSubmit} className="relative">
           <input
             type="text"
-            placeholder="Type country name (e.g. India, Japan), indicator (e.g. GDP, AI, Innovation), or category..."
+            placeholder="Type country (e.g., India, Japan), indicator (e.g., GDP, Innovation), or category..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-slate-100 border-2 border-slate-400 text-slate-950 text-base rounded-2xl pl-12 pr-28 py-3.5 focus:outline-none focus:border-sky-700 font-bold shadow-sm placeholder-slate-600"
+            className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-sm text-[#0F172A] rounded-lg pl-10 pr-24 py-2.5 font-medium focus:outline-none focus:border-[#2563EB]"
           />
-          <Search className="w-5 h-5 text-slate-700 absolute left-4 top-4" />
+          <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-3" />
           <button
             type="submit"
-            className="absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-sky-700 hover:bg-sky-800 text-white font-black text-xs transition-colors shadow-md"
+            className="absolute right-1.5 top-1.5 bottom-1.5 px-4 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs transition-colors shadow-xs"
           >
             Search
           </button>
         </form>
-      </div>
+      </motion.div>
 
-      {/* Results Rendering */}
+      {/* Results */}
       {loading ? (
-        <div className="py-12 text-center text-sm text-slate-950 font-black">Searching global dataset index...</div>
+        <div className="py-12 text-center text-xs text-[#64748B] dash-card">Searching dataset index...</div>
       ) : results ? (
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* Countries Results */}
           {results.countries.length > 0 && (
             <div className="space-y-3">
-              <h2 className="text-base font-black text-slate-950 flex items-center gap-2">
-                <Globe className="w-4 h-4 text-sky-700" /> Matching Countries ({results.countries.length})
+              <h2 className="text-sm font-bold text-[#0F172A] flex items-center gap-2">
+                <Globe className="w-4 h-4 text-[#2563EB]" /> Matching Countries ({results.countries.length})
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {results.countries.map((c) => (
                   <Link
                     key={c.code}
                     to={`/map`}
-                    className="glass-panel p-4 rounded-xl border-2 border-slate-300 hover:border-sky-600 flex items-center gap-3 transition-all bg-white shadow-sm"
+                    className="dash-card dash-card-hover p-4 flex items-center gap-3"
                   >
                     <span className="text-2xl">{c.flag_emoji}</span>
                     <div>
-                      <div className="font-black text-slate-950 text-sm">{c.name}</div>
-                      <div className="text-[11px] text-slate-800 font-extrabold">{c.region} • {c.code}</div>
+                      <div className="font-bold text-[#0F172A] text-xs">{c.name}</div>
+                      <div className="text-[11px] text-[#64748B]">{c.region} • {c.code}</div>
                     </div>
                   </Link>
                 ))}
@@ -103,20 +109,20 @@ export const SearchPage = () => {
           {/* Indicators Results */}
           {results.indicators.length > 0 && (
             <div className="space-y-3">
-              <h2 className="text-base font-black text-slate-950 flex items-center gap-2">
-                <Trophy className="w-4 h-4 text-amber-700" /> Matching Indicators ({results.indicators.length})
+              <h2 className="text-sm font-bold text-[#0F172A] flex items-center gap-2">
+                <Trophy className="w-4 h-4 text-amber-500" /> Matching Indicators ({results.indicators.length})
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {results.indicators.map((ind) => (
-                  <div key={ind.slug} className="glass-panel p-4 rounded-xl border-2 border-slate-300 bg-white space-y-1 shadow-sm">
+                  <div key={ind.slug} className="dash-card p-4 space-y-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-black text-slate-950 text-sm">{ind.name}</h3>
-                      <span className="text-[11px] px-2 py-0.5 rounded bg-sky-100 text-sky-950 font-black border border-sky-300">
+                      <h3 className="font-bold text-[#0F172A] text-xs">{ind.name}</h3>
+                      <span className="text-[11px] px-2 py-0.5 rounded bg-[#EFF6FF] text-[#2563EB] font-semibold border border-blue-200">
                         {ind.category?.name}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-800 font-bold">{ind.description}</p>
-                    <div className="text-[11px] text-slate-950 font-black pt-1">Unit: {ind.unit || 'Score'}</div>
+                    <p className="text-xs text-[#64748B] line-clamp-2">{ind.description}</p>
+                    <div className="text-[11px] text-[#64748B] pt-1">Unit: {ind.unit || 'Score'}</div>
                   </div>
                 ))}
               </div>
@@ -125,32 +131,32 @@ export const SearchPage = () => {
 
           {/* Rankings Results Table */}
           {results.rankings.length > 0 && (
-            <div className="glass-panel rounded-2xl overflow-hidden border-2 border-slate-300 bg-white space-y-3 p-5 shadow-sm">
-              <h2 className="text-base font-black text-slate-950">Matching Global Indicator Records ({results.rankings.length})</h2>
-              <div className="overflow-x-auto">
+            <div className="dash-card p-5 space-y-3">
+              <h2 className="text-sm font-bold text-[#0F172A]">Matching Global Indicator Records ({results.rankings.length})</h2>
+              <div className="overflow-x-auto rounded-lg border border-[#E2E8F0]">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-200 text-slate-950 uppercase tracking-wider font-black border-b-2 border-slate-300">
+                  <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-semibold border-b border-[#E2E8F0]">
                     <tr>
-                      <th className="p-3">Country</th>
+                      <th className="p-3 pl-4">Country</th>
                       <th className="p-3">Indicator</th>
                       <th className="p-3">Category</th>
                       <th className="p-3 text-center">Rank</th>
                       <th className="p-3">Value</th>
-                      <th className="p-3 text-right">Source</th>
+                      <th className="p-3 text-right pr-4">Source</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y-2 divide-slate-100 text-slate-950 font-extrabold">
+                  <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A] font-medium">
                     {results.rankings.map((r) => (
-                      <tr key={r.id} className="hover:bg-slate-100 transition-colors">
-                        <td className="p-3 font-black text-slate-950 flex items-center gap-1.5">
+                      <tr key={r.id} className="hover:bg-[#F8FAFC] transition-colors">
+                        <td className="p-3 pl-4 font-semibold text-[#0F172A] flex items-center gap-1.5">
                           <span>{r.country.flag_emoji}</span>
                           <span>{r.country.name}</span>
                         </td>
-                        <td className="p-3 font-bold">{r.indicator.name}</td>
-                        <td className="p-3 text-slate-800 font-bold">{r.indicator.category?.name}</td>
-                        <td className="p-3 text-center font-black text-sky-800">#{r.rank || 'N/A'}</td>
-                        <td className="p-3 font-black">{r.value} {r.unit}</td>
-                        <td className="p-3 text-right text-slate-900 font-black">{r.source?.name}</td>
+                        <td className="p-3 font-semibold">{r.indicator.name}</td>
+                        <td className="p-3 text-[#64748B]">{r.indicator.category?.name}</td>
+                        <td className="p-3 text-center font-bold text-[#2563EB]">#{r.rank || 'N/A'}</td>
+                        <td className="p-3 font-semibold">{r.value} {r.unit}</td>
+                        <td className="p-3 text-right pr-4 text-[#64748B]">{r.source?.name}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -160,13 +166,13 @@ export const SearchPage = () => {
           )}
 
           {results.countries.length === 0 && results.indicators.length === 0 && results.rankings.length === 0 && (
-            <div className="py-12 text-center text-xs text-slate-950 font-black glass-panel rounded-2xl bg-white border-2 border-slate-300">
+            <div className="py-12 text-center text-xs text-[#64748B] dash-card">
               No matching records found for "{query}". Try searching for terms like "GDP", "Innovation", "India", or "AI".
             </div>
           )}
         </div>
       ) : (
-        <div className="py-12 text-center text-xs text-slate-950 font-black glass-panel rounded-2xl bg-white border-2 border-slate-300">
+        <div className="py-12 text-center text-xs text-[#64748B] dash-card">
           Enter a keyword above to search global indices.
         </div>
       )}

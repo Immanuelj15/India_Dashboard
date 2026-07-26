@@ -4,80 +4,50 @@
 
 @layer base {
   body {
-    @apply bg-slate-100 text-slate-900 font-sans antialiased selection:bg-sky-500 selection:text-white;
+    @apply bg-[#F8FAFC] text-[#0F172A] font-sans antialiased selection:bg-blue-600 selection:text-white;
   }
 }
 
-/* Glassmorphism Utility Classes */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #cbd5e1;
-  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04), 0 2px 4px -1px rgba(15, 23, 42, 0.02);
+/* Card Surface Utility */
+.dash-card {
+  @apply bg-white border border-[#E2E8F0] rounded-xl shadow-sm transition-all duration-200;
 }
 
-.glass-panel-dark {
-  background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 40%, #0f172a 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 2px solid #0284c7;
-  box-shadow: 0 12px 30px -5px rgba(2, 132, 199, 0.35);
+.dash-card-hover {
+  @apply hover:border-blue-500 hover:shadow-md;
 }
 
-.glass-panel-hover {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-panel-hover:hover {
-  background: #ffffff;
-  border-color: #0284c7;
-  box-shadow: 0 14px 28px -4px rgba(2, 132, 199, 0.15), 0 6px 12px -2px rgba(2, 132, 199, 0.08);
-  transform: translateY(-3px);
-}
-
-/* Shimmer Animation Effect for Badges and Highlights */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
-}
-
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #F8FAFC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #94a3b8;
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0284c7;
+  background: #2563EB;
 }
 
 /* Leaflet Map Styling */
 .leaflet-container {
-  background: #f8fafc !important;
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  background: #F8FAFC !important;
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 12px;
 }
 
 .leaflet-popup-content-wrapper {
-  background: #ffffff !important;
-  color: #0f172a !important;
-  border: 2px solid #cbd5e1;
-  border-radius: 1rem !important;
-  box-shadow: 0 14px 30px -5px rgba(15, 23, 42, 0.15) !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
 }
 
 .leaflet-popup-tip {
-  background: #ffffff !important;
+  background: #FFFFFF !important;
 }
