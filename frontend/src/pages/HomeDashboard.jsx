@@ -146,29 +146,29 @@ export const HomeDashboard = () => {
   }
 
   return (
-    <div className="space-y-8 w-full">
+    <div className="space-y-10 w-full">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="dash-card p-6 sm:p-8 bg-white border border-[#E2E8F0] rounded-xl shadow-sm relative overflow-hidden"
+        className="dash-card p-7 sm:p-10 bg-white border border-[#E2E8F0] rounded-2xl shadow-sm relative overflow-hidden"
       >
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
-          <div className="max-w-3xl space-y-4">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
+          <div className="max-w-4xl space-y-5">
             {/* National Crest Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#F8FAFC] text-[#0F172A] text-xs font-semibold border border-[#E2E8F0]">
-              <img src="/india-flag.png" alt="India Flag" className="w-5 h-3.5 rounded-xs object-cover border border-slate-300" />
-              <span className="font-bold text-[#2563EB]">India in the World</span>
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#F8FAFC] text-[#0F172A] text-sm font-bold border border-[#E2E8F0]">
+              <img src="/india-flag.png" alt="India Flag" className="w-6 h-4 rounded-xs object-cover border border-slate-300" />
+              <span className="font-extrabold text-[#2563EB]">India in the World</span>
               <span className="text-[#64748B]">•</span>
               <span className="text-[#64748B]">Official National Analytics Portal</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight leading-tight flex items-center gap-3">
+            <h1 className="text-3xl sm:text-4xl font-black text-[#0F172A] tracking-tight leading-tight flex items-center gap-3">
               India in the World – Global Progress Dashboard
             </h1>
 
-            <p className="text-sm text-[#64748B] leading-relaxed font-normal min-h-[48px]">
+            <p className="text-base text-[#64748B] leading-relaxed font-medium min-h-[52px]">
               <TypewriterText
                 text="Consolidated performance metrics and global indices across Economy, Governance, Technology, Healthcare, Education, Environment, Equality, Safety, and Digital Government from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International."
                 speed={20}
@@ -176,18 +176,18 @@ export const HomeDashboard = () => {
             </p>
 
             {/* Quick Search */}
-            <form onSubmit={handleHeroSearch} className="relative max-w-xl pt-1">
+            <form onSubmit={handleHeroSearch} className="relative max-w-2xl pt-2">
               <input
                 type="text"
                 placeholder="Search any global index (e.g. Innovation, GDP, Cyber Security)..."
                 value={quickSearch}
                 onChange={(e) => setQuickSearch(e.target.value)}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-sm text-[#0F172A] rounded-lg pl-10 pr-24 py-2.5 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
+                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] text-base text-[#0F172A] rounded-xl pl-12 pr-28 py-3.5 font-medium focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all placeholder-[#64748B]"
               />
-              <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-4" />
+              <Search className="w-5 h-5 text-[#64748B] absolute left-4 top-5.5" />
               <button
                 type="submit"
-                className="absolute right-1.5 top-2 px-3.5 py-1.5 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-colors shadow-xs"
+                className="absolute right-2 top-2.5 px-5 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-bold transition-colors shadow-xs"
               >
                 Search
               </button>
@@ -195,8 +195,8 @@ export const HomeDashboard = () => {
           </div>
 
           {/* Official State Emblem of India Display */}
-          <div className="hidden lg:flex flex-col items-center p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] min-w-[210px] text-center space-y-2">
-            <img src="/india-emblem.png" alt="State Emblem of India" className="w-32 h-36 object-contain" />
+          <div className="hidden lg:flex flex-col items-center p-5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] min-w-[240px] text-center space-y-3">
+            <img src="/india-emblem.png" alt="State Emblem of India" className="w-36 h-40 object-contain" />
           </div>
         </div>
       </motion.div>
@@ -207,16 +207,16 @@ export const HomeDashboard = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="space-y-4"
+        className="space-y-5"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-[#0F172A] tracking-tight">10 Strategic Global Categories</h2>
-          <Link to="/categories" className="text-xs font-semibold text-[#2563EB] hover:underline flex items-center gap-1">
-            Explore All Categories <ArrowRight className="w-3.5 h-3.5" />
+          <h2 className="text-xl font-bold text-[#0F172A] tracking-tight">10 Strategic Global Categories</h2>
+          <Link to="/categories" className="text-sm font-bold text-[#2563EB] hover:underline flex items-center gap-1.5">
+            Explore All Categories <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
           {categories.slice(0, 10).map((cat, idx) => {
             const Icon = categoryIcons[cat.slug] || Landmark;
             const catRankings = rankings.filter((r) => r.indicator.category?.slug === cat.slug);
@@ -231,35 +231,35 @@ export const HomeDashboard = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.25, delay: idx * 0.04 }}
                 whileHover={{ y: -4 }}
-                className="dash-card dash-card-hover p-4 flex flex-col justify-between bg-white"
+                className="dash-card dash-card-hover p-5 flex flex-col justify-between bg-white"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200">
-                      <Icon className="w-4 h-4" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200 shadow-xs">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-semibold text-[#64748B] bg-[#F8FAFC] px-2 py-0.5 rounded border border-[#E2E8F0] flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-[#64748B]" /> 2024
+                    <span className="text-xs font-semibold text-[#64748B] bg-[#F8FAFC] px-2.5 py-1 rounded-md border border-[#E2E8F0] flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-[#64748B]" /> 2024
                     </span>
                   </div>
 
-                  <h3 className="text-xs font-bold text-[#0F172A] line-clamp-1">{cat.name}</h3>
+                  <h3 className="text-base font-extrabold text-[#0F172A] line-clamp-1">{cat.name}</h3>
 
-                  <div className="mt-2 flex items-baseline justify-between">
+                  <div className="mt-3 flex items-baseline justify-between">
                     <div>
-                      <div className="text-[10px] font-medium text-[#64748B]">Avg Rank</div>
-                      <div className="text-lg font-extrabold text-[#0F172A] flex items-center gap-1">
+                      <div className="text-xs font-semibold text-[#64748B]">Avg Rank</div>
+                      <div className="text-xl font-black text-[#0F172A] flex items-center gap-1 mt-0.5">
                         <span>{avgRank !== 'N/A' ? `#${avgRank}` : '—'}</span>
-                        <TrendingUp className="w-3.5 h-3.5 text-[#10B981]" />
+                        <TrendingUp className="w-4 h-4 text-[#10B981]" />
                       </div>
                     </div>
-                    <span className="text-[11px] font-medium text-[#64748B]">{catRankings.length} Indicators</span>
+                    <span className="text-xs font-medium text-[#64748B]">{catRankings.length} Indicators</span>
                   </div>
                 </div>
 
                 <Link
                   to={`/categories?cat=${cat.slug}`}
-                  className="mt-4 w-full text-center py-1.5 rounded-lg bg-[#F8FAFC] hover:bg-[#EFF6FF] border border-[#E2E8F0] hover:border-blue-300 text-[11px] font-semibold text-[#0F172A] hover:text-[#2563EB] transition-colors"
+                  className="mt-5 w-full text-center py-2 rounded-xl bg-[#F8FAFC] hover:bg-[#EFF6FF] border border-[#E2E8F0] hover:border-blue-300 text-xs font-bold text-[#0F172A] hover:text-[#2563EB] transition-colors"
                 >
                   Quick View
                 </Link>
@@ -290,24 +290,24 @@ export const HomeDashboard = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35 }}
-        className="dash-card p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white"
+        className="dash-card p-7 flex flex-col md:flex-row items-center justify-between gap-6 bg-white"
       >
-        <div className="space-y-2 max-w-xl">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2563EB]">
-            <MapPin className="w-4 h-4" /> Global Geospatial Comparison
+        <div className="space-y-2.5 max-w-2xl">
+          <div className="inline-flex items-center gap-2 text-sm font-bold text-[#2563EB]">
+            <MapPin className="w-4.5 h-4.5" /> Global Geospatial Comparison
           </div>
-          <h3 className="text-lg font-bold text-[#0F172A]">Interactive World Map Explorer</h3>
-          <p className="text-xs text-[#64748B] leading-relaxed">
+          <h3 className="text-xl font-extrabold text-[#0F172A]">Interactive World Map Explorer</h3>
+          <p className="text-sm text-[#64748B] leading-relaxed font-normal">
             Visualize global rank distributions and compare India with 190+ countries using interactive Leaflet map overlays and country popup telemetry.
           </p>
         </div>
 
         <Link
           to="/map"
-          className="px-4 py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-colors flex items-center gap-2 shadow-sm whitespace-nowrap"
+          className="px-5 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-bold transition-colors flex items-center gap-2.5 shadow-sm whitespace-nowrap"
         >
           <span>Launch World Map</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4.5 h-4.5" />
         </Link>
       </motion.div>
 
@@ -317,17 +317,17 @@ export const HomeDashboard = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35 }}
-        className="space-y-4"
+        className="space-y-5"
       >
-        <h2 className="text-base font-bold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <h2 className="text-xl font-bold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
           <ChartCard
             title="Category Performance Overview"
             subtitle="Relative strength score across 10 global indicator categories"
             type="radar"
             data={categoryRadarData}
             dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#2563EB' }]}
-            height={280}
+            height={320}
           />
 
           <ChartCard
@@ -339,7 +339,7 @@ export const HomeDashboard = () => {
               Rank: r.rank || 0,
             }))}
             dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#2563EB' }]}
-            height={280}
+            height={320}
           />
         </div>
       </motion.div>
@@ -350,31 +350,31 @@ export const HomeDashboard = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.35 }}
-        className="dash-card p-5 space-y-4 bg-white"
+        className="dash-card p-6 space-y-5 bg-white"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E8F0] pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E8F0] pb-5">
           <div>
-            <h2 className="text-base font-bold text-[#0F172A] tracking-tight">Global Indicator Data Grid</h2>
-            <p className="text-xs text-[#64748B]">Showing {processedRankings.length} verified indicators</p>
+            <h2 className="text-xl font-bold text-[#0F172A] tracking-tight">Global Indicator Data Grid</h2>
+            <p className="text-sm text-[#64748B]">Showing {processedRankings.length} verified indicators</p>
           </div>
 
-          <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+          <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
             <button
               onClick={handleExportCSV}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#10B981] hover:bg-emerald-600 text-white text-xs font-semibold transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-white text-sm font-bold transition-colors shadow-xs"
               title="Export Report to CSV"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-4 h-4" />
               <span>Export CSV</span>
             </button>
 
-            <div className="flex items-center gap-1 bg-[#F8FAFC] px-2.5 py-1 rounded-lg border border-[#E2E8F0] text-xs font-medium">
-              <ArrowUpDown className="w-3.5 h-3.5 text-[#64748B]" />
-              <span className="text-[#64748B]">Sort:</span>
+            <div className="flex items-center gap-2 bg-[#F8FAFC] px-3.5 py-1.5 rounded-xl border border-[#E2E8F0] text-sm font-medium">
+              <ArrowUpDown className="w-4 h-4 text-[#64748B]" />
+              <span className="text-[#64748B] font-semibold">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent text-[#0F172A] font-semibold focus:outline-none cursor-pointer"
+                className="bg-transparent text-[#0F172A] font-bold focus:outline-none cursor-pointer"
               >
                 <option value="rank-asc">Top Ranks (#1 →)</option>
                 <option value="alphabetical">A-Z</option>
@@ -382,38 +382,38 @@ export const HomeDashboard = () => {
               </select>
             </div>
 
-            <div className="flex items-center bg-[#F8FAFC] p-1 rounded-lg border border-[#E2E8F0]">
+            <div className="flex items-center bg-[#F8FAFC] p-1.5 rounded-xl border border-[#E2E8F0]">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-1.5 rounded text-xs font-medium transition-colors ${
+                className={`p-2 rounded-lg text-sm font-semibold transition-colors ${
                   viewMode === 'grid'
                     ? 'bg-[#2563EB] text-white shadow-xs'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Grid View"
               >
-                <LayoutGrid className="w-4 h-4" />
+                <LayoutGrid className="w-4.5 h-4.5" />
               </button>
               <button
                 onClick={() => setViewMode('table')}
-                className={`p-1.5 rounded text-xs font-medium transition-colors ${
+                className={`p-2 rounded-lg text-sm font-semibold transition-colors ${
                   viewMode === 'table'
                     ? 'bg-[#2563EB] text-white shadow-xs'
                     : 'text-[#64748B] hover:text-[#0F172A]'
                 }`}
                 title="Table View"
               >
-                <List className="w-4 h-4" />
+                <List className="w-4.5 h-4.5" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
           <button
             onClick={() => setSelectedCategoryFilter('all')}
-            className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+            className={`px-4 py-1.5 rounded-xl text-sm font-bold whitespace-nowrap transition-colors ${
               selectedCategoryFilter === 'all'
                 ? 'bg-[#2563EB] text-white'
                 : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
@@ -429,7 +429,7 @@ export const HomeDashboard = () => {
               <button
                 key={cat.slug}
                 onClick={() => setSelectedCategoryFilter(cat.slug)}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-4 py-1.5 rounded-xl text-sm font-bold whitespace-nowrap transition-colors ${
                   isSelected
                     ? 'bg-[#2563EB] text-white'
                     : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
@@ -443,13 +443,13 @@ export const HomeDashboard = () => {
 
         {/* Render Grid vs Table */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-              <div key={n} className="h-44 bg-[#F8FAFC] rounded-xl animate-pulse border border-[#E2E8F0]"></div>
+              <div key={n} className="h-52 bg-[#F8FAFC] rounded-xl animate-pulse border border-[#E2E8F0]"></div>
             ))}
           </div>
         ) : viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {processedRankings.map((r) => (
               <StatCard
                 key={r.id}
@@ -468,37 +468,37 @@ export const HomeDashboard = () => {
             ))}
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-[#E2E8F0]">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-semibold border-b border-[#E2E8F0]">
+          <div className="overflow-x-auto rounded-xl border border-[#E2E8F0]">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-bold border-b border-[#E2E8F0]">
                 <tr>
-                  <th className="p-3 pl-4">Indicator Name</th>
-                  <th className="p-3">Category</th>
-                  <th className="p-3 text-center">Global Rank</th>
-                  <th className="p-3">Metric Value</th>
-                  <th className="p-3 text-right pr-4">Source Link</th>
+                  <th className="p-4 pl-5">Indicator Name</th>
+                  <th className="p-4">Category</th>
+                  <th className="p-4 text-center">Global Rank</th>
+                  <th className="p-4">Metric Value</th>
+                  <th className="p-4 text-right pr-5">Source Link</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A] font-medium">
                 {processedRankings.map((r) => (
                   <tr key={r.id} className="hover:bg-[#F8FAFC] transition-colors">
-                    <td className="p-3 pl-4">
-                      <div className="font-semibold text-[#0F172A]">{r.indicator.name}</div>
-                      <div className="text-[11px] text-[#64748B] line-clamp-1">{r.indicator.description}</div>
+                    <td className="p-4 pl-5">
+                      <div className="font-bold text-[#0F172A] text-base">{r.indicator.name}</div>
+                      <div className="text-xs text-[#64748B] line-clamp-1 mt-0.5">{r.indicator.description}</div>
                     </td>
-                    <td className="p-3">
-                      <span className="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#2563EB] text-[11px] font-semibold border border-blue-200">
+                    <td className="p-4">
+                      <span className="px-2.5 py-1 rounded-md bg-[#EFF6FF] text-[#2563EB] text-xs font-bold border border-blue-200">
                         {r.indicator.category?.name}
                       </span>
                     </td>
-                    <td className="p-3 text-center font-bold text-[#2563EB] text-sm">
+                    <td className="p-4 text-center font-black text-[#2563EB] text-base">
                       {r.rank ? `#${r.rank}` : '—'}
                     </td>
-                    <td className="p-3 font-mono font-semibold text-[#0F172A]">
+                    <td className="p-4 font-mono font-bold text-[#0F172A]">
                       {r.value} {r.unit || ''}
                     </td>
-                    <td className="p-3 text-right pr-4 text-[#64748B]">
-                      <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline">
+                    <td className="p-4 text-right pr-5 text-[#64748B]">
+                      <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline font-semibold">
                         {r.source?.name}
                       </a>
                     </td>
