@@ -25,7 +25,8 @@ import {
   ArrowRight,
   MapPin,
   Sparkles,
-  Clock
+  Clock,
+  Database
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -198,12 +199,11 @@ export const HomeDashboard = () => {
         </div>
       </motion.div>
 
-      {/* 10 Category Cards Section - Enlarged Grid Layout */}
+      {/* 10 Category Cards Section - Instant Render */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
         className="space-y-6"
       >
         <div className="flex items-center justify-between">
@@ -223,10 +223,9 @@ export const HomeDashboard = () => {
             return (
               <motion.div
                 key={cat.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.25, delay: idx * 0.04 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: idx * 0.03 }}
                 whileHover={{ y: -6 }}
                 className="dash-card dash-card-hover p-6 flex flex-col justify-between bg-white rounded-2xl border border-[#E2E8F0]"
               >
@@ -266,12 +265,11 @@ export const HomeDashboard = () => {
         </div>
       </motion.div>
 
-      {/* AI Summary Section - Scroll-triggered Lazy View */}
+      {/* AI Summary Section - Instant Render */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.35 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
       >
         <AISummaryCard
           data={aiSummary}
@@ -281,12 +279,11 @@ export const HomeDashboard = () => {
         />
       </motion.div>
 
-      {/* Interactive World Map Section - Scroll-triggered Lazy View */}
+      {/* Interactive World Map Section - Instant Render */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.35 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
         className="dash-card p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-8 bg-white rounded-3xl"
       >
         <div className="space-y-3 max-w-3xl">
@@ -308,12 +305,11 @@ export const HomeDashboard = () => {
         </Link>
       </motion.div>
 
-      {/* Top Insights & Charts Row - Scroll-triggered Lazy View */}
+      {/* Top Insights & Charts Row - Instant Render */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.35 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
         className="space-y-6"
       >
         <h2 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
@@ -341,13 +337,12 @@ export const HomeDashboard = () => {
         </div>
       </motion.div>
 
-      {/* Global Indicator Data Grid - Enlarged Spacious 3-Column Layout */}
+      {/* Global Indicator Data Grid - Guaranteed Instant Render */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.35 }}
-        className="dash-card p-8 sm:p-10 space-y-6 bg-white rounded-3xl"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="dash-card p-8 sm:p-10 space-y-6 bg-white rounded-3xl border border-[#E2E8F0]"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-[#E2E8F0] pb-6">
           <div>
@@ -445,64 +440,74 @@ export const HomeDashboard = () => {
               <div key={n} className="h-64 bg-[#F8FAFC] rounded-2xl animate-pulse border border-[#E2E8F0]"></div>
             ))}
           </div>
-        ) : viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {processedRankings.map((r) => (
-              <StatCard
-                key={r.id}
-                title={r.indicator.name}
-                category={r.indicator.category?.name || 'General'}
-                rank={r.rank}
-                value={r.value}
-                unit={r.unit}
-                sourceName={r.source?.name}
-                sourceUrl={r.source?.url}
-                lastUpdated={r.last_updated}
-                description={r.indicator.description}
-                flagEmoji="🇮🇳"
-                countryName="India"
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="overflow-x-auto rounded-2xl border border-[#E2E8F0]">
-            <table className="w-full text-left text-base">
-              <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-extrabold border-b border-[#E2E8F0]">
-                <tr>
-                  <th className="p-5 pl-6">Indicator Name</th>
-                  <th className="p-5">Category</th>
-                  <th className="p-5 text-center">Global Rank</th>
-                  <th className="p-5">Metric Value</th>
-                  <th className="p-5 text-right pr-6">Source Link</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A] font-medium">
-                {processedRankings.map((r) => (
-                  <tr key={r.id} className="hover:bg-[#F8FAFC] transition-colors">
-                    <td className="p-5 pl-6">
-                      <div className="font-extrabold text-[#0F172A] text-lg">{r.indicator.name}</div>
-                      <div className="text-sm text-[#64748B] line-clamp-1 mt-0.5">{r.indicator.description}</div>
-                    </td>
-                    <td className="p-5">
-                      <span className="px-3 py-1 rounded-lg bg-[#EFF6FF] text-[#2563EB] text-sm font-bold border border-blue-200">
-                        {r.indicator.category?.name}
-                      </span>
-                    </td>
-                    <td className="p-5 text-center font-black text-[#2563EB] text-lg">
-                      {r.rank ? `#${r.rank}` : '—'}
-                    </td>
-                    <td className="p-5 font-mono font-bold text-[#0F172A] text-base">
-                      {r.value} {r.unit || ''}
-                    </td>
-                    <td className="p-5 text-right pr-6 text-[#64748B]">
-                      <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline font-bold">
-                        {r.source?.name}
-                      </a>
-                    </td>
+        ) : processedRankings.length > 0 ? (
+          viewMode === 'grid' ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {processedRankings.map((r) => (
+                <StatCard
+                  key={r.id}
+                  title={r.indicator.name}
+                  category={r.indicator.category?.name || 'General'}
+                  rank={r.rank}
+                  value={r.value}
+                  unit={r.unit}
+                  sourceName={r.source?.name}
+                  sourceUrl={r.source?.url}
+                  lastUpdated={r.last_updated}
+                  description={r.indicator.description}
+                  flagEmoji="🇮🇳"
+                  countryName="India"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="overflow-x-auto rounded-2xl border border-[#E2E8F0]">
+              <table className="w-full text-left text-base">
+                <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-extrabold border-b border-[#E2E8F0]">
+                  <tr>
+                    <th className="p-5 pl-6">Indicator Name</th>
+                    <th className="p-5">Category</th>
+                    <th className="p-5 text-center">Global Rank</th>
+                    <th className="p-5">Metric Value</th>
+                    <th className="p-5 text-right pr-6">Source Link</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A] font-medium">
+                  {processedRankings.map((r) => (
+                    <tr key={r.id} className="hover:bg-[#F8FAFC] transition-colors">
+                      <td className="p-5 pl-6">
+                        <div className="font-extrabold text-[#0F172A] text-lg">{r.indicator.name}</div>
+                        <div className="text-sm text-[#64748B] line-clamp-1 mt-0.5">{r.indicator.description}</div>
+                      </td>
+                      <td className="p-5">
+                        <span className="px-3 py-1 rounded-lg bg-[#EFF6FF] text-[#2563EB] text-sm font-bold border border-blue-200">
+                          {r.indicator.category?.name}
+                        </span>
+                      </td>
+                      <td className="p-5 text-center font-black text-[#2563EB] text-lg">
+                        {r.rank ? `#${r.rank}` : '—'}
+                      </td>
+                      <td className="p-5 font-mono font-bold text-[#0F172A] text-base">
+                        {r.value} {r.unit || ''}
+                      </td>
+                      <td className="p-5 text-right pr-6 text-[#64748B]">
+                        <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline font-bold">
+                          {r.source?.name}
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
+        ) : (
+          <div className="dash-card p-12 text-center bg-white rounded-3xl space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-[#F8FAFC] text-[#64748B] flex items-center justify-center mx-auto border border-[#E2E8F0]">
+              <Database className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-[#0F172A]">No Global Indicator Data Found</h3>
+            <p className="text-base text-[#64748B]">No indicators match the selected category filter.</p>
           </div>
         )}
       </motion.div>
