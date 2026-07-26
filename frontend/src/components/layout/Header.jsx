@@ -10,15 +10,11 @@ import {
   Grid,
   Menu,
   X,
-  Bell,
-  UserCircle,
-  Moon,
 } from 'lucide-react';
 
 export const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSearchSubmit = (e) => {
@@ -84,57 +80,16 @@ export const Header = () => {
           </kbd>
         </form>
 
-        {/* Quick Actions, Theme, Notifications & Profile */}
+        {/* Quick Actions & Mobile Menu Toggle */}
         <div className="flex items-center gap-3">
-          {/* AI Summaries Shortcut */}
+          {/* AI Summaries Shortcut Button */}
           <Link
             to="/ai-insights"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xs transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xs transition-colors"
           >
-            <Sparkles className="w-4 h-4 text-white" />
+            <Sparkles className="w-4.5 h-4.5 text-white" />
             <span className="hidden sm:inline">AI Summaries</span>
           </Link>
-
-          {/* Theme Switch Toggle Icon */}
-          <button
-            className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
-            title="Toggle Light/Dark Theme"
-          >
-            <Moon className="w-4.5 h-4.5" />
-          </button>
-
-          {/* Notifications Bell Icon */}
-          <div className="relative">
-            <button
-              onClick={() => setNotificationsOpen(!notificationsOpen)}
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors relative"
-              title="Notifications"
-            >
-              <Bell className="w-4.5 h-4.5" />
-              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-[#2563EB]"></span>
-            </button>
-
-            {notificationsOpen && (
-              <div className="absolute right-0 mt-2 w-80 bg-[#0F172A] border border-slate-800 rounded-xl shadow-xl p-4 z-50 text-sm space-y-2">
-                <div className="font-bold text-white border-b border-slate-800 pb-2 flex items-center justify-between">
-                  <span>System Notifications</span>
-                  <span className="text-xs bg-blue-950 text-blue-300 px-2 py-0.5 rounded border border-blue-800">Live</span>
-                </div>
-                <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 space-y-1">
-                  <div className="font-semibold text-white">2024 Dataset Updated</div>
-                  <div className="text-xs text-slate-400">World Bank GDP & Innovation records updated successfully.</div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* User Profile Icon */}
-          <button
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1"
-            title="User Profile"
-          >
-            <UserCircle className="w-6 h-6 text-slate-300" />
-          </button>
 
           {/* Mobile Menu Toggle */}
           <button
