@@ -38,15 +38,16 @@ const categoryIcons = {
   'digital-government': Globe,
 };
 
-const TypewriterText = ({ text, speed = 40 }) => {
+const TypewriterText = ({ text, speed = 35 }) => {
   const [displayed, setDisplayed] = useState('');
 
   useEffect(() => {
+    setDisplayed('');
     let index = 0;
     const interval = setInterval(() => {
       if (index < text.length) {
-        setDisplayed((prev) => prev + text.charAt(index));
         index++;
+        setDisplayed(text.slice(0, index));
       } else {
         clearInterval(interval);
       }
