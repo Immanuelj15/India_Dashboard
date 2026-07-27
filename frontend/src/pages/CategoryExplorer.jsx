@@ -92,13 +92,15 @@ export const CategoryExplorer = () => {
   const currentCatObj = categories.find((c) => c.slug === activeCategory);
   const Icon = categoryIcons[activeCategory] || Landmark;
 
-  // Filter rankings strictly by active category and search filter
+  // Filter rankings strictly by active category
   const categoryRankings = rankings.filter((r) => {
-    const catSlug = r.indicator.category?.slug || 'economy';
-    return catSlug === activeCategory || activeCategory === 'economy';
+    if (!r.indicator?.category?.slug) return true;
+    return r.indicator.category.slug === activeCategory;
   });
 
-  let filteredRankings = categoryRankings.filter((r) =>
+  const displayList = categoryRankings.length > 0 ? categoryRankings : rankings;
+
+  let filteredRankings = displayList.filter((r) =>
     r.indicator.name.toLowerCase().includes(filterSearch.toLowerCase()) ||
     r.indicator.description?.toLowerCase().includes(filterSearch.toLowerCase())
   );
@@ -109,11 +111,11 @@ export const CategoryExplorer = () => {
     filteredRankings.sort((a, b) => a.indicator.name.localeCompare(b.indicator.name));
   }
 
-  // Clean Chart Data (Slice top 8 for Bar Chart, top 6 for Radar Chart to prevent text overlap)
-  const chartSourceList = [...categoryRankings].sort((a, b) => (a.rank || 999) - (b.rank || 999));
+  // Clean Chart Data (Slice top 6 indicators max for crisp, non-overlapping labels)
+  const chartSourceList = [...displayList].sort((a, b) => (a.rank || 999) - (b.rank || 999));
 
-  const categoryBarData = chartSourceList.slice(0, 8).map((r) => ({
-    name: r.indicator.name.replace(' Index', '').replace(' Global', '').substring(0, 16),
+  const categoryBarData = chartSourceList.slice(0, 6).map((r) => ({
+    name: r.indicator.name.replace(' Index', '').replace(' Global', '').substring(0, 14),
     'Global Rank (#)': r.rank || 0,
   }));
 
@@ -121,7 +123,7 @@ export const CategoryExplorer = () => {
     const rankVal = r.rank || 150;
     const score = Math.max(10, 190 - rankVal);
     return {
-      subject: r.indicator.name.replace(' Index', '').replace(' Global', '').substring(0, 14),
+      subject: r.indicator.name.replace(' Index', '').replace(' Global', '').substring(0, 12),
       Score: Math.round(score),
     };
   });
@@ -199,7 +201,7 @@ export const CategoryExplorer = () => {
       </motion.div>
 
       {/* Category Chart Comparison Matrix */}
-      {!loading && categoryRankings.length > 0 && (
+      {!loading && displayList.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-[#0F172A] flex items-center gap-2">
