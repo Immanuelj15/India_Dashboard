@@ -4,7 +4,7 @@ import { Link as LinkIcon, Calendar } from 'lucide-react';
 export const SourceBadge = ({
   sourceName = 'Official Source',
   sourceUrl = '#',
-  lastUpdated = '2024',
+  lastUpdated = 'Latest',
   className = '',
 }) => {
   return (
