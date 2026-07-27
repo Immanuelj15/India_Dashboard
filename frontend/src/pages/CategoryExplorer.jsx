@@ -21,7 +21,7 @@ import {
   Database,
   BarChart3
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const categoryIcons = {
   'economy': Landmark,
@@ -92,7 +92,13 @@ export const CategoryExplorer = () => {
   const currentCatObj = categories.find((c) => c.slug === activeCategory);
   const Icon = categoryIcons[activeCategory] || Landmark;
 
-  let filteredRankings = rankings.filter((r) =>
+  // Filter rankings strictly by active category and search filter
+  const categoryRankings = rankings.filter((r) => {
+    const catSlug = r.indicator.category?.slug || 'economy';
+    return catSlug === activeCategory || activeCategory === 'economy';
+  });
+
+  let filteredRankings = categoryRankings.filter((r) =>
     r.indicator.name.toLowerCase().includes(filterSearch.toLowerCase()) ||
     r.indicator.description?.toLowerCase().includes(filterSearch.toLowerCase())
   );
@@ -103,17 +109,19 @@ export const CategoryExplorer = () => {
     filteredRankings.sort((a, b) => a.indicator.name.localeCompare(b.indicator.name));
   }
 
-  // Generate Category Chart Data
-  const categoryBarData = rankings.map((r) => ({
-    name: r.indicator.name.length > 22 ? r.indicator.name.substring(0, 20) + '...' : r.indicator.name,
+  // Clean Chart Data (Slice top 8 for Bar Chart, top 6 for Radar Chart to prevent text overlap)
+  const chartSourceList = [...categoryRankings].sort((a, b) => (a.rank || 999) - (b.rank || 999));
+
+  const categoryBarData = chartSourceList.slice(0, 8).map((r) => ({
+    name: r.indicator.name.replace(' Index', '').replace(' Global', '').substring(0, 16),
     'Global Rank (#)': r.rank || 0,
   }));
 
-  const categoryRadarData = rankings.map((r) => {
+  const categoryRadarData = chartSourceList.slice(0, 6).map((r) => {
     const rankVal = r.rank || 150;
     const score = Math.max(10, 190 - rankVal);
     return {
-      subject: r.indicator.name.length > 16 ? r.indicator.name.substring(0, 14) + '...' : r.indicator.name,
+      subject: r.indicator.name.replace(' Index', '').replace(' Global', '').substring(0, 14),
       Score: Math.round(score),
     };
   });
@@ -144,7 +152,7 @@ export const CategoryExplorer = () => {
                   {currentCatObj?.name || 'Category Explorer'}
                 </h1>
                 <span className="text-sm font-extrabold px-3 py-1 rounded-lg bg-[#EFF6FF] text-[#2563EB] border border-blue-200">
-                  {rankings.length} Indicators
+                  {filteredRankings.length} Indicators
                 </span>
               </div>
               <p className="text-base text-[#64748B] font-medium mt-1">
@@ -190,18 +198,21 @@ export const CategoryExplorer = () => {
         </div>
       </motion.div>
 
-      {/* Category Chart Comparison Matrix across All 10 Categories */}
-      {!loading && rankings.length > 0 && (
+      {/* Category Chart Comparison Matrix */}
+      {!loading && categoryRankings.length > 0 && (
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-base font-black text-[#0F172A]">
-            <BarChart3 className="w-5 h-5 text-[#2563EB]" />
-            <h2>{currentCatObj?.name || 'Category'} — Chart Comparison Matrix</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-bold text-[#0F172A] flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-[#2563EB]" />
+              {currentCatObj?.name || 'Category'} — Visual Benchmark Matrix
+            </h2>
+            <span className="text-xs text-[#64748B] font-medium">Top Key Metrics Comparison</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
             <ChartCard
-              title={`${currentCatObj?.name || 'Category'} Indicator Rank Benchmark`}
-              subtitle={`Global Rank (# Lower is Better) across all ${rankings.length} ${currentCatObj?.name || ''} indicators`}
+              title={`${currentCatObj?.name || 'Category'} Top Indicators Rank`}
+              subtitle={`Global Rank (# Lower is Better) across key ${currentCatObj?.name || ''} indicators`}
               type="bar"
               data={categoryBarData}
               dataKeys={[{ key: 'Global Rank (#)', name: 'Global Rank (#)', color: '#2563EB' }]}
@@ -209,8 +220,8 @@ export const CategoryExplorer = () => {
             />
 
             <ChartCard
-              title={`${currentCatObj?.name || 'Category'} Relative Strength Radar`}
-              subtitle={`Dimension score overview across ${currentCatObj?.name || ''} metrics`}
+              title={`${currentCatObj?.name || 'Category'} Performance Radar`}
+              subtitle={`Relative dimension score overview across top ${currentCatObj?.name || ''} metrics`}
               type="radar"
               data={categoryRadarData}
               dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#10B981' }]}
@@ -247,7 +258,7 @@ export const CategoryExplorer = () => {
         </div>
       </div>
 
-      {/* Indicator Cards Grid with Staggered Entrance Animation */}
+      {/* Indicator Cards Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {[1, 2, 3, 4, 5, 6].map((n) => (
