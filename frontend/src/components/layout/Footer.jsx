@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 export const Footer = () => {
   return (
     <footer className="mt-16 bg-[#0F172A] text-slate-300 border-t border-slate-800">
-      {/* Top National Tricolor Accent Strip */}
+      {/* UX4G National Tricolor Bar */}
       <div className="h-1 w-full flex">
         <div className="h-full w-1/3 bg-[#FF9933]"></div>
         <div className="h-full w-1/3 bg-[#FFFFFF]"></div>
         <div className="h-full w-1/3 bg-[#138808]"></div>
       </div>
 
-      <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-6 py-10">
+      <div className="w-full max-w-[1440px] mx-auto px-4 lg:px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand & Purpose Column */}
           <div className="md:col-span-1 space-y-3">
@@ -27,11 +27,11 @@ export const Footer = () => {
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed font-normal">
-              Consolidating India’s performance across global indices from the World Bank, UN, IMF, WEF, WHO, WIPO, and Transparency International.
+              UX4G-aligned national analytics portal tracking India’s performance across verified international indices.
             </p>
 
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-[11px] font-medium text-[#10B981]">
-              Official Public Datasets Only
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-semibold text-[#10B981]">
+              Verified Public Datasets Only
             </div>
           </div>
 
@@ -65,7 +65,7 @@ export const Footer = () => {
           {/* Data Sources */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold text-white uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-1.5">
-              <Database className="w-3.5 h-3.5 text-[#2563EB]" /> Public Sources
+              <Database className="w-3.5 h-3.5 text-[#2563EB]" /> Official Sources
             </h4>
             <ul className="space-y-2 text-xs text-slate-400 font-medium">
               <li>
@@ -99,12 +99,12 @@ export const Footer = () => {
           {/* AI Tech Card */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold text-white uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" /> AI Synthesis
+              <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" /> AI Insights
             </h4>
             <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5 text-xs">
-              <div className="font-semibold text-white">LangChain + Ollama RAG</div>
+              <div className="font-semibold text-white">Groq Llama 3.3 70B</div>
               <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
-                Local LLM synthesis pipeline grounded on verified database records.
+                Real-time executive summaries grounded strictly on verified indicators.
               </p>
             </div>
           </div>
@@ -112,7 +112,7 @@ export const Footer = () => {
 
         {/* Bottom Rights Strip */}
         <div className="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 font-medium">
-          <div>© 2026 India in the World — Global Progress Dashboard</div>
+          <div>© 2026 India in the World — Global Progress Dashboard (UX4G UI/UX Redesign)</div>
           <div className="flex items-center gap-2">
             <span>सत्यमेव जयते</span>
             <span>•</span>

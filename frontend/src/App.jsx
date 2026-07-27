@@ -41,7 +41,8 @@ export const App = () => {
       <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#0F172A] font-sans selection:bg-[#2563EB] selection:text-white">
         <Header />
 
-        <div className="flex-1 w-full max-w-[1720px] mx-auto flex items-start px-4 lg:px-8">
+        {/* UX4G 1440px Centered Main Content Area */}
+        <div className="flex-1 w-full max-w-[1440px] mx-auto flex items-start px-4 lg:px-6">
           <main className="flex-1 py-6 min-w-0">
             <Suspense fallback={<PageFallback />}>
               <Routes>
