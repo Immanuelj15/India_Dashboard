@@ -1,17 +1,38 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { StatCardSkeleton, ChartSkeleton } from './components/ui/SkeletonLoader';
 
-// Lazy Loaded Pages with Code Splitting
-const HomeDashboard = lazy(() => import('./pages/HomeDashboard').then((m) => ({ default: m.HomeDashboard })));
-const CountryComparison = lazy(() => import('./pages/CountryComparison').then((m) => ({ default: m.CountryComparison })));
-const HistoricalTrends = lazy(() => import('./pages/HistoricalTrends').then((m) => ({ default: m.HistoricalTrends })));
-const WorldMapPage = lazy(() => import('./pages/WorldMapPage').then((m) => ({ default: m.WorldMapPage })));
-const CategoryExplorer = lazy(() => import('./pages/CategoryExplorer').then((m) => ({ default: m.CategoryExplorer })));
-const SearchPage = lazy(() => import('./pages/SearchPage').then((m) => ({ default: m.SearchPage })));
-const AIInsights = lazy(() => import('./pages/AIInsights').then((m) => ({ default: m.AIInsights })));
+// Helper for dynamic imports with automatic chunk refresh retry on new Vercel deployments
+const lazyWithRetry = (componentImport) =>
+  lazy(async () => {
+    const pageHasBeenRefreshed = JSON.parse(
+      window.sessionStorage.getItem('page_has_been_refreshed') || 'false'
+    );
+
+    try {
+      const component = await componentImport();
+      window.sessionStorage.setItem('page_has_been_refreshed', 'false');
+      return component;
+    } catch (error) {
+      if (!pageHasBeenRefreshed) {
+        window.sessionStorage.setItem('page_has_been_refreshed', 'true');
+        window.location.reload();
+        return { default: () => null };
+      }
+      throw error;
+    }
+  });
+
+// Lazy Loaded Pages with Code Splitting & Automatic Chunk Refresh Retry
+const HomeDashboard = lazyWithRetry(() => import('./pages/HomeDashboard').then((m) => ({ default: m.HomeDashboard })));
+const CountryComparison = lazyWithRetry(() => import('./pages/CountryComparison').then((m) => ({ default: m.CountryComparison })));
+const HistoricalTrends = lazyWithRetry(() => import('./pages/HistoricalTrends').then((m) => ({ default: m.HistoricalTrends })));
+const WorldMapPage = lazyWithRetry(() => import('./pages/WorldMapPage').then((m) => ({ default: m.WorldMapPage })));
+const CategoryExplorer = lazyWithRetry(() => import('./pages/CategoryExplorer').then((m) => ({ default: m.CategoryExplorer })));
+const SearchPage = lazyWithRetry(() => import('./pages/SearchPage').then((m) => ({ default: m.SearchPage })));
+const AIInsights = lazyWithRetry(() => import('./pages/AIInsights').then((m) => ({ default: m.AIInsights })));
 
 const PageFallback = () => (
   <div className="space-y-6 w-full animate-fade-in">
