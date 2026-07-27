@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Database, Sparkles, Github, Linkedin, Mail, Globe, Code2 } from 'lucide-react';
+import { ExternalLink, Database, Github, Linkedin, Mail, Code2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -13,7 +13,7 @@ export const Footer = () => {
         <div className="h-full w-1/3 bg-[#138808]"></div>
       </div>
 
-      {/* UX4G 1440px Centered Container (80px top padding, 40px bottom padding) */}
+      {/* UX4G 1440px Centered Container */}
       <div className="w-full max-w-[1440px] mx-auto px-4 lg:px-6 pt-20 pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Column 1: Logo & Mission */}
@@ -148,7 +148,7 @@ export const Footer = () => {
               <Code2 className="w-3.5 h-3.5 text-[#2563EB]" /> Lead Developer
             </h4>
             <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5 text-xs">
-              <div className="font-bold text-white text-sm">Immanuel J</div>
+              <div className="font-bold text-white text-sm">IMMANUEL A</div>
               <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
                 Full-Stack AI Developer & Data Systems Architect.
               </p>
@@ -156,31 +156,33 @@ export const Footer = () => {
               <div className="flex items-center gap-3 pt-1 text-slate-300">
                 <motion.a
                   whileHover={{ scale: 1.15, rotate: 5 }}
-                  href="https://github.com/Immanuelj15"
+                  href="https://github.com/Immanuelj15/India_Dashboard"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
-                  title="GitHub Profile"
+                  title="GitHub Repository"
                 >
-                  <Github className="w-4 h-4" />
+                  <Github className="w-4.5 h-4.5" />
                 </motion.a>
+
                 <motion.a
                   whileHover={{ scale: 1.15, rotate: 5 }}
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/a-immanuel15/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors text-blue-400"
                   title="LinkedIn Profile"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Linkedin className="w-4.5 h-4.5" />
                 </motion.a>
+
                 <motion.a
                   whileHover={{ scale: 1.15, rotate: 5 }}
-                  href="mailto:imman@example.com"
-                  className="hover:text-white transition-colors"
+                  href="mailto:immanvalan@gmail.com"
+                  className="hover:text-white transition-colors text-rose-400"
                   title="Email Contact"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-4.5 h-4.5" />
                 </motion.a>
               </div>
             </div>
@@ -189,7 +191,7 @@ export const Footer = () => {
 
         {/* Bottom Rights & Version Strip */}
         <div className="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 font-medium">
-          <div>© 2026 India in the World • Made with ❤️ using React, FastAPI, PostgreSQL and AI</div>
+          <div>© 2026 India in the World • Designed & Built by IMMANUEL A • Made with ❤️ using React, FastAPI, PostgreSQL and AI</div>
           <div className="flex items-center gap-3">
             <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] font-bold text-blue-400">Version v1.0</span>
             <span>•</span>
