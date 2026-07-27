@@ -18,7 +18,6 @@ import {
   ArrowRight,
   TrendingUp,
   Award,
-  Clock,
   Sparkles,
   ArrowUpDown,
   Layers,
@@ -80,14 +79,14 @@ export const HomeDashboard = () => {
         const [rankingsRes, categoriesRes, aiRes] = await Promise.all([
           fetchCountryRankings('India', 2024),
           fetchCategories(),
-          fetchAISummary().catch(() => null)
+          fetchAISummary('India').catch(() => null)
         ]);
 
         setRankings(rankingsRes || []);
         setCategories(categoriesRes || []);
 
-        if (aiRes && aiRes.length > 0) {
-          setAiSummary(aiRes[0]);
+        if (aiRes) {
+          setAiSummary(aiRes);
         }
       } catch (err) {
         console.error('Error loading dashboard data:', err);
@@ -292,13 +291,8 @@ export const HomeDashboard = () => {
       {/* Executive AI Insights Card */}
       {aiSummary && (
         <AISummaryCard
-          title={aiSummary.title || "Executive AI Analysis — India's Global Position"}
-          summary={aiSummary.summary_text}
-          keyStrengths={aiSummary.key_strengths}
-          keyChallenges={aiSummary.key_challenges}
-          recommendations={aiSummary.recommendations}
-          categoryName={aiSummary.category?.name || "Global Macro"}
-          year={aiSummary.year}
+          data={aiSummary}
+          title="Executive AI Analysis — India's Global Position"
         />
       )}
 

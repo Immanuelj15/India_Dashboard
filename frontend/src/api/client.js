@@ -87,16 +87,16 @@ export const fetchComparison = async (indicatorSlug, year = 2024) => {
   return response.data;
 };
 
-export const fetchAISummaries = async (category, year = 2024) => {
-  const response = await api.get('/ai-summaries', {
-    params: { category, year },
+export const fetchAISummary = async (countryName = 'India') => {
+  const response = await api.post('/ai-summary', {
+    country: countryName,
   });
   return response.data;
 };
 
-export const fetchAISummary = async (category, year = 2024) => {
-  const response = await api.get('/ai-summaries', {
-    params: { category, year },
+export const fetchAISummaries = async (countryName = 'India') => {
+  const response = await api.post('/ai-summary', {
+    country: countryName,
   });
   return response.data;
 };
