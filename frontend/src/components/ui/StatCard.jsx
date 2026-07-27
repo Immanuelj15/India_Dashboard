@@ -1,6 +1,7 @@
 import React from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { SourceBadge } from './SourceBadge';
+import { AnimatedCounter } from './AnimatedCounter';
 import { motion } from 'framer-motion';
 
 export const StatCard = ({
@@ -22,13 +23,14 @@ export const StatCard = ({
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6, scale: 1.01 }}
-      transition={{ duration: 0.25, ease: 'easeOut' }}
-      className="dash-card p-6 flex flex-col justify-between group bg-white/95 backdrop-blur-sm rounded-2xl border border-[#E2E8F0] hover:border-blue-500/80 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 relative overflow-hidden"
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      whileHover={{ y: -5, scale: 1.02 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="dash-card p-6 flex flex-col justify-between group bg-white/95 backdrop-blur-sm rounded-2xl border border-[#E2E8F0] hover:border-blue-500/80 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-200 relative overflow-hidden"
     >
       {/* Accent Hover Gradient Top Bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
 
       <div>
         {/* Category & Flag Badge */}
@@ -62,7 +64,9 @@ export const StatCard = ({
               <div className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Global Rank</div>
               <div className="text-3xl font-black text-[#0F172A] flex items-baseline gap-1 tracking-tight mt-1">
                 <span className="text-[#2563EB] text-xl font-extrabold">#</span>
-                <span className="group-hover:scale-105 transition-transform duration-200 inline-block">{rank}</span>
+                <span className="inline-block font-black">
+                  <AnimatedCounter value={rank} duration={0.8} />
+                </span>
                 {trend === 'up' ? (
                   <TrendingUp className="w-5 h-5 text-[#10B981] ml-1 self-center animate-pulse" />
                 ) : trend === 'down' ? (
@@ -83,7 +87,8 @@ export const StatCard = ({
             <div className="text-right">
               <div className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Metric Value</div>
               <div className="text-lg font-bold text-[#0F172A] font-mono mt-1">
-                {typeof value === 'number' ? value.toLocaleString() : value} <span className="text-xs font-sans text-[#64748B] font-normal">{unit}</span>
+                <AnimatedCounter value={value} duration={0.8} />{' '}
+                <span className="text-xs font-sans text-[#64748B] font-normal">{unit}</span>
               </div>
             </div>
           )}
@@ -99,7 +104,8 @@ export const StatCard = ({
             <div className="w-full h-2 bg-[#F1F5F9] rounded-full overflow-hidden p-0.5 border border-[#E2E8F0]">
               <motion.div
                 initial={{ width: 0 }}
-                animate={{ width: `${rankPercentile}%` }}
+                whileInView={{ width: `${rankPercentile}%` }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="h-full bg-gradient-to-r from-[#2563EB] to-[#10B981] rounded-full"
               ></motion.div>
