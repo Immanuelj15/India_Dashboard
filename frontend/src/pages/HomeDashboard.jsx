@@ -3,8 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { fetchCountryRankings, fetchAISummary, fetchCategories } from '../api/client';
 import { StatCard } from '../components/ui/StatCard';
 import { AISummaryCard } from '../components/ui/AISummaryCard';
-import { ChartCard } from '../components/ui/ChartCard';
-import { TypewriterText } from '../components/ui/TypewriterText';
 import {
   Landmark,
   Users,
@@ -17,16 +15,14 @@ import {
   Handshake,
   Globe,
   Search,
-  TrendingUp,
-  LayoutGrid,
-  List,
-  ArrowUpDown,
-  Download,
   ArrowRight,
-  MapPin,
-  Sparkles,
+  TrendingUp,
+  Award,
   Clock,
-  Database
+  Sparkles,
+  ArrowUpDown,
+  Layers,
+  ChevronRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -43,50 +39,64 @@ const categoryIcons = {
   'digital-government': Globe,
 };
 
+const TypewriterText = ({ text, speed = 40 }) => {
+  const [displayed, setDisplayed] = useState('');
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayed((prev) => prev + text.charAt(index));
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed]);
+
+  return (
+    <span className="inline-block">
+      {displayed}
+      <span className="animate-pulse text-[#2563EB]">|</span>
+    </span>
+  );
+};
+
 export const HomeDashboard = () => {
   const [rankings, setRankings] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [aiSummary, setAiSummary] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all');
   const [sortBy, setSortBy] = useState('rank-asc');
-  const [viewMode, setViewMode] = useState('grid');
   const [quickSearch, setQuickSearch] = useState('');
-  const [aiSummary, setAiSummary] = useState(undefined);
-  const [loading, setLoading] = useState(true);
-  const [aiLoading, setAiLoading] = useState(false);
   const navigate = useNavigate();
 
-  const loadData = async () => {
-    setLoading(true);
-    try {
-      const [rankRes, catRes] = await Promise.all([
-        fetchCountryRankings('India', 2024),
-        fetchCategories(),
-      ]);
-      setRankings(rankRes);
-      setCategories(catRes);
-
-      loadAISummary();
-    } catch (err) {
-      console.error('Error loading dashboard data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadAISummary = async () => {
-    setAiLoading(true);
-    try {
-      const summaryRes = await fetchAISummary('India');
-      setAiSummary(summaryRes);
-    } catch (err) {
-      console.error('Error fetching AI summary:', err);
-    } finally {
-      setAiLoading(false);
-    }
-  };
-
   useEffect(() => {
-    loadData();
+    const loadInitialData = async () => {
+      try {
+        setLoading(true);
+        const [rankingsRes, categoriesRes, aiRes] = await Promise.all([
+          fetchCountryRankings('India', 2024),
+          fetchCategories(),
+          fetchAISummary().catch(() => null)
+        ]);
+
+        setRankings(rankingsRes || []);
+        setCategories(categoriesRes || []);
+
+        if (aiRes && aiRes.length > 0) {
+          setAiSummary(aiRes[0]);
+        }
+      } catch (err) {
+        console.error('Error loading dashboard data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadInitialData();
   }, []);
 
   const handleHeroSearch = (e) => {
@@ -96,43 +106,10 @@ export const HomeDashboard = () => {
     }
   };
 
-  const handleExportCSV = () => {
-    if (!processedRankings || processedRankings.length === 0) return;
-    const headers = ['Indicator Name', 'Category', 'Global Rank', 'Value', 'Unit', 'Source'];
-    const rows = processedRankings.map((r) => [
-      `"${r.indicator.name.replace(/"/g, '""')}"`,
-      `"${(r.indicator.category?.name || 'General').replace(/"/g, '""')}"`,
-      r.rank !== null && r.rank !== undefined ? r.rank : 'N/A',
-      r.value !== null && r.value !== undefined ? r.value : 'N/A',
-      `"${(r.unit || '').replace(/"/g, '""')}"`,
-      `"${(r.source?.name || '').replace(/"/g, '""')}"`,
-    ]);
-    const csvContent = [headers.join(','), ...rows.map((row) => row.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'India_Global_Progress_Report_2026.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const categoryRadarData = categories.map((cat) => {
-    const catRankings = rankings.filter((r) => r.indicator.category?.slug === cat.slug);
-    const validRanks = catRankings.map((r) => r.rank).filter((rk) => rk !== undefined && rk !== null);
-    const avgRank = validRanks.length > 0 ? validRanks.reduce((a, b) => a + b, 0) / validRanks.length : 100;
-    const score = Math.max(10, 150 - avgRank);
-
-    return {
-      subject: cat.name.replace(' & Innovation', ''),
-      Score: Math.round(score),
-    };
-  });
-
-  const flagshipRankings = rankings.filter((r) =>
-    ['gdp-rank', 'global-innovation-index', 'ai-readiness-index', 'global-cybersecurity-index', 'e-government-development-index', 'corruption-perceptions-index', 'climate-change-performance-index', 'startup-ecosystem-ranking'].includes(r.indicator.slug)
-  );
+  const topTierRankings = rankings.filter((r) => r.rank && r.rank <= 50);
+  const top10Rankings = rankings.filter((r) => r.rank && r.rank <= 10);
+  const validRanksTotal = rankings.map((r) => r.rank).filter((rk) => rk !== undefined && rk !== null);
+  const overallAvgRank = validRanksTotal.length > 0 ? Math.round(validRanksTotal.reduce((a, b) => a + b, 0) / validRanksTotal.length) : 'N/A';
 
   let processedRankings = selectedCategoryFilter === 'all'
     ? [...rankings]
@@ -237,7 +214,7 @@ export const HomeDashboard = () => {
                       <Icon className="w-6 h-6" />
                     </div>
                     <span className="text-xs font-bold text-[#64748B] bg-[#F8FAFC] px-3 py-1 rounded-lg border border-[#E2E8F0] flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-[#64748B]" /> 2024
+                      <Layers className="w-3.5 h-3.5 text-[#2563EB]" /> {catRankings.length > 0 ? `${catRankings.length} Metrics` : 'Latest'}
                     </span>
                   </div>
 
@@ -248,271 +225,159 @@ export const HomeDashboard = () => {
                       <div className="text-xs font-bold text-[#64748B]">Avg Rank</div>
                       <div className="text-2xl font-black text-[#0F172A] flex items-center gap-1.5 mt-1">
                         <span>{avgRank !== 'N/A' ? `#${avgRank}` : '—'}</span>
-                        <TrendingUp className="w-5 h-5 text-[#10B981]" />
                       </div>
                     </div>
-                    <span className="text-xs font-semibold text-[#64748B]">{catRankings.length} Indicators</span>
+
+                    <Link
+                      to={`/categories?cat=${cat.slug}`}
+                      className="inline-flex items-center text-xs font-extrabold text-[#2563EB] hover:text-[#1D4ED8] bg-[#EFF6FF] px-2.5 py-1.5 rounded-lg border border-blue-200"
+                    >
+                      View <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                    </Link>
                   </div>
                 </div>
-
-                <Link
-                  to={`/categories?cat=${cat.slug}`}
-                  className="mt-6 w-full text-center py-2.5 rounded-xl bg-[#F8FAFC] hover:bg-[#EFF6FF] border border-[#E2E8F0] hover:border-blue-300 text-sm font-extrabold text-[#0F172A] hover:text-[#2563EB] transition-colors"
-                >
-                  Quick View
-                </Link>
               </motion.div>
             );
           })}
         </div>
       </motion.div>
 
-      {/* AI Summary Section - Instant Render */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <AISummaryCard
-          data={aiSummary}
-          loading={aiLoading}
-          onRefresh={loadAISummary}
-          title="India Executive AI Summary"
-        />
-      </motion.div>
-
-      {/* Interactive World Map Section - Instant Render */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="dash-card p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-8 bg-white rounded-3xl"
-      >
-        <div className="space-y-3 max-w-3xl">
-          <div className="inline-flex items-center gap-2 text-base font-bold text-[#2563EB]">
-            <MapPin className="w-5 h-5" /> Global Geospatial Comparison
+      {/* Overview Stat Metrics Summary Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div whileHover={{ y: -4 }} className="dash-card p-6 bg-white rounded-2xl border border-[#E2E8F0] flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200 flex-shrink-0">
+            <Award className="w-6 h-6" />
           </div>
-          <h3 className="text-2xl font-black text-[#0F172A]">Interactive World Map Explorer</h3>
-          <p className="text-base text-[#64748B] leading-relaxed font-normal">
-            Visualize global rank distributions and compare India with 190+ countries using interactive Leaflet map overlays and country popup telemetry.
-          </p>
-        </div>
-
-        <Link
-          to="/map"
-          className="px-6 py-3.5 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-base font-bold transition-colors flex items-center gap-3 shadow-sm whitespace-nowrap"
-        >
-          <span>Launch World Map</span>
-          <ArrowRight className="w-5 h-5" />
-        </Link>
-      </motion.div>
-
-      {/* Top Insights & Charts Row - Instant Render */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="space-y-6"
-      >
-        <h2 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">Top Performance Insights</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <ChartCard
-            title="Category Performance Overview"
-            subtitle="Relative strength score across 10 global indicator categories"
-            type="radar"
-            data={categoryRadarData}
-            dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#2563EB' }]}
-            height={360}
-          />
-
-          <ChartCard
-            title="Flagship Rankings Comparison"
-            subtitle="India's position across key international benchmarks (# Lower is Better)"
-            type="bar"
-            data={flagshipRankings.map((r) => ({
-              name: r.indicator.name.replace(' Index', '').replace(' Global', ''),
-              Rank: r.rank || 0,
-            }))}
-            dataKeys={[{ key: 'Rank', name: 'Global Rank (#)', color: '#2563EB' }]}
-            height={360}
-          />
-        </div>
-      </motion.div>
-
-      {/* Global Indicator Data Grid - Guaranteed Instant Render */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="dash-card p-8 sm:p-10 space-y-6 bg-white rounded-3xl border border-[#E2E8F0]"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-[#E2E8F0] pb-6">
           <div>
-            <h2 className="text-2xl font-black text-[#0F172A] tracking-tight">Global Indicator Data Grid</h2>
-            <p className="text-base text-[#64748B]">Showing {processedRankings.length} verified indicators</p>
+            <div className="text-xs font-bold text-[#64748B]">Total Tracked Metrics</div>
+            <div className="text-2xl font-black text-[#0F172A] mt-0.5">{rankings.length} Indicators</div>
+            <div className="text-xs font-semibold text-[#10B981] mt-0.5"> Across 10 Categories</div>
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -4 }} className="dash-card p-6 bg-white rounded-2xl border border-[#E2E8F0] flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#ECFDF5] text-[#10B981] flex items-center justify-center border border-emerald-200 flex-shrink-0">
+            <TrendingUp className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-[#64748B]">Top 50 Ranks</div>
+            <div className="text-2xl font-black text-[#0F172A] mt-0.5">{topTierRankings.length} Indices</div>
+            <div className="text-xs font-semibold text-[#10B981] mt-0.5"> High Performance Tier</div>
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -4 }} className="dash-card p-6 bg-white rounded-2xl border border-[#E2E8F0] flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#FFFBEB] text-[#F59E0B] flex items-center justify-center border border-amber-200 flex-shrink-0">
+            <Sparkles className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-[#64748B]">Top 10 Benchmark Ranks</div>
+            <div className="text-2xl font-black text-[#0F172A] mt-0.5">{top10Rankings.length} Indices</div>
+            <div className="text-xs font-semibold text-[#F59E0B] mt-0.5"> Global Leader Tier</div>
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={{ y: -4 }} className="dash-card p-6 bg-white rounded-2xl border border-[#E2E8F0] flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#F8FAFC] text-[#64748B] flex items-center justify-center border border-[#E2E8F0] flex-shrink-0">
+            <Layers className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-[#64748B]">Average Global Rank</div>
+            <div className="text-2xl font-black text-[#0F172A] mt-0.5">{overallAvgRank !== 'N/A' ? `#${overallAvgRank}` : '—'}</div>
+            <div className="text-xs font-semibold text-[#64748B] mt-0.5"> Across All Indicators</div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Executive AI Insights Card */}
+      {aiSummary && (
+        <AISummaryCard
+          title={aiSummary.title || "Executive AI Analysis — India's Global Position"}
+          summary={aiSummary.summary_text}
+          keyStrengths={aiSummary.key_strengths}
+          keyChallenges={aiSummary.key_challenges}
+          recommendations={aiSummary.recommendations}
+          categoryName={aiSummary.category?.name || "Global Macro"}
+          year={aiSummary.year}
+        />
+      )}
+
+      {/* Main Indicator Explorer Matrix */}
+      <div className="space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">Global Indicators Matrix</h2>
+            <span className="text-xs font-extrabold px-3 py-1 rounded-lg bg-[#EFF6FF] text-[#2563EB] border border-blue-200">
+              {processedRankings.length} Displayed
+            </span>
           </div>
 
-          <div className="flex items-center gap-4 flex-wrap sm:flex-nowrap">
-            <button
-              onClick={handleExportCSV}
-              className="flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-white text-base font-bold transition-colors shadow-xs"
-              title="Export Report to CSV"
-            >
-              <Download className="w-5 h-5" />
-              <span>Export CSV</span>
-            </button>
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            {/* Filter by Category */}
+            <div className="bg-white border border-[#E2E8F0] rounded-xl px-3 py-2 text-sm font-medium">
+              <select
+                value={selectedCategoryFilter}
+                onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+                className="bg-transparent text-[#0F172A] font-extrabold focus:outline-none cursor-pointer"
+              >
+                <option value="all">All 10 Categories</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.slug}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            <div className="flex items-center gap-2 bg-[#F8FAFC] px-4 py-2 rounded-xl border border-[#E2E8F0] text-base font-medium">
-              <ArrowUpDown className="w-5 h-5 text-[#64748B]" />
-              <span className="text-[#64748B] font-bold">Sort:</span>
+            {/* Sort Dropdown */}
+            <div className="flex items-center gap-2 bg-white border border-[#E2E8F0] rounded-xl px-3 py-2 text-sm font-medium">
+              <ArrowUpDown className="w-4 h-4 text-[#64748B]" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="bg-transparent text-[#0F172A] font-extrabold focus:outline-none cursor-pointer"
               >
-                <option value="rank-asc">Top Ranks (#1 →)</option>
-                <option value="alphabetical">A-Z</option>
+                <option value="rank-asc">Rank (#1 →)</option>
+                <option value="alphabetical">Name A-Z</option>
                 <option value="category">Category</option>
               </select>
-            </div>
-
-            <div className="flex items-center bg-[#F8FAFC] p-1.5 rounded-xl border border-[#E2E8F0]">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2.5 rounded-lg text-base font-semibold transition-colors ${
-                  viewMode === 'grid'
-                    ? 'bg-[#2563EB] text-[#FFFFFF] shadow-xs'
-                    : 'text-[#64748B] hover:text-[#0F172A]'
-                }`}
-                title="Grid View"
-              >
-                <LayoutGrid className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => setViewMode('table')}
-                className={`p-2.5 rounded-lg text-base font-semibold transition-colors ${
-                  viewMode === 'table'
-                    ? 'bg-[#2563EB] text-[#FFFFFF] shadow-xs'
-                    : 'text-[#64748B] hover:text-[#0F172A]'
-                }`}
-                title="Table View"
-              >
-                <List className="w-5 h-5" />
-              </button>
             </div>
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
-          <button
-            onClick={() => setSelectedCategoryFilter('all')}
-            className={`px-5 py-2 rounded-xl text-base font-bold whitespace-nowrap transition-colors ${
-              selectedCategoryFilter === 'all'
-                ? 'bg-[#2563EB] text-white'
-                : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
-            }`}
-          >
-            All Categories ({rankings.length})
-          </button>
-          {categories.map((cat) => {
-            const count = rankings.filter((r) => r.indicator.category?.slug === cat.slug).length;
-            if (count === 0) return null;
-            const isSelected = selectedCategoryFilter === cat.slug;
-            return (
-              <button
-                key={cat.slug}
-                onClick={() => setSelectedCategoryFilter(cat.slug)}
-                className={`px-5 py-2 rounded-xl text-base font-bold whitespace-nowrap transition-colors ${
-                  isSelected
-                    ? 'bg-[#2563EB] text-white'
-                    : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
-                }`}
-              >
-                {cat.name} ({count})
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Render Grid vs Table */}
+        {/* Indicators Stat Cards Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <div key={n} className="h-64 bg-[#F8FAFC] rounded-2xl animate-pulse border border-[#E2E8F0]"></div>
             ))}
           </div>
         ) : processedRankings.length > 0 ? (
-          viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {processedRankings.map((r) => (
-                <StatCard
-                  key={r.id}
-                  title={r.indicator.name}
-                  category={r.indicator.category?.name || 'General'}
-                  rank={r.rank}
-                  value={r.value}
-                  unit={r.unit}
-                  sourceName={r.source?.name}
-                  sourceUrl={r.source?.url}
-                  lastUpdated={r.last_updated}
-                  description={r.indicator.description}
-                  flagEmoji="🇮🇳"
-                  countryName="India"
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="overflow-x-auto rounded-2xl border border-[#E2E8F0]">
-              <table className="w-full text-left text-base">
-                <thead className="bg-[#F8FAFC] text-[#0F172A] uppercase tracking-wider font-extrabold border-b border-[#E2E8F0]">
-                  <tr>
-                    <th className="p-5 pl-6">Indicator Name</th>
-                    <th className="p-5">Category</th>
-                    <th className="p-5 text-center">Global Rank</th>
-                    <th className="p-5">Metric Value</th>
-                    <th className="p-5 text-right pr-6">Source Link</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A] font-medium">
-                  {processedRankings.map((r) => (
-                    <tr key={r.id} className="hover:bg-[#F8FAFC] transition-colors">
-                      <td className="p-5 pl-6">
-                        <div className="font-extrabold text-[#0F172A] text-lg">{r.indicator.name}</div>
-                        <div className="text-sm text-[#64748B] line-clamp-1 mt-0.5">{r.indicator.description}</div>
-                      </td>
-                      <td className="p-5">
-                        <span className="px-3 py-1 rounded-lg bg-[#EFF6FF] text-[#2563EB] text-sm font-bold border border-blue-200">
-                          {r.indicator.category?.name}
-                        </span>
-                      </td>
-                      <td className="p-5 text-center font-black text-[#2563EB] text-lg">
-                        {r.rank ? `#${r.rank}` : '—'}
-                      </td>
-                      <td className="p-5 font-mono font-bold text-[#0F172A] text-base">
-                        {r.value} {r.unit || ''}
-                      </td>
-                      <td className="p-5 text-right pr-6 text-[#64748B]">
-                        <a href={r.source?.url} target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] underline font-bold">
-                          {r.source?.name}
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {processedRankings.map((r) => (
+              <StatCard
+                key={r.id}
+                title={r.indicator.name}
+                category={r.indicator.category?.name || 'Global'}
+                rank={r.rank}
+                value={r.value}
+                unit={r.unit}
+                sourceName={r.source?.name}
+                sourceUrl={r.source?.url}
+                lastUpdated={r.last_updated}
+                description={r.indicator.description}
+                flagEmoji="🇮🇳"
+                countryName="India"
+              />
+            ))}
+          </div>
         ) : (
           <div className="dash-card p-12 text-center bg-white rounded-3xl space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-[#F8FAFC] text-[#64748B] flex items-center justify-center mx-auto border border-[#E2E8F0]">
-              <Database className="w-6 h-6" />
-            </div>
-            <h3 className="text-xl font-bold text-[#0F172A]">No Global Indicator Data Found</h3>
-            <p className="text-base text-[#64748B]">No indicators match the selected category filter.</p>
+            <h3 className="text-xl font-bold text-[#0F172A]">No Indicators Found</h3>
+            <p className="text-base text-[#64748B]">No matching indicators were found for this category filter.</p>
           </div>
         )}
-      </motion.div>
+      </div>
     </div>
   );
 };

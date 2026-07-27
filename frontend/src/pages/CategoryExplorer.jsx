@@ -164,7 +164,7 @@ export const CategoryExplorer = () => {
           </div>
 
           <div className="inline-flex items-center gap-2 text-base font-bold text-[#64748B] bg-[#F8FAFC] px-4 py-2 rounded-xl border border-[#E2E8F0]">
-            <Clock className="w-4.5 h-4.5 text-[#2563EB]" /> Verified 2024 Records
+            <Clock className="w-4.5 h-4.5 text-[#2563EB]" /> Verified Dataset Records
           </div>
         </div>
 

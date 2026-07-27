@@ -23,10 +23,9 @@ import {
   Globe,
   Bell,
   CircleUser,
-  Github,
-  Settings
+  Github
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -180,7 +179,7 @@ export const Header = () => {
                     >
                       <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 px-3 py-2 border-b border-slate-800 flex items-center justify-between">
                         <span>10 Strategic Categories</span>
-                        <span className="text-[10px] bg-blue-950 text-blue-300 px-2 py-0.5 rounded border border-blue-800">2024</span>
+                        <span className="text-[10px] bg-blue-950 text-blue-300 px-2 py-0.5 rounded border border-blue-800">Latest</span>
                       </div>
                       <div className="grid grid-cols-1 gap-0.5 pt-1 max-h-80 overflow-y-auto">
                         {quickDomains.map((domain) => {
@@ -237,7 +236,7 @@ export const Header = () => {
           })}
         </nav>
 
-        {/* Right Actions: Search, Notifications, GitHub, Profile, Settings */}
+        {/* Right Actions: Search, Notifications, GitHub, Profile */}
         <div className="flex items-center gap-2">
           {/* Global Search Input with CTRL+K Hint */}
           <form onSubmit={handleSearchSubmit} className="relative hidden md:block w-56 lg:w-64">
