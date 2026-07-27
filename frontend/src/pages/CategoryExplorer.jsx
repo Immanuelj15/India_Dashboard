@@ -19,7 +19,7 @@ import {
   Layers,
   Database
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const categoryIcons = {
   'economy': Landmark,
@@ -32,6 +32,21 @@ const categoryIcons = {
   'safety': ShieldCheck,
   'equality': Handshake,
   'digital-government': Globe,
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: 'easeOut' } },
 };
 
 export const CategoryExplorer = () => {
@@ -97,9 +112,15 @@ export const CategoryExplorer = () => {
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200 shadow-xs">
+            <motion.div
+              key={activeCategory}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              className="w-14 h-14 rounded-2xl bg-[#EFF6FF] text-[#2563EB] flex items-center justify-center border border-blue-200 shadow-xs flex-shrink-0"
+            >
               <Icon className="w-7 h-7" />
-            </div>
+            </motion.div>
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-3xl font-black text-[#0F172A] tracking-tight">
@@ -120,8 +141,8 @@ export const CategoryExplorer = () => {
           </div>
         </div>
 
-        {/* 10 Category Tabs Grid */}
-        <div className="pt-2 flex items-center gap-2.5 overflow-x-auto scrollbar-none pb-1">
+        {/* 10 Category Tabs Grid with Sliding Pill Animation */}
+        <div className="pt-2 flex items-center gap-2.5 overflow-x-auto scrollbar-none pb-1 relative">
           {categories.map((cat) => {
             const CatIcon = categoryIcons[cat.slug] || Layers;
             const isActive = activeCategory === cat.slug;
@@ -129,14 +150,23 @@ export const CategoryExplorer = () => {
               <button
                 key={cat.slug}
                 onClick={() => handleTabChange(cat.slug)}
-                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-base font-bold transition-all whitespace-nowrap ${
+                className={`relative flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-base font-bold transition-colors whitespace-nowrap z-10 ${
                   isActive
-                    ? 'bg-[#2563EB] text-white shadow-sm'
+                    ? 'text-white'
                     : 'bg-[#F8FAFC] text-[#64748B] hover:bg-[#E2E8F0] hover:text-[#0F172A] border border-[#E2E8F0]'
                 }`}
               >
-                <CatIcon className="w-4.5 h-4.5" />
-                <span>{cat.name}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="activeCategoryPill"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    className="absolute inset-0 bg-[#2563EB] rounded-xl z-0 shadow-sm"
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-2">
+                  <CatIcon className="w-4.5 h-4.5" />
+                  <span>{cat.name}</span>
+                </span>
               </button>
             );
           })}
@@ -170,7 +200,7 @@ export const CategoryExplorer = () => {
         </div>
       </div>
 
-      {/* Indicator Cards Grid - Spacious 3 Column Layout */}
+      {/* Indicator Cards Grid with Staggered Entrance Animation */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -178,24 +208,31 @@ export const CategoryExplorer = () => {
           ))}
         </div>
       ) : filteredRankings.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <motion.div
+          key={activeCategory}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
+        >
           {filteredRankings.map((r) => (
-            <StatCard
-              key={r.id}
-              title={r.indicator.name}
-              category={currentCatObj?.name || 'Category'}
-              rank={r.rank}
-              value={r.value}
-              unit={r.unit}
-              sourceName={r.source?.name}
-              sourceUrl={r.source?.url}
-              lastUpdated={r.last_updated}
-              description={r.indicator.description}
-              flagEmoji="🇮🇳"
-              countryName="India"
-            />
+            <motion.div key={r.id} variants={itemVariants}>
+              <StatCard
+                title={r.indicator.name}
+                category={currentCatObj?.name || 'Category'}
+                rank={r.rank}
+                value={r.value}
+                unit={r.unit}
+                sourceName={r.source?.name}
+                sourceUrl={r.source?.url}
+                lastUpdated={r.last_updated}
+                description={r.indicator.description}
+                flagEmoji="🇮🇳"
+                countryName="India"
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       ) : (
         <div className="dash-card p-12 text-center bg-white rounded-3xl space-y-3">
           <div className="w-12 h-12 rounded-2xl bg-[#F8FAFC] text-[#64748B] flex items-center justify-center mx-auto border border-[#E2E8F0]">
