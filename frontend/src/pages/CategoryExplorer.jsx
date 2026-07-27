@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchCategories, fetchCountryRankings } from '../api/client';
 import { StatCard } from '../components/ui/StatCard';
+import { ChartCard } from '../components/ui/ChartCard';
 import {
   Landmark,
   Users,
@@ -17,7 +18,8 @@ import {
   ArrowUpDown,
   Clock,
   Layers,
-  Database
+  Database,
+  BarChart3
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -101,6 +103,21 @@ export const CategoryExplorer = () => {
     filteredRankings.sort((a, b) => a.indicator.name.localeCompare(b.indicator.name));
   }
 
+  // Generate Category Chart Data
+  const categoryBarData = rankings.map((r) => ({
+    name: r.indicator.name.length > 22 ? r.indicator.name.substring(0, 20) + '...' : r.indicator.name,
+    'Global Rank (#)': r.rank || 0,
+  }));
+
+  const categoryRadarData = rankings.map((r) => {
+    const rankVal = r.rank || 150;
+    const score = Math.max(10, 190 - rankVal);
+    return {
+      subject: r.indicator.name.length > 16 ? r.indicator.name.substring(0, 14) + '...' : r.indicator.name,
+      Score: Math.round(score),
+    };
+  });
+
   return (
     <div className="space-y-10 w-full">
       {/* Header Banner */}
@@ -172,6 +189,36 @@ export const CategoryExplorer = () => {
           })}
         </div>
       </motion.div>
+
+      {/* Category Chart Comparison Matrix across All 10 Categories */}
+      {!loading && rankings.length > 0 && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-base font-black text-[#0F172A]">
+            <BarChart3 className="w-5 h-5 text-[#2563EB]" />
+            <h2>{currentCatObj?.name || 'Category'} — Chart Comparison Matrix</h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
+            <ChartCard
+              title={`${currentCatObj?.name || 'Category'} Indicator Rank Benchmark`}
+              subtitle={`Global Rank (# Lower is Better) across all ${rankings.length} ${currentCatObj?.name || ''} indicators`}
+              type="bar"
+              data={categoryBarData}
+              dataKeys={[{ key: 'Global Rank (#)', name: 'Global Rank (#)', color: '#2563EB' }]}
+              height={320}
+            />
+
+            <ChartCard
+              title={`${currentCatObj?.name || 'Category'} Relative Strength Radar`}
+              subtitle={`Dimension score overview across ${currentCatObj?.name || ''} metrics`}
+              type="radar"
+              data={categoryRadarData}
+              dataKeys={[{ key: 'Score', name: 'Dimension Score', color: '#10B981' }]}
+              height={320}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Filter and Sort Toolbar */}
       <div className="dash-card p-5 bg-white rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
